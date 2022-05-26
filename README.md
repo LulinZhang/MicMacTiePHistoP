@@ -74,97 +74,15 @@ For more information please refer to:
 
 > ***License***: We adopt SuperGlue in our pipeline. Note that you can only use SuperGlue [for academic or non-profit organization noncommercial research](https://github.com/magicleap/SuperGluePretrainedNetwork/blob/master/LICENSE). Full paper PDF: [SuperGlue: Learning Feature Matching with Graph Neural Networks](https://arxiv.org/abs/1911.11763).
 
-## Projet set-up
-
-### Download and compile MicMac & dependencies
-"""
-
-import os
-from os.path import exists, join, basename, splitext
-import numpy as np 
-import cv2
-import matplotlib.pyplot as plt   
-
-Dependencies_install = True
-MicMac_clone = True
-MicMac_cmake = True 
-MicMac_build = True
-
-YOUR_PATH = '/content/'#MyDrive/micmac/satellites/'
-!cd $YOUR_PATH
-!pwd
-
-
-if Dependencies_install:
-  !apt update
-  !apt install -y cmake
-  !pip install dlib
-  !apt-get install imagemagick proj-bin exiv2
-  !pip install wget
-  !pip install -U --no-cache-dir gdown --pre
-  
-if MicMac_clone:
-  if not exists(YOUR_PATH+'micmac/'):
-    git_repo_url = 'https://github.com/micmacIGN/micmac.git'
-    !git clone $git_repo_url
-
-if MicMac_cmake:
-  !cd micmac
-  if not exists(YOUR_PATH+'micmac/build'):
-    !mkdir $YOUR_PATH"micmac/build"
-
-  !cd $YOUR_PATH"micmac/build"
-  !cmake $YOUR_PATH"micmac" -DBUILD_POISSON=OFF
-
-  if MicMac_build:
-    !make install -j28
-
-"""### Add environmental variable """
-
-import os
-os.environ['PATH'] += ":/content/micmac/bin"
-!echo $PATH
-
-# if you can see the commands printed to the screen, everything is OK
-!mm3d
-
-"""### Create virtualenv, clone SuperGluePretrainedNetwork and install depedencies"""
-
-# Commented out IPython magic to ensure Python compatibility.
-# %cd $YOUR_PATH"micmac/src/uti_phgrm/TiePHistorical/"
-!pwd
-!bash ./install.sh /usr/local/bin/python
-
-"""### Download the dataset
+## About the dataset
 
 The dataset consists of: 
   * 6 images taken in epoch 1971 (tif)
   * 2 images taken in epoch 2014 (tif)
-  * 2 lists that contain all the RGB images of each epoch (txt)
-  * 1 fiducial mask file of epoch 1971 (tif and xml)
+  * 1 fold of orientations of epoch 2014
   * 1 configuration file of the camera (xml)
-"""
 
-# Commented out IPython magic to ensure Python compatibility.
-from os.path import exists
-
-# %cd $YOUR_PATH
-!pwd
-# download data
-dataset_url = 'https://drive.google.com/u/0/uc?id=1lbbBiHFHyVDGXlLMtl3iHMWW-Mdj5Vjy&export=download' 
-!gdown $dataset_url -O "historical_data_satellite.tar.gz" 
-
-# unpack
-#!unzip historical_data.zip $YOUR_PATH
-!tar -xf historical_data_satellite.tar.gz -C $YOUR_PATH
-
-# %cd $YOUR_PATH'historical_data_satellite'
-
-# utility functions to visualise tie-points
-utils_url='https://drive.google.com/uc?id=1ATO1Nz_aXApxVnm6l7x1xappGXtcjuvp'
-!gdown $utils_url -O "mm3d_utils.py"
-
-"""## 1. Intra-epoch processing
+## 1. Intra-epoch processing
 
 First, we will process each epoch individually to obtain:
 * intra-epoch tie-points
