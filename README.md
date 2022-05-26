@@ -117,11 +117,10 @@ The meaning of obligatory parameters:
 
 The meaning of optional parameters:
 - `PostFix`: Homologue extenion for NB/NT mode
-"""
 
-!mm3d Tapioca MulScale OIS-Reech_IGNF_PVA_1-0__1971.*tif 500 1700 PostFix=_1971
+      !mm3d Tapioca MulScale OIS-Reech_IGNF_PVA_1-0__1971.*tif 500 1700 PostFix=_1971
 
-"""##### Remove tie-points on the fiducial marks
+##### Remove tie-points on the fiducial marks
 
 ###### Create a mask 
 Since historical images contain fiducial marks and they would yield nonsensical tie-points, we create a mask to remove any points in the vicinity of the fiducial marks. To create the mask we use the "SaisieMasq" program:
@@ -162,11 +161,10 @@ The meaning of optional parameters:
 - `GlobalMasq`: Global Masq to add to all image
 - `PostIn`: Post for Input dir Hom, Def=
 - `PostOut`: Post for Output dir Hom, Def=MasqFiltered
-"""
 
-!mm3d HomolFilterMasq OIS-Reech_IGNF_PVA_1-0__1971.*tif GlobalMasq=Fiducial_marks_masq-1971-3.tif PostIn=_1971 PostOut=_1971-Masq
+      !mm3d HomolFilterMasq OIS-Reech_IGNF_PVA_1-0__1971.*tif GlobalMasq=Fiducial_marks_masq-1971-3.tif PostIn=_1971 PostOut=_1971-Masq
 
-"""##### Visualise tie-points
+##### Visualise tie-points
 
 ###### Binary to txt conversion
 The resulting tie-points are in binary format. To visualise them we will convert them to a txt format. We can use the same command "HomolFilterMasq" to perform this conversion.
