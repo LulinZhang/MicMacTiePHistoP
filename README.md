@@ -166,44 +166,8 @@ The meaning of optional parameters:
 
 ##### Visualise tie-points
 
-###### Binary to txt conversion
-The resulting tie-points are in binary format. To visualise them we will convert them to a txt format. We can use the same command "HomolFilterMasq" to perform this conversion.
+    mm3d SEL ./ OIS-Reech_IGNF_PVA_1-0__1971-06-21__C2844-0141_1971_FR2117_1067.tif OIS-Reech_IGNF_PVA_1-0__1971-06-21__C2844-0141_1971_FR2117_1068.tif KH=NB SH=_1971 SzW=[600,600]
 
-The input, output and parameter interpretation of the command "HomolFilterMasq" are listed below:
-
-Input:
-- `images; tie-points in binary format`
-
-Output:
-- `tie-points in txt format`
-
-The meaning of obligatory parameters:
-- `OIS-Reech_IGNF_PVA_1-0__1971.*tif`: the pattern of input images
-
-The meaning of optional parameters:
-- `PostIn`: Post for Input dir Hom, Def=
-- `PostOut`: Post for Output dir Hom, Def=MasqFiltered
-- `ANM`: Accept no mask, def = true if MasqGlob and false else
-- `ExpTxt`: Ascii format for in and out, def=false
-- `ExpTxtOut`: Ascii format for out when != in , def=ExpTxt
-
-    mm3d HomolFilterMasq "OIS-Reech_IGNF_PVA_1-0__1971.*tif" PostIn=_1971 PostOut=_1971-TXT ANM=1 ExpTxt=0 ExpTxtOut=1
-
-###### Visualise an example
-
-import mm3d_utils 
-
-ImgName1 = 'OIS-Reech_IGNF_PVA_1-0__1971-06-21__C2844-0141_1971_FR2117_1067.tif'
-ImgName2 = 'OIS-Reech_IGNF_PVA_1-0__1971-06-21__C2844-0141_1971_FR2117_1068.tif'
-aIm1 = cv2.imread(ImgName1,cv2.IMREAD_IGNORE_ORIENTATION)
-aIm2 = cv2.imread(ImgName2,cv2.IMREAD_IGNORE_ORIENTATION) 
-TPtsVec = mm3d_utils.ImportHom('Homol_1971-TXT/Pastis'+ImgName1+'/'+ImgName2+'.txt') 
-
-print('                    image1 1971                                          image2 1971')    mm3d_utils.plot_images([np.asarray(aIm1),np.asarray(aIm2)]) 
-if len(TPtsVec)>0:
-  mm3d_utils.plot_tiepts2(np.asarray(TPtsVec,dtype=float))
-else:
-  print('tie-point number is 0')
 
 ##### Tie-points reduction
 
@@ -217,24 +181,8 @@ To ensure good distribution and high multiplicity of the "reduced" tie-points, M
 
     mm3d TestLib NO_AllOri2Im OIS-Reech_IGNF_PVA_1-0__1971.*tif SH=_1971-Masq    mm3d Ratafia OIS-Reech_IGNF_PVA_1-0__1971.*tif SH=_1971-Masq Out=_1971-Ratafia
 
-To visualise the reduced tie-points, we will convert them to a txt format using "HomolFilterMasq".
-    mm3d HomolFilterMasq "OIS-Reech_IGNF_PVA_1-0__1971.*tif" PostIn=_1971-Ratafia PostOut=_1971-Ratafia-TXT ANM=1 ExpTxt=0 ExpTxtOut=1
-
 An example of the reduced tie-points are visualised below:
-
-import mm3d_utils 
-
-ImgName1 = 'OIS-Reech_IGNF_PVA_1-0__1971-06-21__C2844-0141_1971_FR2117_1067.tif'
-ImgName2 = 'OIS-Reech_IGNF_PVA_1-0__1971-06-21__C2844-0141_1971_FR2117_1068.tif'
-aIm1 = cv2.imread(ImgName1,cv2.IMREAD_IGNORE_ORIENTATION)
-aIm2 = cv2.imread(ImgName2,cv2.IMREAD_IGNORE_ORIENTATION) 
-TPtsVec = mm3d_utils.ImportHom('Homol_1971-Ratafia-TXT/Pastis'+ImgName1+'/'+ImgName2+'.txt') 
-
-print('                    image1 1971                                          image2 1971')    mm3d_utils.plot_images([np.asarray(aIm1),np.asarray(aIm2)]) 
-if len(TPtsVec)>0:
-  mm3d_utils.plot_tiepts2(np.asarray(TPtsVec,dtype=float))
-else:
-  print('tie-point number is 0')
+    mm3d SEL ./ OIS-Reech_IGNF_PVA_1-0__1971-06-21__C2844-0141_1971_FR2117_1067.tif OIS-Reech_IGNF_PVA_1-0__1971-06-21__C2844-0141_1971_FR2117_1068.tif KH=NB SH=_1971-Ratafia SzW=[600,600]
 
 ### 1.2. Relative orientation
 
@@ -302,13 +250,7 @@ Generate DSM in epoch 2014:
 ##### Visualize DSM
 
 The generated DSM in epoch 2014 is visulized below:
-
-
-import mm3d_utils 
-
-from skimage import io
-aIm1 = io.imread('MEC-Malt_2014/Z_Num6_DeZoom8_STD-MALT.tif')
-    mm3d_utils.plot_images([np.asarray(aIm1)])
+    Vino MEC-Malt_2014/Z_Num6_DeZoom8_STD-MALT.tif
 
 #### 1.3.2. Epoch 1971
 
@@ -321,13 +263,8 @@ Generate DSM in epoch 1971:
 ##### Visualize DSM
 
 The generated DSM in epoch 1971 is visulized below:
+    Vino MEC-Malt_1971/Z_Num7_DeZoom4_STD-MALT.tif
 
-
-import mm3d_utils 
-
-from skimage import io
-aIm1 = io.imread('MEC-Malt_1971/Z_Num7_DeZoom4_STD-MALT.tif')
-    mm3d_utils.plot_images([np.asarray(aIm1)])
 
 ## 2. Inter-epoch processing
 
@@ -442,20 +379,8 @@ This command will produce 2 kinds of results:
 
 ##### Visualize an example of inter-epoch tie-points
 
+    mm3d SEL ./ OIS-Reech_IGNF_PVA_1-0__1971-06-21__C2844-0141_1971_FR2117_1067.tif Crop-IMG_PHR1A_P_201406121049386.tif KH=NT SzW=[600,600] SH=-SuperGlue-3DRANSAC-CrossCorrelation
 
-import mm3d_utils 
-
-ImgName1 = 'OIS-Reech_IGNF_PVA_1-0__1971-06-21__C2844-0141_1971_FR2117_1067.tif'
-ImgName2 = 'Crop-IMG_PHR1A_P_201406121049386.tif'
-aIm1 = cv2.imread(ImgName1,cv2.IMREAD_IGNORE_ORIENTATION)
-aIm2 = cv2.imread(ImgName2,cv2.IMREAD_IGNORE_ORIENTATION) 
-TPtsVec = mm3d_utils.ImportHom('Homol-SuperGlue-3DRANSAC-CrossCorrelation/Pastis'+ImgName1+'/'+ImgName2+'.txt') 
-
-print('                    image 1971                                           image 2014')    mm3d_utils.plot_images([np.asarray(aIm1),np.asarray(aIm2)]) 
-if len(TPtsVec)>0:
-  mm3d_utils.plot_tiepts2(np.asarray(TPtsVec,dtype=float))
-else:
-  print('tie-point number is 0')
 
 ##### Visualize all the inter-epoch tie-points
 
@@ -490,41 +415,8 @@ The meaning of optional parameters:
 
     mm3d TestLib VisuTiePtIn3D ImgList1971all.txt ImgList2014all.txt Ori-1971 Ori-2014 DSMDirL=MEC-Malt_1971 DSMDirR=MEC-Malt_2014 InSH=-SuperGlue-3DRANSAC-CrossCorrelation OutFile=Visu-SuperGlue-3DRANSAC-CrossCorrelation-all.txt
 
-The transformed points is visulized below (we display the DSMs in 2 epochs as background for reference):
+The transformed points can be visulized in QGIS.
 
-import mm3d_utils
-from skimage import io
-
-ImgName1 = 'MEC-Malt_1971/Z_Num7_DeZoom4_STD-MALT_gray.tif_sfs.tif'
-ImgName2 = 'MEC-Malt_2014/Z_Num6_DeZoom8_STD-MALT_gray.tif_sfs.tif'
-aIm1 = io.imread(ImgName1)
-aIm2 = io.imread(ImgName2)
-
-def GetPtsInDSM(DSMTFWL, Pt3DL, DSMTFWR, Pt3DR):
-  dsmInfoL = np.loadtxt(DSMTFWL, dtype=float)
-  ptL = np.loadtxt(Pt3DL, dtype=float)
-  dsmInfoR = np.loadtxt(DSMTFWR, dtype=float)
-  ptR = np.loadtxt(Pt3DR, dtype=float)
-  Result = []
-  for i in range(len(ptL)):
-    x1_2DL = (ptL[i, 0] - dsmInfoL[4])/dsmInfoL[0]
-    y1_2DL = (ptL[i, 1] - dsmInfoL[5])/dsmInfoL[3]
-    x1_2DR = (ptR[i, 0] - dsmInfoR[4])/dsmInfoR[0]
-    y1_2DR = (ptR[i, 1] - dsmInfoR[5])/dsmInfoR[3]
-    Result.append([[x1_2DL, y1_2DL],[x1_2DR, y1_2DR]])
-  return Result
-
-DSMTFWL = 'MEC-Malt_1971/Z_Num7_DeZoom4_STD-MALT.tfw'
-Pt3DL = 'Visu-SuperGlue-3DRANSAC-CrossCorrelation-all_L.txt'
-DSMTFWR = 'MEC-Malt_2014/Z_Num6_DeZoom8_STD-MALT.tfw'
-Pt3DR = 'Visu-SuperGlue-3DRANSAC-CrossCorrelation-all_R.txt'
-TPtsVec = GetPtsInDSM(DSMTFWL, Pt3DL, DSMTFWR, Pt3DR)
-
-print('                     epoch 1971                                          epoch 2014')    mm3d_utils.plot_images([np.asarray(aIm1),np.asarray(aIm2)])
-if len(TPtsVec)>0:
-  mm3d_utils.plot_tiepts2(np.asarray(TPtsVec,dtype=float))
-else:
-  print('tie-point number is 0')
 
 #### 2.1.2. Option 2: SIFT
 
@@ -536,19 +428,7 @@ else:
 
 ##### Visualize an example of inter-epoch tie-points
 
-import mm3d_utils 
-
-ImgName1 = 'OIS-Reech_IGNF_PVA_1-0__1971-06-21__C2844-0141_1971_FR2117_1067.tif'
-ImgName2 = 'Crop-IMG_PHR1A_P_201406121049386.tif'
-aIm1 = cv2.imread(ImgName1,cv2.IMREAD_IGNORE_ORIENTATION)
-aIm2 = cv2.imread(ImgName2,cv2.IMREAD_IGNORE_ORIENTATION) 
-TPtsVec = mm3d_utils.ImportHom('Homol-GuidedSIFT-3DRANSAC-CrossCorrelation/Pastis'+ImgName1+'/'+ImgName2+'.txt') 
-
-print('                    image 1971                                           image 2014')    mm3d_utils.plot_images([np.asarray(aIm1),np.asarray(aIm2)]) 
-if len(TPtsVec)>0:
-  mm3d_utils.plot_tiepts2(np.asarray(TPtsVec,dtype=float))
-else:
-  print('tie-point number is 0')
+    mm3d SEL ./ OIS-Reech_IGNF_PVA_1-0__1971-06-21__C2844-0141_1971_FR2117_1067.tif Crop-IMG_PHR1A_P_201406121049386.tif KH=NT SzW=[600,600] SH=-GuidedSIFT-3DRANSAC-CrossCorrelation
 
 ##### Visualize all the inter-epoch tie-points
 
@@ -556,39 +436,6 @@ We again use the "TestLib VisuTiePtIn3D" to check the tie-points distribution ac
 
     mm3d TestLib VisuTiePtIn3D ImgList1971all.txt ImgList2014all.txt Ori-1971 Ori-2014 DSMDirL=MEC-Malt_1971 DSMDirR=MEC-Malt_2014 InSH=-GuidedSIFT-3DRANSAC-CrossCorrelation OutFile=Visu-GuidedSIFT-3DRANSAC-CrossCorrelation-all.txt
 
-import mm3d_utils 
-from skimage import io
-
-ImgName1 = 'MEC-Malt_1971/Z_Num7_DeZoom4_STD-MALT_gray.tif_sfs.tif'
-ImgName2 = 'MEC-Malt_2014/Z_Num6_DeZoom8_STD-MALT_gray.tif_sfs.tif'
-aIm1 = io.imread(ImgName1)
-aIm2 = io.imread(ImgName2)
-
-def GetPtsInDSM(DSMTFWL, Pt3DL, DSMTFWR, Pt3DR):
-  dsmInfoL = np.loadtxt(DSMTFWL, dtype=float)
-  ptL = np.loadtxt(Pt3DL, dtype=float)
-  dsmInfoR = np.loadtxt(DSMTFWR, dtype=float)
-  ptR = np.loadtxt(Pt3DR, dtype=float)
-  Result = []
-  for i in range(len(ptL)):
-    x1_2DL = (ptL[i, 0] - dsmInfoL[4])/dsmInfoL[0]
-    y1_2DL = (ptL[i, 1] - dsmInfoL[5])/dsmInfoL[3]
-    x1_2DR = (ptR[i, 0] - dsmInfoR[4])/dsmInfoR[0]
-    y1_2DR = (ptR[i, 1] - dsmInfoR[5])/dsmInfoR[3]
-    Result.append([[x1_2DL, y1_2DL],[x1_2DR, y1_2DR]])
-  return Result
-
-DSMTFWL = 'MEC-Malt_1971/Z_Num7_DeZoom4_STD-MALT.tfw'
-Pt3DL = 'Visu-GuidedSIFT-3DRANSAC-CrossCorrelation-all_L.txt'
-DSMTFWR = 'MEC-Malt_2014/Z_Num6_DeZoom8_STD-MALT.tfw'
-Pt3DR = 'Visu-GuidedSIFT-3DRANSAC-CrossCorrelation-all_R.txt'
-TPtsVec = GetPtsInDSM(DSMTFWL, Pt3DL, DSMTFWR, Pt3DR)
-
-print('                     epoch 1971                                          epoch 2014')    mm3d_utils.plot_images([np.asarray(aIm1),np.asarray(aIm2)])
-if len(TPtsVec)>0:
-  mm3d_utils.plot_tiepts2(np.asarray(TPtsVec,dtype=float))
-else:
-  print('tie-point number is 0')
 
 ### 2.2. Deep-dive in the pipeline's submodules
 The *TiePHistoP* command automatically calls several subcommands including:
@@ -657,24 +504,16 @@ The meaning of optional parameters:
 
 The equalized DSM is visulized below:
 
-import mm3d_utils 
-
-aIm1 = cv2.imread('MEC-Malt_2014/DSM2014-gray.tif',cv2.IMREAD_IGNORE_ORIENTATION)
-    mm3d_utils.plot_images([np.asarray(aIm1)])
+    Vino MEC-Malt_2014/DSM2014-gray.tif
 
 ###### Epoch 1971
 
 Perform DSM equalization in epoch 1971, so that feature matching method can be applied later.
 
-
     mm3d TestLib DSM_Equalization MEC-Malt_1971 DSMFile=MMLastNuage.xml OutImg=DSM1971-gray.tif
 
 The equalized DSM is visulized below:
-
-import mm3d_utils 
-
-aIm1 = cv2.imread('MEC-Malt_1971/DSM1971-gray.tif',cv2.IMREAD_IGNORE_ORIENTATION)
-    mm3d_utils.plot_images([np.asarray(aIm1)])
+    Vino MEC-Malt_1971/DSM1971-gray.tif
 
 ##### DSM Wallis filter
 
@@ -702,11 +541,7 @@ Apply wallis filter on DSM in epoch 2014:
     mm3d TestLib Wallis DSM2014-gray.tif Dir=MEC-Malt_2014 OutImg=DSM2014-gray.tif_sfs.tif
 
 The DSM after wallis filter is visulized below:
-
-import mm3d_utils 
-
-aIm1 = cv2.imread('MEC-Malt_2014/DSM2014-gray.tif_sfs.tif',cv2.IMREAD_IGNORE_ORIENTATION)
-    mm3d_utils.plot_images([np.asarray(aIm1)])
+    Vino MEC-Malt_2014/DSM2014-gray.tif_sfs.tif
 
 ###### Epoch 1971
 
@@ -715,11 +550,7 @@ Apply wallis filter on DSM in epoch 1971 to get rid of uneven illumination.
     mm3d TestLib Wallis DSM1971-gray.tif Dir=MEC-Malt_1971 OutImg=DSM1971-gray.tif_sfs.tif
 
 The DSM after wallis filter is visulized below:
-
-import mm3d_utils 
-
-aIm1 = cv2.imread('MEC-Malt_1971/DSM1971-gray.tif_sfs.tif',cv2.IMREAD_IGNORE_ORIENTATION)
-    mm3d_utils.plot_images([np.asarray(aIm1)])
+    Vino MEC-Malt_1971/DSM1971-gray.tif_sfs.tif
 
 ##### Matching DSM
 
@@ -772,14 +603,7 @@ Besides splitting DSM image pair into patch pair, this command will also automat
 If the *Rotate* parameter is set to 1, this command will generate 4 sets of SuperGlueInput.txt and HomoXml files by rotating master DSM image 4 times.
 
 An example of the patch pairs is visulized in the following:
-
-
-import mm3d_utils 
-
-aIm1 = cv2.imread('Tmp_Patches-CoReg/MEC-Malt_1971_0_0.tif',cv2.IMREAD_IGNORE_ORIENTATION)
-aIm2 = cv2.imread('Tmp_Patches-CoReg/MEC-Malt_2014_0_0.tif',cv2.IMREAD_IGNORE_ORIENTATION) 
-
-print('                 DSM patch 1971                                      DSM patch 2014')    mm3d_utils.plot_images([np.asarray(aIm1),np.asarray(aIm2)])
+    mm3d SEL Tmp_Patches-CoReg/ MEC-Malt_1971_0_0.tif MEC-Malt_2014_0_0.tif KH=PB
 
 (2) Match patch pairs with command "TestLib SuperGlue":
 
@@ -813,18 +637,7 @@ The meaning of optional parameters:
     mm3d TestLib SuperGlue SuperGlueInput.txt  InDir=./Tmp_Patches-CoReg/ OutDir=./Tmp_Patches-CoReg/ SpGOutSH=-SuperGlue
 
 An example of the matched patch pairs is visulized below:
-
-import mm3d_utils 
-
-aIm1 = cv2.imread('Tmp_Patches-CoReg/MEC-Malt_1971_0_0.tif',cv2.IMREAD_IGNORE_ORIENTATION)
-aIm2 = cv2.imread('Tmp_Patches-CoReg/MEC-Malt_2014_0_0.tif',cv2.IMREAD_IGNORE_ORIENTATION) 
-TPtsVec = mm3d_utils.ImportHom("Tmp_Patches-CoReg/Homol-SuperGlue/PastisMEC-Malt_1971_0_0.tif/MEC-Malt_2014_0_0.tif.txt") 
-
-print('                 DSM patch 1971                                      DSM patch 2014')    mm3d_utils.plot_images([np.asarray(aIm1),np.asarray(aIm2)]) 
-if len(TPtsVec)>0:
-  mm3d_utils.plot_tiepts2(np.asarray(TPtsVec,dtype=float))
-else:
-  print('tie-point number is 0')
+    mm3d SEL Tmp_Patches-CoReg/ MEC-Malt_1971_0_0.tif MEC-Malt_2014_0_0.tif KH=NT SzW=[600,600] SH=-SuperGlue
 
 (3) Merge tie-points with command "TestLib MergeTiePt"
 
@@ -852,18 +665,7 @@ The meaning of optional parameters:
     mm3d TestLib MergeTiePt ./Tmp_Patches-CoReg/  HomoXml=SubPatch.xml MergeInSH=-SuperGlue MergeOutSH=-SubPatch PatchSz=[1280,960]
 
 The resulting tie-points are visualised below:
-
-import mm3d_utils 
-
-aIm1 = cv2.imread('Tmp_Patches-CoReg/MEC-Malt_1971.tif',cv2.IMREAD_IGNORE_ORIENTATION)
-aIm2 = cv2.imread('Tmp_Patches-CoReg/MEC-Malt_2014.tif',cv2.IMREAD_IGNORE_ORIENTATION) 
-TPtsVec = mm3d_utils.ImportHom("Tmp_Patches-CoReg/Homol-SubPatch/PastisMEC-Malt_1971.tif/MEC-Malt_2014.tif.txt") 
- 
-print('                    DSM 1971                                           DSM 2014')    mm3d_utils.plot_images([np.asarray(aIm1),np.asarray(aIm2)]) 
-if len(TPtsVec)>0:
-  mm3d_utils.plot_tiepts2(np.asarray(TPtsVec,dtype=float))
-else:
-  print('tie-point number is 0')
+    mm3d SEL Tmp_Patches-CoReg/ MEC-Malt_1971.tif MEC-Malt_2014.tif KH=NT SzW=[600,600] SH=-SubPatch
 
 You can see that the tie-points are not good, which indicates the current rotation hypothesis is not the good one.
 
@@ -894,18 +696,7 @@ The meaning of optional parameters:
     mm3d TestLib RANSAC R2D MEC-Malt_1971.tif MEC-Malt_2014.tif Dir=./Tmp_Patches-CoReg/  2DRANInSH=-SubPatch 2DRANOutSH=-SubPatch-2DRANSAC
 
 The resulting tie-points are visualised below:
-
-import mm3d_utils 
-
-aIm1 = cv2.imread('Tmp_Patches-CoReg/MEC-Malt_1971.tif',cv2.IMREAD_IGNORE_ORIENTATION)
-aIm2 = cv2.imread('Tmp_Patches-CoReg/MEC-Malt_2014.tif',cv2.IMREAD_IGNORE_ORIENTATION) 
-TPtsVec = mm3d_utils.ImportHom("Tmp_Patches-CoReg/Homol-SubPatch-2DRANSAC/PastisMEC-Malt_1971.tif/MEC-Malt_2014.tif.txt") 
-
-print('                    DSM 1971                                           DSM 2014')    mm3d_utils.plot_images([np.asarray(aIm1),np.asarray(aIm2)]) 
-if len(TPtsVec)>0:
-  mm3d_utils.plot_tiepts2(np.asarray(TPtsVec,dtype=float))
-else:
-  print('tie-point number is 0')
+    mm3d SEL Tmp_Patches-CoReg/ MEC-Malt_1971.tif MEC-Malt_2014.tif KH=NT SzW=[600,600] SH=-SubPatch-2DRANSAC
 
 You can see that the tie-points are not good, which indicates the current rotation hypothesis is not the good one.
 
@@ -914,18 +705,7 @@ You can see that the tie-points are not good, which indicates the current rotati
     mm3d TestLib SuperGlue SuperGlueInput_R90.txt  InDir=./Tmp_Patches-CoReg/ OutDir=./Tmp_Patches-CoReg/ SpGOutSH=-SuperGlue    mm3d TestLib MergeTiePt ./Tmp_Patches-CoReg/  HomoXml=SubPatch_R90.xml MergeInSH=-SuperGlue MergeOutSH=-SubPatch_R90 PatchSz=[1280,960]    mm3d TestLib RANSAC R2D MEC-Malt_1971.tif MEC-Malt_2014.tif Dir=./Tmp_Patches-CoReg/  2DRANInSH=-SubPatch_R90 2DRANOutSH=-SubPatch_R90-2DRANSAC
 
 The resulting tie-points are visualised below:
-
-import mm3d_utils 
-
-aIm1 = cv2.imread('Tmp_Patches-CoReg/MEC-Malt_1971.tif',cv2.IMREAD_IGNORE_ORIENTATION)
-aIm2 = cv2.imread('Tmp_Patches-CoReg/MEC-Malt_2014.tif',cv2.IMREAD_IGNORE_ORIENTATION) 
-TPtsVec = mm3d_utils.ImportHom("Tmp_Patches-CoReg/Homol-SubPatch_R90-2DRANSAC/PastisMEC-Malt_1971.tif/MEC-Malt_2014.tif.txt") 
-
-print('                    DSM 1971                                           DSM 2014')    mm3d_utils.plot_images([np.asarray(aIm1),np.asarray(aIm2)]) 
-if len(TPtsVec)>0:
-  mm3d_utils.plot_tiepts2(np.asarray(TPtsVec,dtype=float))
-else:
-  print('tie-point number is 0')
+    mm3d SEL Tmp_Patches-CoReg/ MEC-Malt_1971.tif MEC-Malt_2014.tif KH=NT SzW=[600,600] SH=-SubPatch_R90-2DRANSAC
 
 You can see that the tie-points are not good, which indicates the current rotation hypothesis is not the good one.
 
@@ -934,18 +714,7 @@ You can see that the tie-points are not good, which indicates the current rotati
     mm3d TestLib SuperGlue SuperGlueInput_R180.txt  InDir=./Tmp_Patches-CoReg/ OutDir=./Tmp_Patches-CoReg/ SpGOutSH=-SuperGlue    mm3d TestLib MergeTiePt ./Tmp_Patches-CoReg/  HomoXml=SubPatch_R180.xml MergeInSH=-SuperGlue MergeOutSH=-SubPatch_R180 PatchSz=[1280,960]    mm3d TestLib RANSAC R2D MEC-Malt_1971.tif MEC-Malt_2014.tif Dir=./Tmp_Patches-CoReg/  2DRANInSH=-SubPatch_R180 2DRANOutSH=-SubPatch_R180-2DRANSAC
 
 The resulting tie-points are visualised below:
-
-import mm3d_utils 
-
-aIm1 = cv2.imread('Tmp_Patches-CoReg/MEC-Malt_1971.tif',cv2.IMREAD_IGNORE_ORIENTATION)
-aIm2 = cv2.imread('Tmp_Patches-CoReg/MEC-Malt_2014.tif',cv2.IMREAD_IGNORE_ORIENTATION) 
-TPtsVec = mm3d_utils.ImportHom("Tmp_Patches-CoReg/Homol-SubPatch_R180-2DRANSAC/PastisMEC-Malt_1971.tif/MEC-Malt_2014.tif.txt") 
-
-print('                    DSM 1971                                           DSM 2014')    mm3d_utils.plot_images([np.asarray(aIm1),np.asarray(aIm2)]) 
-if len(TPtsVec)>0:
-  mm3d_utils.plot_tiepts2(np.asarray(TPtsVec,dtype=float))
-else:
-  print('tie-point number is 0')
+    mm3d SEL Tmp_Patches-CoReg/ MEC-Malt_1971.tif MEC-Malt_2014.tif KH=NT SzW=[600,600] SH=-SubPatch_R180-2DRANSAC
 
 You can see that the tie-points are not good, which indicates the current rotation hypothesis is not the good one.
 
@@ -954,18 +723,7 @@ You can see that the tie-points are not good, which indicates the current rotati
     mm3d TestLib SuperGlue SuperGlueInput_R270.txt  InDir=./Tmp_Patches-CoReg/ OutDir=./Tmp_Patches-CoReg/ SpGOutSH=-SuperGlue    mm3d TestLib MergeTiePt ./Tmp_Patches-CoReg/  HomoXml=SubPatch_R270.xml MergeInSH=-SuperGlue MergeOutSH=-SubPatch_R270 PatchSz=[1280,960]    mm3d TestLib RANSAC R2D MEC-Malt_1971.tif MEC-Malt_2014.tif Dir=./Tmp_Patches-CoReg/  2DRANInSH=-SubPatch_R270 2DRANOutSH=-SubPatch_R270-2DRANSAC
 
 The resulting tie-points are visualised below:
-
-import mm3d_utils 
-
-aIm1 = cv2.imread('Tmp_Patches-CoReg/MEC-Malt_1971.tif',cv2.IMREAD_IGNORE_ORIENTATION)
-aIm2 = cv2.imread('Tmp_Patches-CoReg/MEC-Malt_2014.tif',cv2.IMREAD_IGNORE_ORIENTATION) 
-TPtsVec = mm3d_utils.ImportHom("Tmp_Patches-CoReg/Homol-SubPatch_R270-2DRANSAC/PastisMEC-Malt_1971.tif/MEC-Malt_2014.tif.txt") 
-
-print('                    DSM 1971                                           DSM 2014')    mm3d_utils.plot_images([np.asarray(aIm1),np.asarray(aIm2)]) 
-if len(TPtsVec)>0:
-  mm3d_utils.plot_tiepts2(np.asarray(TPtsVec,dtype=float))
-else:
-  print('tie-point number is 0')
+    mm3d SEL Tmp_Patches-CoReg/ MEC-Malt_1971.tif MEC-Malt_2014.tif KH=NT SzW=[600,600] SH=-SubPatch_R270-2DRANSAC
 
 You can see that the tie-points are good, which indicates the current rotation hypothesis is the good one.
 
@@ -1101,13 +859,7 @@ The meaning of optional parameters:
     mm3d TestLib GetPatchPair Guided OIS-Reech_IGNF_PVA_1-0__1971-06-21__C2844-0141_1971_FR2117_1067.tif Crop-IMG_PHR1A_P_201406121049386.tif Ori-1971 Ori-2014  OutDir=./Tmp_Patches-Precise SubPXml=OIS-Reech_IGNF_PVA_1-0__1971-06-21__C2844-0141_1971_FR2117_1067_Crop-IMG_PHR1A_P_201406121049386_SubPatch.xml ImgPair=OIS-Reech_IGNF_PVA_1-0__1971-06-21__C2844-0141_1971_FR2117_1067_Crop-IMG_PHR1A_P_201406121049386_SuperGlueInput.txt  PatchSz=[1280,960] Para3DH=Basc-1971-2-2014.xml DSMDirL=MEC-Malt_1971
 
 An example of patch pair is visualised below:
-
-import mm3d_utils 
-
-aIm1 = cv2.imread('Tmp_Patches-Precise/OIS-Reech_IGNF_PVA_1-0__1971-06-21__C2844-0141_1971_FR2117_1067_1_0.tif',cv2.IMREAD_IGNORE_ORIENTATION)
-aIm2 = cv2.imread('Tmp_Patches-Precise/Crop-IMG_PHR1A_P_201406121049386_OIS-Reech_IGNF_PVA_1-0__1971-06-21__C2844-0141_1971_FR2117_1067_1_0.tif',cv2.IMREAD_IGNORE_ORIENTATION) 
-
-print('               image patch 1971                                     image patch 2014')    mm3d_utils.plot_images([np.asarray(aIm1),np.asarray(aIm2)])
+    mm3d SEL Tmp_Patches-Precise/ OIS-Reech_IGNF_PVA_1-0__1971-06-21__C2844-0141_1971_FR2117_1067_1_0.tif Crop-IMG_PHR1A_P_201406121049386_OIS-Reech_IGNF_PVA_1-0__1971-06-21__C2844-0141_1971_FR2117_1067_1_0.tif KH=PB
 
 ##### Get tentative tie-points
 
@@ -1151,20 +903,7 @@ The meaning of optional parameters:
     mm3d TestLib SuperGlue OIS-Reech_IGNF_PVA_1-0__1971-06-21__C2844-0141_1971_FR2117_1067_Crop-IMG_PHR1A_P_201406121049386_SuperGlueInput.txt  InDir=./Tmp_Patches-Precise/ OutDir=./Tmp_Patches-Precise/ SpGOutSH=-SuperGlue CheckNb=100
 
 As a result, it will extract tie-points for each patch pair, an example of tie-points of one patch pair is visulized below:
-
-import mm3d_utils 
-
-ImName1 = 'OIS-Reech_IGNF_PVA_1-0__1971-06-21__C2844-0141_1971_FR2117_1067_1_0.tif'
-ImgName2 = 'Crop-IMG_PHR1A_P_201406121049386_OIS-Reech_IGNF_PVA_1-0__1971-06-21__C2844-0141_1971_FR2117_1067_1_0.tif'
-aIm1 = cv2.imread('Tmp_Patches-Precise/'+ImName1,cv2.IMREAD_IGNORE_ORIENTATION)
-aIm2 = cv2.imread('Tmp_Patches-Precise/'+ImgName2,cv2.IMREAD_IGNORE_ORIENTATION) 
-TPtsVec = mm3d_utils.ImportHom('Tmp_Patches-Precise/Homol-SuperGlue/Pastis'+ImName1+'/'+ImgName2+'.txt') 
-
-print('               image patch 1971                                     image patch 2014')    mm3d_utils.plot_images([np.asarray(aIm1),np.asarray(aIm2)]) 
-if len(TPtsVec)>0:
-  mm3d_utils.plot_tiepts2(np.asarray(TPtsVec,dtype=float))
-else:
-  print('tie-point number is 0')
+    mm3d SEL Tmp_Patches-Precise/ OIS-Reech_IGNF_PVA_1-0__1971-06-21__C2844-0141_1971_FR2117_1067_1_0.tif Crop-IMG_PHR1A_P_201406121049386_OIS-Reech_IGNF_PVA_1-0__1971-06-21__C2844-0141_1971_FR2117_1067_1_0.tif KH=NT SzW=[600,600] SH=-SuperGlue
 
 (2) Transform tie-points in patch pairs to image pair
 
@@ -1195,20 +934,7 @@ The meaning of optional parameters:
     mm3d TestLib MergeTiePt ./Tmp_Patches-Precise/  HomoXml=OIS-Reech_IGNF_PVA_1-0__1971-06-21__C2844-0141_1971_FR2117_1067_Crop-IMG_PHR1A_P_201406121049386_SubPatch.xml MergeInSH=-SuperGlue MergeOutSH=-SuperGlue  OutDir=./ PatchSz=[1280,960] BufferSz=[128,96]
 
 The resulting tie-points are visualised below:
-
-
-
-import mm3d_utils 
-
-aIm1 = cv2.imread('OIS-Reech_IGNF_PVA_1-0__1971-06-21__C2844-0141_1971_FR2117_1067.tif',cv2.IMREAD_IGNORE_ORIENTATION)
-aIm2 = cv2.imread('Crop-IMG_PHR1A_P_201406121049386.tif',cv2.IMREAD_IGNORE_ORIENTATION) 
-TPtsVec = mm3d_utils.ImportHom("Homol-SuperGlue/PastisOIS-Reech_IGNF_PVA_1-0__1971-06-21__C2844-0141_1971_FR2117_1067.tif/Crop-IMG_PHR1A_P_201406121049386.tif.txt") 
-
-print('                     image 1971                                          image 2014')    mm3d_utils.plot_images([np.asarray(aIm1),np.asarray(aIm2)]) 
-if len(TPtsVec)>0:
-  mm3d_utils.plot_tiepts2(np.asarray(TPtsVec,dtype=float))
-else:
-  print('tie-point number is 0')
+    mm3d SEL ./ OIS-Reech_IGNF_PVA_1-0__1971-06-21__C2844-0141_1971_FR2117_1067.tif Crop-IMG_PHR1A_P_201406121049386.tif KH=NT SzW=[600,600] SH=-SuperGlue
 
 ###### Option 2: SIFT
 
@@ -1255,20 +981,7 @@ The meaning of optional parameters:
     mm3d TestLib GuidedSIFTMatch OIS-Reech_IGNF_PVA_1-0__1971-06-21__C2844-0141_1971_FR2117_1067.tif Crop-IMG_PHR1A_P_201406121049386.tif Ori-1971 Ori-2014  SkipSIFT=true DSMDirL=MEC-Malt_1971 DSMDirR=MEC-Malt_2014 Para3DH=Basc-1971-2-2014.xml ScaleR=2
 
 The resulting tie-points are visualised below:
-
-
-
-import mm3d_utils 
-
-aIm1 = cv2.imread('OIS-Reech_IGNF_PVA_1-0__1971-06-21__C2844-0141_1971_FR2117_1067.tif',cv2.IMREAD_IGNORE_ORIENTATION)
-aIm2 = cv2.imread('Crop-IMG_PHR1A_P_201406121049386.tif',cv2.IMREAD_IGNORE_ORIENTATION) 
-TPtsVec = mm3d_utils.ImportHom("Homol-GuidedSIFT/PastisOIS-Reech_IGNF_PVA_1-0__1971-06-21__C2844-0141_1971_FR2117_1067.tif/Crop-IMG_PHR1A_P_201406121049386.tif.txt") 
-
-print('                     image 1971                                          image 2014')    mm3d_utils.plot_images([np.asarray(aIm1),np.asarray(aIm2)]) 
-if len(TPtsVec)>0:
-  mm3d_utils.plot_tiepts2(np.asarray(TPtsVec,dtype=float))
-else:
-  print('tie-point number is 0')
+    mm3d SEL ./ OIS-Reech_IGNF_PVA_1-0__1971-06-21__C2844-0141_1971_FR2117_1067.tif Crop-IMG_PHR1A_P_201406121049386.tif KH=NT SzW=[600,600] SH=-GuidedSIFT
 
 ##### Get enhanced tie-points
 
@@ -1306,20 +1019,8 @@ The meaning of optional parameters:
     mm3d TestLib RANSAC R3D OIS-Reech_IGNF_PVA_1-0__1971-06-21__C2844-0141_1971_FR2117_1067.tif Crop-IMG_PHR1A_P_201406121049386.tif Ori-1971 Ori-2014 Dir=./  DSMDirL=MEC-Malt_1971 DSMDirR=MEC-Malt_2014 DSMFileL=MMLastNuage.xml DSMFileR=MMLastNuage.xml 3DRANInSH=-SuperGlue 3DRANOutSH=-SuperGlue-3DRANSAC 3DRANTh=10
 
 The resulting tie-points are visualised below:
+    mm3d SEL ./ OIS-Reech_IGNF_PVA_1-0__1971-06-21__C2844-0141_1971_FR2117_1067.tif Crop-IMG_PHR1A_P_201406121049386.tif KH=NT SzW=[600,600] SH=-SuperGlue-3DRANSAC
 
-
-
-import mm3d_utils 
-
-aIm1 = cv2.imread('OIS-Reech_IGNF_PVA_1-0__1971-06-21__C2844-0141_1971_FR2117_1067.tif',cv2.IMREAD_IGNORE_ORIENTATION)
-aIm2 = cv2.imread('Crop-IMG_PHR1A_P_201406121049386.tif',cv2.IMREAD_IGNORE_ORIENTATION) 
-TPtsVec = mm3d_utils.ImportHom("Homol-SuperGlue-3DRANSAC/PastisOIS-Reech_IGNF_PVA_1-0__1971-06-21__C2844-0141_1971_FR2117_1067.tif/Crop-IMG_PHR1A_P_201406121049386.tif.txt") 
-
-print('                     image 1971                                          image 2014')    mm3d_utils.plot_images([np.asarray(aIm1),np.asarray(aIm2)]) 
-if len(TPtsVec)>0:
-  mm3d_utils.plot_tiepts2(np.asarray(TPtsVec,dtype=float))
-else:
-  print('tie-point number is 0')
 
 ##### Get final tie-points
 
@@ -1354,20 +1055,7 @@ The meaning of optional parameters:
     mm3d TestLib CrossCorrelation OIS-Reech_IGNF_PVA_1-0__1971-06-21__C2844-0141_1971_FR2117_1067.tif Crop-IMG_PHR1A_P_201406121049386.tif  CCInSH=-SuperGlue-3DRANSAC CCOutSH=-SuperGlue-3DRANSAC-CrossCorrelation SzW=32 CCTh=0.5 PatchSz=[1280,960] BufferSz=[30,60] PatchDir=./Tmp_Patches-Precise SubPXml=OIS-Reech_IGNF_PVA_1-0__1971-06-21__C2844-0141_1971_FR2117_1067_Crop-IMG_PHR1A_P_201406121049386_SubPatch.xml
 
 The resulting tie-points are visualised below:
-
-
-
-import mm3d_utils 
-
-aIm1 = cv2.imread('OIS-Reech_IGNF_PVA_1-0__1971-06-21__C2844-0141_1971_FR2117_1067.tif',cv2.IMREAD_IGNORE_ORIENTATION)
-aIm2 = cv2.imread('Crop-IMG_PHR1A_P_201406121049386.tif',cv2.IMREAD_IGNORE_ORIENTATION) 
-TPtsVec = mm3d_utils.ImportHom("Homol-SuperGlue-3DRANSAC-CrossCorrelation/PastisOIS-Reech_IGNF_PVA_1-0__1971-06-21__C2844-0141_1971_FR2117_1067.tif/Crop-IMG_PHR1A_P_201406121049386.tif.txt") 
-
-print('                     image 1971                                          image 2014')    mm3d_utils.plot_images([np.asarray(aIm1),np.asarray(aIm2)]) 
-if len(TPtsVec)>0:
-  mm3d_utils.plot_tiepts2(np.asarray(TPtsVec,dtype=float))
-else:
-  print('tie-point number is 0')
+    mm3d SEL ./ OIS-Reech_IGNF_PVA_1-0__1971-06-21__C2844-0141_1971_FR2117_1067.tif Crop-IMG_PHR1A_P_201406121049386.tif KH=NT SzW=[600,600] SH=-SuperGlue-3DRANSAC-CrossCorrelation
 
 ## 3. Evaluation
 
@@ -1418,32 +1106,7 @@ The meaning of optional parameters:
 
 #### Visualize DoD
 
-The resulted DoD is visulized below:
-
-
-import mm3d_utils 
-from skimage import io
-
-def Convert2Gray(data, minV, maxV):
-    data[data<minV] = minV
-    data[data>maxV] = maxV
-    basemaxV = np.max(data)
-    baseminV = np.min(data)
-    data = (data-baseminV)*255.0/(basemaxV-baseminV)
-    return data
-
-aIm1 = np.asarray(io.imread('DoD-CoReg.tif'))
-
-minV = -10
-maxV = 10
-aIm1 = Convert2Gray(aIm1, minV, maxV)
-
-aLegend = np.arange(0, 255, 5)
-aLegend = np.vstack((aLegend, aLegend))    mm3d_utils.plot_DoD([np.asarray(aLegend)])
-print('Legend:')
-print(minV, '                                                                                    ', maxV)
-    mm3d_utils.plot_DoD([np.asarray(aIm1)])
-print('                                             DoD-CoReg')
+The resulted DoD can be visulized in QGIS.
 
 As can be seen, a dome artifact is present in
 DoD-CoReg. This kind of systematic error is known to originate from poorly modeled camera internal parameters.
@@ -1549,34 +1212,7 @@ Finally we use the command "CmpIm" to generate the DoD.
 
 #### Visualize DoD
 
-The resulted DoD is visulized and compared to the DoD of section 3.1 below:
-
-
-import mm3d_utils 
-from skimage import io
-
-def Convert2Gray(data, minV, maxV):
-    data[data<minV] = minV
-    data[data>maxV] = maxV
-    basemaxV = np.max(data)
-    baseminV = np.min(data)
-    data = (data-baseminV)*255.0/(basemaxV-baseminV)
-    return data
-
-aIm1 = np.asarray(io.imread('DoD-CoReg.tif'))
-aIm2 = np.asarray(io.imread('DoD-Refined-SuperGlue.tif'))
-
-minV = -10
-maxV = 10
-aIm1 = Convert2Gray(aIm1, minV, maxV)
-aIm2 = Convert2Gray(aIm2, minV, maxV)
-
-aLegend = np.arange(0, 255, 5)
-aLegend = np.vstack((aLegend, aLegend))    mm3d_utils.plot_DoD([np.asarray(aLegend)])
-print('Legend:')
-print(minV, '                                                                                    ', maxV)
-    mm3d_utils.plot_DoD([np.asarray(aIm1), np.asarray(aIm2)])
-print('                     DoD-CoReg                                    DoD-Refined-SuperGlue')
+The resulted DoD can be visulized in QGIS.
 
 As can be seen in the visualized DoDs, the systematic errors are effectively mitigated in the DoD of SuperGlue refined result, thanks to our dense and precise inter-epoch tie-points.
 
@@ -1677,37 +1313,7 @@ Finally we use the command "CmpIm" to generate the DoD.
     mm3d CmpIm MEC-Malt_2014/Z_Num6_DeZoom8_STD-MALT.tif MEC-Malt_1971_Refined-GuidedSIFT/Z_Num7_DeZoom4_STD-MALT.tif UseFOM=1 FileDiff=DoD-Refined-GuidedSIFT.tif 16Bit=1
 
 #### Visualize DoD
-
-The resulted DoD is visulized and compared to the other DoDs below:
-
-
-import mm3d_utils 
-from skimage import io
-
-def Convert2Gray(data, minV, maxV):
-    data[data<minV] = minV
-    data[data>maxV] = maxV
-    basemaxV = np.max(data)
-    baseminV = np.min(data)
-    data = (data-baseminV)*255.0/(basemaxV-baseminV)
-    return data
-
-aIm1 = np.asarray(io.imread('DoD-CoReg.tif'))
-aIm2 = np.asarray(io.imread('DoD-Refined-SuperGlue.tif'))
-aIm3 = np.asarray(io.imread('DoD-Refined-GuidedSIFT.tif'))
-
-minV = -10
-maxV = 10
-aIm1 = Convert2Gray(aIm1, minV, maxV)
-aIm2 = Convert2Gray(aIm2, minV, maxV)
-aIm3 = Convert2Gray(aIm3, minV, maxV)
-
-aLegend = np.arange(0, 255, 5)
-aLegend = np.vstack((aLegend, aLegend))    mm3d_utils.plot_DoD([np.asarray(aLegend)])
-print('Legend:')
-print(minV, '                                                                                    ', maxV)
-    mm3d_utils.plot_DoD([np.asarray(aIm1), np.asarray(aIm2), np.asarray(aIm3)])
-print('            DoD-CoReg                DoD-Refined-SuperGlue                DoD-Refined-GuidedSIFT')
+The resulted DoD can be visulized in QGIS.
 
 As can be seen in the visualized DoDs, the systematic errors are effectively mitigated in the DoD of SuperGlue and SIFT refined result, thanks to our dense and precise inter-epoch tie-points.
 
