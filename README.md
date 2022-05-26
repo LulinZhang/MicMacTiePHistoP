@@ -22,19 +22,19 @@ After setting-up MicMac and downloading the dataset, the pipeline is as follows:
 
       2.1. ***Automated pipeline***
 
-  We provide automated pipeline which will launch the whole inter-epoch processing pipeline by calling several subcommands.
+       We provide automated pipeline which will launch the whole inter-epoch processing pipeline by calling several subcommands.
   
       2.2. ***Deep-dive in the pipeline's submodules***
   
-  We also provide deep-dive to explain all the submodules used in the automated pipeline. It consists of:
+      We also provide deep-dive to explain all the submodules used in the automated pipeline. It consists of:
 
       * 2.2.1. ***Rough co-registration***
 
-     This step is for roughly co-registering the DSMs and image orientations from different epochs.
+      This step is for roughly co-registering the DSMs and image orientations from different epochs.
 
       * 2.2.2. ***Precise matching***
 
-  This step is for obtaining precise tie-points under the guidance of rough co-registration.
+      This step is for obtaining precise tie-points under the guidance of rough co-registration.
 
   If the 2 epochs are already co-registered (e.g. both epochs are georeferenced), the step 2.2.1 can be skipped.
 
