@@ -118,7 +118,7 @@ The meaning of obligatory parameters:
 The meaning of optional parameters:
 - `PostFix`: Homologue extenion for NB/NT mode
 
-      !mm3d Tapioca MulScale OIS-Reech_IGNF_PVA_1-0__1971.*tif 500 1700 PostFix=_1971
+      mm3d Tapioca MulScale OIS-Reech_IGNF_PVA_1-0__1971.*tif 500 1700 PostFix=_1971
 
 ##### Remove tie-points on the fiducial marks
 
@@ -162,7 +162,7 @@ The meaning of optional parameters:
 - `PostIn`: Post for Input dir Hom, Def=
 - `PostOut`: Post for Output dir Hom, Def=MasqFiltered
 
-      !mm3d HomolFilterMasq OIS-Reech_IGNF_PVA_1-0__1971.*tif GlobalMasq=Fiducial_marks_masq-1971-3.tif PostIn=_1971 PostOut=_1971-Masq
+      mm3d HomolFilterMasq OIS-Reech_IGNF_PVA_1-0__1971.*tif GlobalMasq=Fiducial_marks_masq-1971-3.tif PostIn=_1971 PostOut=_1971-Masq
 
 ##### Visualise tie-points
 
@@ -186,11 +186,11 @@ The meaning of optional parameters:
 - `ANM`: Accept no mask, def = true if MasqGlob and false else
 - `ExpTxt`: Ascii format for in and out, def=false
 - `ExpTxtOut`: Ascii format for out when != in , def=ExpTxt
-"""
 
-!mm3d HomolFilterMasq "OIS-Reech_IGNF_PVA_1-0__1971.*tif" PostIn=_1971 PostOut=_1971-TXT ANM=1 ExpTxt=0 ExpTxtOut=1
 
-"""###### Visualise an example"""
+mm3d HomolFilterMasq "OIS-Reech_IGNF_PVA_1-0__1971.*tif" PostIn=_1971 PostOut=_1971-TXT ANM=1 ExpTxt=0 ExpTxtOut=1
+
+###### Visualise an example
 
 import mm3d_utils 
 
@@ -207,7 +207,7 @@ if len(TPtsVec)>0:
 else:
   print('tie-point number is 0')
 
-"""##### Tie-points reduction
+##### Tie-points reduction
 
 The intra-epoch tie-points are generally very abundant. We reduce their quantity for several reasons:
 * quantity of tie points does not impact the quality of the bundle adjustement (only the distribution is crucial)
@@ -216,16 +216,16 @@ The intra-epoch tie-points are generally very abundant. We reduce their quantity
 
 To ensure good distribution and high multiplicity of the "reduced" tie-points, MicMac first computes the relative orientation between pairs of images:
 *  TestLib NO_AllOri2Im
-"""
 
-!mm3d TestLib NO_AllOri2Im OIS-Reech_IGNF_PVA_1-0__1971.*tif SH=_1971-Masq
-!mm3d Ratafia OIS-Reech_IGNF_PVA_1-0__1971.*tif SH=_1971-Masq Out=_1971-Ratafia
 
-"""To visualise the reduced tie-points, we will convert them to a txt format using "HomolFilterMasq"."""
+mm3d TestLib NO_AllOri2Im OIS-Reech_IGNF_PVA_1-0__1971.*tif SH=_1971-Masq
+mm3d Ratafia OIS-Reech_IGNF_PVA_1-0__1971.*tif SH=_1971-Masq Out=_1971-Ratafia
 
-!mm3d HomolFilterMasq "OIS-Reech_IGNF_PVA_1-0__1971.*tif" PostIn=_1971-Ratafia PostOut=_1971-Ratafia-TXT ANM=1 ExpTxt=0 ExpTxtOut=1
+To visualise the reduced tie-points, we will convert them to a txt format using "HomolFilterMasq".
 
-"""An example of the reduced tie-points are visualised below:"""
+mm3d HomolFilterMasq "OIS-Reech_IGNF_PVA_1-0__1971.*tif" PostIn=_1971-Ratafia PostOut=_1971-Ratafia-TXT ANM=1 ExpTxt=0 ExpTxtOut=1
+
+An example of the reduced tie-points are visualised below:
 
 import mm3d_utils 
 
@@ -242,7 +242,7 @@ if len(TPtsVec)>0:
 else:
   print('tie-point number is 0')
 
-"""### 1.2. Relative orientation
+### 1.2. Relative orientation
 
 Recover relative orientations of images within the same epoch using structure-from-motion implemented in MicMac under the command "Tapas".
 
@@ -269,11 +269,11 @@ The images in epoch 2014 are satellite images and their orientations are known. 
 #### 1.2.2. Epoch 1971
 
 Recover relative orientations of images in epoch 1971:
-"""
 
-!mm3d Tapas FraserBasic OIS-Reech_IGNF_PVA_1-0__1971.*tif Out=1971 SH=_1971-Masq
 
-"""### 1.3. DSM generation
+mm3d Tapas FraserBasic OIS-Reech_IGNF_PVA_1-0__1971.*tif Out=1971 SH=_1971-Masq
+
+### 1.3. DSM generation
 
 Compute DSM of each epoch based on orientations using the command "Malt".
 
@@ -303,14 +303,14 @@ The meaning of optional parameters:
 ##### Calculate DSM
 
 Generate DSM in epoch 2014:
-"""
 
-!mm3d Malt Ortho Crop.*tif 2014 NbVI=2 DirMEC=MEC-Malt_2014 EZA=1 ZoomF=8 DoOrtho=0
 
-"""##### Visualize DSM
+mm3d Malt Ortho Crop.*tif 2014 NbVI=2 DirMEC=MEC-Malt_2014 EZA=1 ZoomF=8 DoOrtho=0
+
+##### Visualize DSM
 
 The generated DSM in epoch 2014 is visulized below:
-"""
+
 
 import mm3d_utils 
 
@@ -319,19 +319,19 @@ aIm1 = io.imread('MEC-Malt_2014/Z_Num6_DeZoom8_STD-MALT.tif')
 
 mm3d_utils.plot_images([np.asarray(aIm1)])
 
-"""#### 1.3.2. Epoch 1971
+#### 1.3.2. Epoch 1971
 
 ##### Calculate DSM
 
 Generate DSM in epoch 1971:
-"""
 
-!mm3d Malt Ortho OIS-Reech_IGNF_PVA_1-0__1971.*tif 1971 NbVI=2 MasqImGlob=Fiducial_marks_masq-1971-3.tif DirMEC=MEC-Malt_1971 EZA=1 ZoomF=4 DoOrtho=0
 
-"""##### Visualize DSM
+mm3d Malt Ortho OIS-Reech_IGNF_PVA_1-0__1971.*tif 1971 NbVI=2 MasqImGlob=Fiducial_marks_masq-1971-3.tif DirMEC=MEC-Malt_1971 EZA=1 ZoomF=4 DoOrtho=0
+
+##### Visualize DSM
 
 The generated DSM in epoch 1971 is visulized below:
-"""
+
 
 import mm3d_utils 
 
@@ -340,7 +340,7 @@ aIm1 = io.imread('MEC-Malt_1971/Z_Num7_DeZoom4_STD-MALT.tif')
 
 mm3d_utils.plot_images([np.asarray(aIm1)])
 
-"""## 2. Inter-epoch processing
+## 2. Inter-epoch processing
 
 We provide both (1) automated pipeline which will automatically launch the whole inter-epoch processing pipeline, and (2) deep-dive to explain all the submodules used in the automated pipeline.
 
@@ -442,18 +442,18 @@ The meaning of optional parameters (here we use epoch1 to refer to epoch 1971, a
 ##### Recover inter-epoch tie-points
 
 > Note: As the time gap of the 2 epochs is large, we set 3DRANTh=10 to keep more correspondences.
-"""
 
-!mm3d TiePHistoP Ori-1971 Ori-2014 ImgList1971all.txt ImgList2014all.txt MEC-Malt_1971 MEC-Malt_2014 CoRegPatchLSz=[1280,960] CoRegPatchRSz=[1280,960] PrecisePatchSz=[1280,960] Feature=SuperGlue 3DRANTh=10
 
-"""This command will produce 2 kinds of results: 
+mm3d TiePHistoP Ori-1971 Ori-2014 ImgList1971all.txt ImgList2014all.txt MEC-Malt_1971 MEC-Malt_2014 CoRegPatchLSz=[1280,960] CoRegPatchRSz=[1280,960] PrecisePatchSz=[1280,960] Feature=SuperGlue 3DRANTh=10
+
+This command will produce 2 kinds of results: 
 
 (1) roughly co-registered orientations, which will be stored in the folder "./Ori-2014";
 
 (2) inter-epoch tie-points, which will be stored in the folder "./Homol-SuperGlue-3DRANSAC-CrossCorrelation".
 
 ##### Visualize an example of inter-epoch tie-points
-"""
+
 
 import mm3d_utils 
 
@@ -470,7 +470,7 @@ if len(TPtsVec)>0:
 else:
   print('tie-point number is 0')
 
-"""##### Visualize all the inter-epoch tie-points
+##### Visualize all the inter-epoch tie-points
 
 Check the distribution of the tie-points across the entire image block by visualising them in a common reference frame with the "TestLib VisuTiePtIn3D".
 
@@ -500,11 +500,11 @@ The meaning of optional parameters:
 - `Thres`: The threshold of reprojection error (unit: pixel) when prejecting patch corner to DSM, Def=2
 - `Para3DHL`: Input xml file that recorded the paremeter of the 3D Helmert transformation for points in master images, Def=none
 - `Para3DHR`: Input xml file that recorded the paremeter of the 3D Helmert transformation for points in secondary images, Def=none
-"""
 
-!mm3d TestLib VisuTiePtIn3D ImgList1971all.txt ImgList2014all.txt Ori-1971 Ori-2014 DSMDirL=MEC-Malt_1971 DSMDirR=MEC-Malt_2014 InSH=-SuperGlue-3DRANSAC-CrossCorrelation OutFile=Visu-SuperGlue-3DRANSAC-CrossCorrelation-all.txt
 
-"""The transformed points is visulized below (we display the DSMs in 2 epochs as background for reference):"""
+mm3d TestLib VisuTiePtIn3D ImgList1971all.txt ImgList2014all.txt Ori-1971 Ori-2014 DSMDirL=MEC-Malt_1971 DSMDirR=MEC-Malt_2014 InSH=-SuperGlue-3DRANSAC-CrossCorrelation OutFile=Visu-SuperGlue-3DRANSAC-CrossCorrelation-all.txt
+
+The transformed points is visulized below (we display the DSMs in 2 epochs as background for reference):
 
 import mm3d_utils
 from skimage import io
@@ -541,16 +541,16 @@ if len(TPtsVec)>0:
 else:
   print('tie-point number is 0')
 
-"""#### 2.1.2. Option 2: SIFT
+#### 2.1.2. Option 2: SIFT
 
 ##### Recover inter-epoch tie-points
 
 >Note: (1) We set Feature=SIFT to switch to option SIFT; (2) the rough co-registration has been performed in the previous step, so we can skip it here; (3) the PrecisePatchSz is the same with the previous step, therefore we can skip the step of getting patch pairs; (4) as the resolution of secondary images is high, we speed up the processing by setting ScaleR=2 so that SIFT points extracted on secondary images are based on downsamepled images by a factor of 2.
-"""
 
-!mm3d TiePHistoP Ori-1971 Ori-2014 ImgList1971all.txt ImgList2014all.txt MEC-Malt_1971 MEC-Malt_2014 PrecisePatchSz=[1280,960] Feature=SIFT SkipCoReg=1 SkipGetPatchPair=1 ScaleR=2 3DRANTh=10  CoRegOri1=1971_CoReg_SuperGlue
 
-"""##### Visualize an example of inter-epoch tie-points"""
+mm3d TiePHistoP Ori-1971 Ori-2014 ImgList1971all.txt ImgList2014all.txt MEC-Malt_1971 MEC-Malt_2014 PrecisePatchSz=[1280,960] Feature=SIFT SkipCoReg=1 SkipGetPatchPair=1 ScaleR=2 3DRANTh=10  CoRegOri1=1971_CoReg_SuperGlue
+
+##### Visualize an example of inter-epoch tie-points
 
 import mm3d_utils 
 
@@ -567,12 +567,12 @@ if len(TPtsVec)>0:
 else:
   print('tie-point number is 0')
 
-"""##### Visualize all the inter-epoch tie-points
+##### Visualize all the inter-epoch tie-points
 
 We again use the "TestLib VisuTiePtIn3D" to check the tie-points distribution across the scene.
-"""
 
-!mm3d TestLib VisuTiePtIn3D ImgList1971all.txt ImgList2014all.txt Ori-1971 Ori-2014 DSMDirL=MEC-Malt_1971 DSMDirR=MEC-Malt_2014 InSH=-GuidedSIFT-3DRANSAC-CrossCorrelation OutFile=Visu-GuidedSIFT-3DRANSAC-CrossCorrelation-all.txt
+
+mm3d TestLib VisuTiePtIn3D ImgList1971all.txt ImgList2014all.txt Ori-1971 Ori-2014 DSMDirL=MEC-Malt_1971 DSMDirR=MEC-Malt_2014 InSH=-GuidedSIFT-3DRANSAC-CrossCorrelation OutFile=Visu-GuidedSIFT-3DRANSAC-CrossCorrelation-all.txt
 
 import mm3d_utils 
 from skimage import io
@@ -609,7 +609,7 @@ if len(TPtsVec)>0:
 else:
   print('tie-point number is 0')
 
-"""### 2.2. Deep-dive in the pipeline's submodules
+### 2.2. Deep-dive in the pipeline's submodules
 The *TiePHistoP* command automatically calls several subcommands including:
 - `TestLib DSM_Equalization`
 - `TestLib Wallis`
@@ -671,11 +671,11 @@ The meaning of optional parameters:
 - `STDRange`: Only pixels with their value within STDRange times of std will be considered (in order to ignore altitude outliers), Def=5
 - `DSMFile`: the xml file that recorded the structure information of the DSM, Def=MMLastNuage.xml
 - `OutImg`: output image name, Def='input'_gray.tif
-"""
 
-!mm3d TestLib DSM_Equalization MEC-Malt_2014 DSMFile=MMLastNuage.xml OutImg=DSM2014-gray.tif
 
-"""The equalized DSM is visulized below:"""
+mm3d TestLib DSM_Equalization MEC-Malt_2014 DSMFile=MMLastNuage.xml OutImg=DSM2014-gray.tif
+
+The equalized DSM is visulized below:
 
 import mm3d_utils 
 
@@ -683,15 +683,15 @@ aIm1 = cv2.imread('MEC-Malt_2014/DSM2014-gray.tif',cv2.IMREAD_IGNORE_ORIENTATION
 
 mm3d_utils.plot_images([np.asarray(aIm1)])
 
-"""###### Epoch 1971
+###### Epoch 1971
 
 Perform DSM equalization in epoch 1971, so that feature matching method can be applied later.
 
-"""
 
-!mm3d TestLib DSM_Equalization MEC-Malt_1971 DSMFile=MMLastNuage.xml OutImg=DSM1971-gray.tif
 
-"""The equalized DSM is visulized below:"""
+mm3d TestLib DSM_Equalization MEC-Malt_1971 DSMFile=MMLastNuage.xml OutImg=DSM1971-gray.tif
+
+The equalized DSM is visulized below:
 
 import mm3d_utils 
 
@@ -699,7 +699,7 @@ aIm1 = cv2.imread('MEC-Malt_1971/DSM1971-gray.tif',cv2.IMREAD_IGNORE_ORIENTATION
 
 mm3d_utils.plot_images([np.asarray(aIm1)])
 
-"""##### DSM Wallis filter
+##### DSM Wallis filter
 
 ###### Epoch 2014
 
@@ -721,11 +721,11 @@ The meaning of optional parameters:
 - `OutImg`: Output image name, Def='input'_sfs.tif
 
 Apply wallis filter on DSM in epoch 2014:
-"""
 
-!mm3d TestLib Wallis DSM2014-gray.tif Dir=MEC-Malt_2014 OutImg=DSM2014-gray.tif_sfs.tif
 
-"""The DSM after wallis filter is visulized below:"""
+mm3d TestLib Wallis DSM2014-gray.tif Dir=MEC-Malt_2014 OutImg=DSM2014-gray.tif_sfs.tif
+
+The DSM after wallis filter is visulized below:
 
 import mm3d_utils 
 
@@ -733,14 +733,14 @@ aIm1 = cv2.imread('MEC-Malt_2014/DSM2014-gray.tif_sfs.tif',cv2.IMREAD_IGNORE_ORI
 
 mm3d_utils.plot_images([np.asarray(aIm1)])
 
-"""###### Epoch 1971
+###### Epoch 1971
 
 Apply wallis filter on DSM in epoch 1971 to get rid of uneven illumination.
-"""
 
-!mm3d TestLib Wallis DSM1971-gray.tif Dir=MEC-Malt_1971 OutImg=DSM1971-gray.tif_sfs.tif
 
-"""The DSM after wallis filter is visulized below:"""
+mm3d TestLib Wallis DSM1971-gray.tif Dir=MEC-Malt_1971 OutImg=DSM1971-gray.tif_sfs.tif
+
+The DSM after wallis filter is visulized below:
 
 import mm3d_utils 
 
@@ -748,7 +748,7 @@ aIm1 = cv2.imread('MEC-Malt_1971/DSM1971-gray.tif_sfs.tif',cv2.IMREAD_IGNORE_ORI
 
 mm3d_utils.plot_images([np.asarray(aIm1)])
 
-"""##### Matching DSM
+##### Matching DSM
 
 This part will co-register 2 DSMs from different epochs by applying *one-to-many tiling scheme* (for more details please refer to our publication: link to be added) based on SuperGlue, followed by RANSAC to remove outliers. 
 
@@ -791,16 +791,16 @@ The meaning of optional parameters:
 - `SubPXml`: The output xml file name to record the homography between the patches and original image, Def=SubPatch.xml
 - `OutDir`: Output direcotry of the patches, Def=./Tmp_Patches-CoReg
 - `ImgPair`: Output txt file that records the patch pairs, Def=SuperGlueInput.txt
-"""
 
-!mm3d TestLib GetPatchPair BruteForce MEC-Malt_1971/DSM1971-gray.tif_sfs.tif MEC-Malt_2014/DSM2014-gray.tif_sfs.tif  OutDir=./Tmp_Patches-CoReg Rotate=1 PatchLSz=[1280,960] PatchRSz=[1280,960]
 
-"""Besides splitting DSM image pair into patch pair, this command will also automatically (1) generate the SuperGlueInput.txt and HomoXml files which will serve as input in the following parts, (2) copy the master and secondary DSM images into the work directory and rename them to "MEC-Malt_1971.tif" and "MEC-Malt_2014.tif".
+mm3d TestLib GetPatchPair BruteForce MEC-Malt_1971/DSM1971-gray.tif_sfs.tif MEC-Malt_2014/DSM2014-gray.tif_sfs.tif  OutDir=./Tmp_Patches-CoReg Rotate=1 PatchLSz=[1280,960] PatchRSz=[1280,960]
+
+Besides splitting DSM image pair into patch pair, this command will also automatically (1) generate the SuperGlueInput.txt and HomoXml files which will serve as input in the following parts, (2) copy the master and secondary DSM images into the work directory and rename them to "MEC-Malt_1971.tif" and "MEC-Malt_2014.tif".
 
 If the *Rotate* parameter is set to 1, this command will generate 4 sets of SuperGlueInput.txt and HomoXml files by rotating master DSM image 4 times.
 
 An example of the patch pairs is visulized in the following:
-"""
+
 
 import mm3d_utils 
 
@@ -810,7 +810,7 @@ aIm2 = cv2.imread('Tmp_Patches-CoReg/MEC-Malt_2014_0_0.tif',cv2.IMREAD_IGNORE_OR
 print('                 DSM patch 1971                                      DSM patch 2014')
 mm3d_utils.plot_images([np.asarray(aIm1),np.asarray(aIm2)])
 
-"""(2) Match patch pairs with command "TestLib SuperGlue":
+(2) Match patch pairs with command "TestLib SuperGlue":
 
 This command will call SuperGlue to match the patch pairs which are listed in "SuperGlueInput.txt".
 
@@ -838,11 +838,11 @@ The meaning of optional parameters:
 - `opt`: Other options for SuperGlue (this option is only used for developper), Def=none
 - `CheckFile`: Check if the result files of inter-epoch tie-points exist (if so, skip to avoid repetition), Def=false
 - `CheckNb`: Radius of the search space for SuperGlue (which means correspondence [(xL, yL), (xR, yR)] with (xL-xR)×(xL-xR)+(yL-yR)×(yL-yR) > CheckNb×CheckNb will be removed afterwards), Def=-1 (means don't check search space)
-"""
 
-!mm3d TestLib SuperGlue SuperGlueInput.txt  InDir=./Tmp_Patches-CoReg/ OutDir=./Tmp_Patches-CoReg/ SpGOutSH=-SuperGlue
 
-"""An example of the matched patch pairs is visulized below:"""
+mm3d TestLib SuperGlue SuperGlueInput.txt  InDir=./Tmp_Patches-CoReg/ OutDir=./Tmp_Patches-CoReg/ SpGOutSH=-SuperGlue
+
+An example of the matched patch pairs is visulized below:
 
 import mm3d_utils 
 
@@ -857,7 +857,7 @@ if len(TPtsVec)>0:
 else:
   print('tie-point number is 0')
 
-"""(3) Merge tie-points with command "TestLib MergeTiePt"
+(3) Merge tie-points with command "TestLib MergeTiePt"
 
 The tie-points are saved as individual files for each patch pair, this command will merge them together.
 
@@ -879,11 +879,11 @@ The meaning of optional parameters:
 - `MergeOutSH`: Output Homologue extenion for NB/NT mode of MergeTiePt, Def=-SubPatch
 - `PatchSz`: Patch size of the tiling scheme (since we use the patches resulted from "GetPatchPair", this parameter should be set the same as the PatchSz in command GetPatchPair), Def=[640, 480]
 - `BufferSz`: Buffer zone size around the patch of the tiling scheme (since we use the patches resulted from "GetPatchPair", this parameter should be set the same as the BufferSz in command GetPatchPair), Def=[0,0]
-"""
 
-!mm3d TestLib MergeTiePt ./Tmp_Patches-CoReg/  HomoXml=SubPatch.xml MergeInSH=-SuperGlue MergeOutSH=-SubPatch PatchSz=[1280,960]
 
-"""The resulting tie-points are visualised below:"""
+mm3d TestLib MergeTiePt ./Tmp_Patches-CoReg/  HomoXml=SubPatch.xml MergeInSH=-SuperGlue MergeOutSH=-SubPatch PatchSz=[1280,960]
+
+The resulting tie-points are visualised below:
 
 import mm3d_utils 
 
@@ -898,7 +898,7 @@ if len(TPtsVec)>0:
 else:
   print('tie-point number is 0')
 
-"""You can see that the tie-points are not good, which indicates the current rotation hypothesis is not the good one.
+You can see that the tie-points are not good, which indicates the current rotation hypothesis is not the good one.
 
 (4) 2D RANSAC with command "TestLib RANSAC R2D"
 
@@ -923,11 +923,11 @@ The meaning of optional parameters:
 - `2DRANOutSH`: Output Homologue extenion for NB/NT mode of 2D RANSAC, Def='2DRANInSH'-2DRANSAC
 - `2DIter`: 2D RANSAC iteration, Def=1000
 - `2DRANTh`: 2D RANSAC threshold, Def=10
-"""
 
-!mm3d TestLib RANSAC R2D MEC-Malt_1971.tif MEC-Malt_2014.tif Dir=./Tmp_Patches-CoReg/  2DRANInSH=-SubPatch 2DRANOutSH=-SubPatch-2DRANSAC
 
-"""The resulting tie-points are visualised below:"""
+mm3d TestLib RANSAC R2D MEC-Malt_1971.tif MEC-Malt_2014.tif Dir=./Tmp_Patches-CoReg/  2DRANInSH=-SubPatch 2DRANOutSH=-SubPatch-2DRANSAC
+
+The resulting tie-points are visualised below:
 
 import mm3d_utils 
 
@@ -942,16 +942,16 @@ if len(TPtsVec)>0:
 else:
   print('tie-point number is 0')
 
-"""You can see that the tie-points are not good, which indicates the current rotation hypothesis is not the good one.
+You can see that the tie-points are not good, which indicates the current rotation hypothesis is not the good one.
 
 ###### Rotation hypothesis 2 (90 degree)
-"""
 
-!mm3d TestLib SuperGlue SuperGlueInput_R90.txt  InDir=./Tmp_Patches-CoReg/ OutDir=./Tmp_Patches-CoReg/ SpGOutSH=-SuperGlue
-!mm3d TestLib MergeTiePt ./Tmp_Patches-CoReg/  HomoXml=SubPatch_R90.xml MergeInSH=-SuperGlue MergeOutSH=-SubPatch_R90 PatchSz=[1280,960]
-!mm3d TestLib RANSAC R2D MEC-Malt_1971.tif MEC-Malt_2014.tif Dir=./Tmp_Patches-CoReg/  2DRANInSH=-SubPatch_R90 2DRANOutSH=-SubPatch_R90-2DRANSAC
 
-"""The resulting tie-points are visualised below:"""
+mm3d TestLib SuperGlue SuperGlueInput_R90.txt  InDir=./Tmp_Patches-CoReg/ OutDir=./Tmp_Patches-CoReg/ SpGOutSH=-SuperGlue
+mm3d TestLib MergeTiePt ./Tmp_Patches-CoReg/  HomoXml=SubPatch_R90.xml MergeInSH=-SuperGlue MergeOutSH=-SubPatch_R90 PatchSz=[1280,960]
+mm3d TestLib RANSAC R2D MEC-Malt_1971.tif MEC-Malt_2014.tif Dir=./Tmp_Patches-CoReg/  2DRANInSH=-SubPatch_R90 2DRANOutSH=-SubPatch_R90-2DRANSAC
+
+The resulting tie-points are visualised below:
 
 import mm3d_utils 
 
@@ -966,16 +966,16 @@ if len(TPtsVec)>0:
 else:
   print('tie-point number is 0')
 
-"""You can see that the tie-points are not good, which indicates the current rotation hypothesis is not the good one.
+You can see that the tie-points are not good, which indicates the current rotation hypothesis is not the good one.
 
 ###### Rotation hypothesis 3 (180 degree)
-"""
 
-!mm3d TestLib SuperGlue SuperGlueInput_R180.txt  InDir=./Tmp_Patches-CoReg/ OutDir=./Tmp_Patches-CoReg/ SpGOutSH=-SuperGlue
-!mm3d TestLib MergeTiePt ./Tmp_Patches-CoReg/  HomoXml=SubPatch_R180.xml MergeInSH=-SuperGlue MergeOutSH=-SubPatch_R180 PatchSz=[1280,960]
-!mm3d TestLib RANSAC R2D MEC-Malt_1971.tif MEC-Malt_2014.tif Dir=./Tmp_Patches-CoReg/  2DRANInSH=-SubPatch_R180 2DRANOutSH=-SubPatch_R180-2DRANSAC
 
-"""The resulting tie-points are visualised below:"""
+mm3d TestLib SuperGlue SuperGlueInput_R180.txt  InDir=./Tmp_Patches-CoReg/ OutDir=./Tmp_Patches-CoReg/ SpGOutSH=-SuperGlue
+mm3d TestLib MergeTiePt ./Tmp_Patches-CoReg/  HomoXml=SubPatch_R180.xml MergeInSH=-SuperGlue MergeOutSH=-SubPatch_R180 PatchSz=[1280,960]
+mm3d TestLib RANSAC R2D MEC-Malt_1971.tif MEC-Malt_2014.tif Dir=./Tmp_Patches-CoReg/  2DRANInSH=-SubPatch_R180 2DRANOutSH=-SubPatch_R180-2DRANSAC
+
+The resulting tie-points are visualised below:
 
 import mm3d_utils 
 
@@ -990,16 +990,16 @@ if len(TPtsVec)>0:
 else:
   print('tie-point number is 0')
 
-"""You can see that the tie-points are not good, which indicates the current rotation hypothesis is not the good one.
+You can see that the tie-points are not good, which indicates the current rotation hypothesis is not the good one.
 
 ###### Rotation hypothesis 4 (270 degree)
-"""
 
-!mm3d TestLib SuperGlue SuperGlueInput_R270.txt  InDir=./Tmp_Patches-CoReg/ OutDir=./Tmp_Patches-CoReg/ SpGOutSH=-SuperGlue
-!mm3d TestLib MergeTiePt ./Tmp_Patches-CoReg/  HomoXml=SubPatch_R270.xml MergeInSH=-SuperGlue MergeOutSH=-SubPatch_R270 PatchSz=[1280,960]
-!mm3d TestLib RANSAC R2D MEC-Malt_1971.tif MEC-Malt_2014.tif Dir=./Tmp_Patches-CoReg/  2DRANInSH=-SubPatch_R270 2DRANOutSH=-SubPatch_R270-2DRANSAC
 
-"""The resulting tie-points are visualised below:"""
+mm3d TestLib SuperGlue SuperGlueInput_R270.txt  InDir=./Tmp_Patches-CoReg/ OutDir=./Tmp_Patches-CoReg/ SpGOutSH=-SuperGlue
+mm3d TestLib MergeTiePt ./Tmp_Patches-CoReg/  HomoXml=SubPatch_R270.xml MergeInSH=-SuperGlue MergeOutSH=-SubPatch_R270 PatchSz=[1280,960]
+mm3d TestLib RANSAC R2D MEC-Malt_1971.tif MEC-Malt_2014.tif Dir=./Tmp_Patches-CoReg/  2DRANInSH=-SubPatch_R270 2DRANOutSH=-SubPatch_R270-2DRANSAC
+
+The resulting tie-points are visualised below:
 
 import mm3d_utils 
 
@@ -1014,7 +1014,7 @@ if len(TPtsVec)>0:
 else:
   print('tie-point number is 0')
 
-"""You can see that the tie-points are good, which indicates the current rotation hypothesis is the good one.
+You can see that the tie-points are good, which indicates the current rotation hypothesis is the good one.
 
 In conclusion, the rotation hypothesis 4 is obviously with the largest RANSAC inliers and hence should be kept.
 
@@ -1050,11 +1050,11 @@ The meaning of optional parameters:
 - `Out3DXml2`: Output xml files of 3D obersevations of the GCPs in epoch 2014, Def=OutGCP3D_epoch2.xml
 - `DSMFileL`: DSM File of epoch 1971, Def=MMLastNuage.xml
 - `DSMFileR`: DSM File of epoch 2014, Def=MMLastNuage.xml
-"""
 
-!mm3d TestLib CreateGCPs ./Tmp_Patches-CoReg MEC-Malt_1971.tif MEC-Malt_2014.tif ./ ImgList1971all.txt ImgList2014all.txt Ori-1971 Ori-2014 MEC-Malt_1971 MEC-Malt_2014 CreateGCPsInSH=-SubPatch_R270-2DRANSAC Out2DXml1=OutGCP2D_epoch1971.xml Out3DXml1=OutGCP3D_epoch1971.xml Out2DXml2=OutGCP2D_epoch2014.xml Out3DXml2=OutGCP3D_epoch2014.xml
 
-"""##### 3D Helmert transformation
+mm3d TestLib CreateGCPs ./Tmp_Patches-CoReg MEC-Malt_1971.tif MEC-Malt_2014.tif ./ ImgList1971all.txt ImgList2014all.txt Ori-1971 Ori-2014 MEC-Malt_1971 MEC-Malt_2014 CreateGCPsInSH=-SubPatch_R270-2DRANSAC Out2DXml1=OutGCP2D_epoch1971.xml Out3DXml1=OutGCP3D_epoch1971.xml Out2DXml2=OutGCP2D_epoch2014.xml Out3DXml2=OutGCP3D_epoch2014.xml
+
+##### 3D Helmert transformation
 
 Using the previously found GCPs, compute and apply a 3D Helmert transformation to transform the orientations of epoch 1971 (Ori-1971) to the frame of epoch 2014.
 
@@ -1072,11 +1072,11 @@ The meaning of obligatory parameters:
 - `2014`: orientation out
 - `OutGCP3D_epoch2014.xml`: Ground Control Points File
 - `OutGCP3D_epoch1971.xml`: Image Measurements File
-"""
 
-!mm3d GCPBascule "OIS-Reech_IGNF_PVA_1-0__1971.*tif" 1971 2014 OutGCP3D_epoch2014.xml OutGCP2D_epoch1971.xml
 
-"""This command will output:
+mm3d GCPBascule "OIS-Reech_IGNF_PVA_1-0__1971.*tif" 1971 2014 OutGCP3D_epoch2014.xml OutGCP2D_epoch1971.xml
+
+This command will output:
 
  (1) a file "Basc-1971-2-2014.xml", which indicates the transformation parameters from epoch 1971 to epoch 2014;
  
@@ -1107,11 +1107,11 @@ The meaning of optional parameters:
 - `OutPairXml`: Output Xml file to record the overlapped image pairs, Def=OverlappedImages.xml
 - `Para3DH`: Input xml file that recorded the parameter of the 3D Helmert transformation from epoch 1971 to epoch 2014, Def=none
 - `Print`: Print corner coordinate, Def=false
-"""
 
-!mm3d TestLib GetOverlappedImages 1971 2014 ImgList1971all.txt ImgList2014all.txt  Para3DH=Basc-1971-2-2014.xml
 
-"""##### GetPatchPair
+mm3d TestLib GetOverlappedImages 1971 2014 ImgList1971all.txt ImgList2014all.txt  Para3DH=Basc-1971-2-2014.xml
+
+##### GetPatchPair
 
 The command "TestLib GetPatchPair" is used to get patch pairs for each overlapping inter-epoch RGB image pairs. It divides the master image into patches, and get the respective roughly aligned patches in the secondary image.
 
@@ -1147,11 +1147,11 @@ The meaning of optional parameters:
 - `DSMDirL`: DSM directory of master image, Def=none
 - `DSMFileL`: DSM File of master image, Def=MMLastNuage.xml
 - `Prefix`: The prefix for the name of images (for debug only), Def=none
-"""
 
-!mm3d TestLib GetPatchPair Guided OIS-Reech_IGNF_PVA_1-0__1971-06-21__C2844-0141_1971_FR2117_1067.tif Crop-IMG_PHR1A_P_201406121049386.tif Ori-1971 Ori-2014  OutDir=./Tmp_Patches-Precise SubPXml=OIS-Reech_IGNF_PVA_1-0__1971-06-21__C2844-0141_1971_FR2117_1067_Crop-IMG_PHR1A_P_201406121049386_SubPatch.xml ImgPair=OIS-Reech_IGNF_PVA_1-0__1971-06-21__C2844-0141_1971_FR2117_1067_Crop-IMG_PHR1A_P_201406121049386_SuperGlueInput.txt  PatchSz=[1280,960] Para3DH=Basc-1971-2-2014.xml DSMDirL=MEC-Malt_1971
 
-"""An example of patch pair is visualised below:"""
+mm3d TestLib GetPatchPair Guided OIS-Reech_IGNF_PVA_1-0__1971-06-21__C2844-0141_1971_FR2117_1067.tif Crop-IMG_PHR1A_P_201406121049386.tif Ori-1971 Ori-2014  OutDir=./Tmp_Patches-Precise SubPXml=OIS-Reech_IGNF_PVA_1-0__1971-06-21__C2844-0141_1971_FR2117_1067_Crop-IMG_PHR1A_P_201406121049386_SubPatch.xml ImgPair=OIS-Reech_IGNF_PVA_1-0__1971-06-21__C2844-0141_1971_FR2117_1067_Crop-IMG_PHR1A_P_201406121049386_SuperGlueInput.txt  PatchSz=[1280,960] Para3DH=Basc-1971-2-2014.xml DSMDirL=MEC-Malt_1971
+
+An example of patch pair is visualised below:
 
 import mm3d_utils 
 
@@ -1161,7 +1161,7 @@ aIm2 = cv2.imread('Tmp_Patches-Precise/Crop-IMG_PHR1A_P_201406121049386_OIS-Reec
 print('               image patch 1971                                     image patch 2014')
 mm3d_utils.plot_images([np.asarray(aIm1),np.asarray(aIm2)])
 
-"""##### Get tentative tie-points
+##### Get tentative tie-points
 
 There are 2 options for getting tentative tie-points: SuperGlue and SIFT.
 
@@ -1199,11 +1199,11 @@ The meaning of optional parameters:
 - `CheckNb`: Radius of the search space for SuperGlue (which means correspondence [(xL, yL), (xR, yR)] with (xL-xR)×(xL-xR)+(yL-yR)×(yL-yR) > CheckNb×CheckNb will be removed afterwards), Def=-1 (means don't check search space)
 
 > Note: Here we set CheckNb=100 as the patch pairs are roughly aligned.
-"""
 
-!mm3d TestLib SuperGlue OIS-Reech_IGNF_PVA_1-0__1971-06-21__C2844-0141_1971_FR2117_1067_Crop-IMG_PHR1A_P_201406121049386_SuperGlueInput.txt  InDir=./Tmp_Patches-Precise/ OutDir=./Tmp_Patches-Precise/ SpGOutSH=-SuperGlue CheckNb=100
 
-"""As a result, it will extract tie-points for each patch pair, an example of tie-points of one patch pair is visulized below:"""
+mm3d TestLib SuperGlue OIS-Reech_IGNF_PVA_1-0__1971-06-21__C2844-0141_1971_FR2117_1067_Crop-IMG_PHR1A_P_201406121049386_SuperGlueInput.txt  InDir=./Tmp_Patches-Precise/ OutDir=./Tmp_Patches-Precise/ SpGOutSH=-SuperGlue CheckNb=100
+
+As a result, it will extract tie-points for each patch pair, an example of tie-points of one patch pair is visulized below:
 
 import mm3d_utils 
 
@@ -1220,7 +1220,7 @@ if len(TPtsVec)>0:
 else:
   print('tie-point number is 0')
 
-"""(2) Transform tie-points in patch pairs to image pair
+(2) Transform tie-points in patch pairs to image pair
 
 Then the command "TestLib MergeTiePt" will be launched to merge the tentative tie-points in the format of patch pairs to the format of image pair.
 
@@ -1245,13 +1245,13 @@ The meaning of optional parameters:
 - `PatchSz`: Patch size of the tiling scheme (since we use the patches resulted from "GetPatchPair", this parameter should be set the same as the PatchSz in command GetPatchPair), Def=[640, 480]
 - `BufferSz`: Buffer zone size around the patch of the tiling scheme (since we use the patches resulted from "GetPatchPair", this parameter should be set the same as the BufferSz in command GetPatchPair), Def=[0,0]
 
-"""
 
-!mm3d TestLib MergeTiePt ./Tmp_Patches-Precise/  HomoXml=OIS-Reech_IGNF_PVA_1-0__1971-06-21__C2844-0141_1971_FR2117_1067_Crop-IMG_PHR1A_P_201406121049386_SubPatch.xml MergeInSH=-SuperGlue MergeOutSH=-SuperGlue  OutDir=./ PatchSz=[1280,960] BufferSz=[128,96]
 
-"""The resulting tie-points are visualised below:
+mm3d TestLib MergeTiePt ./Tmp_Patches-Precise/  HomoXml=OIS-Reech_IGNF_PVA_1-0__1971-06-21__C2844-0141_1971_FR2117_1067_Crop-IMG_PHR1A_P_201406121049386_SubPatch.xml MergeInSH=-SuperGlue MergeOutSH=-SuperGlue  OutDir=./ PatchSz=[1280,960] BufferSz=[128,96]
 
-"""
+The resulting tie-points are visualised below:
+
+
 
 import mm3d_utils 
 
@@ -1266,7 +1266,7 @@ if len(TPtsVec)>0:
 else:
   print('tie-point number is 0')
 
-"""###### Option 2: SIFT
+###### Option 2: SIFT
 
 For each overlapping inter-epoch RGB image pairs, the command "Testlib GuidedSIFTMatch" gets tentative tie-points based on SIFT.
 
@@ -1307,13 +1307,13 @@ The meaning of optional parameters:
 - `CheckFile`: Check if the result files of inter-epoch tie-points exist (if so, skip to avoid repetition), Def=false
 - `ScaleL`: Extract SIFT points on master images downsampled with a factor of "ScaleL", Def=1
 - `ScaleR`: Extract SIFT points on secondary images downsampled with a factor of "ScaleR", Def=1
-"""
 
-!mm3d TestLib GuidedSIFTMatch OIS-Reech_IGNF_PVA_1-0__1971-06-21__C2844-0141_1971_FR2117_1067.tif Crop-IMG_PHR1A_P_201406121049386.tif Ori-1971 Ori-2014  SkipSIFT=true DSMDirL=MEC-Malt_1971 DSMDirR=MEC-Malt_2014 Para3DH=Basc-1971-2-2014.xml ScaleR=2
 
-"""The resulting tie-points are visualised below:
+mm3d TestLib GuidedSIFTMatch OIS-Reech_IGNF_PVA_1-0__1971-06-21__C2844-0141_1971_FR2117_1067.tif Crop-IMG_PHR1A_P_201406121049386.tif Ori-1971 Ori-2014  SkipSIFT=true DSMDirL=MEC-Malt_1971 DSMDirR=MEC-Malt_2014 Para3DH=Basc-1971-2-2014.xml ScaleR=2
 
-"""
+The resulting tie-points are visualised below:
+
+
 
 import mm3d_utils 
 
@@ -1328,7 +1328,7 @@ if len(TPtsVec)>0:
 else:
   print('tie-point number is 0')
 
-"""##### Get enhanced tie-points
+##### Get enhanced tie-points
 
 For each overlapping inter-epoch image pairs, the command "TestLib RANSAC R3D" applies 3D RANSAC on tentative tie-points to get enhanced tie-points.
 
@@ -1360,13 +1360,13 @@ The meaning of optional parameters:
 - `DSMFileL`: DSM File of master image, Def=MMLastNuage.xml
 - `DSMFileR`: DSM File of secondary image, Def=MMLastNuage.xml
 - `CheckFile`: Check if the result files of inter-epoch tie-points exist (if so, skip to avoid repetition), Def=false
-"""
 
-!mm3d TestLib RANSAC R3D OIS-Reech_IGNF_PVA_1-0__1971-06-21__C2844-0141_1971_FR2117_1067.tif Crop-IMG_PHR1A_P_201406121049386.tif Ori-1971 Ori-2014 Dir=./  DSMDirL=MEC-Malt_1971 DSMDirR=MEC-Malt_2014 DSMFileL=MMLastNuage.xml DSMFileR=MMLastNuage.xml 3DRANInSH=-SuperGlue 3DRANOutSH=-SuperGlue-3DRANSAC 3DRANTh=10
 
-"""The resulting tie-points are visualised below:
+mm3d TestLib RANSAC R3D OIS-Reech_IGNF_PVA_1-0__1971-06-21__C2844-0141_1971_FR2117_1067.tif Crop-IMG_PHR1A_P_201406121049386.tif Ori-1971 Ori-2014 Dir=./  DSMDirL=MEC-Malt_1971 DSMDirR=MEC-Malt_2014 DSMFileL=MMLastNuage.xml DSMFileR=MMLastNuage.xml 3DRANInSH=-SuperGlue 3DRANOutSH=-SuperGlue-3DRANSAC 3DRANTh=10
 
-"""
+The resulting tie-points are visualised below:
+
+
 
 import mm3d_utils 
 
@@ -1381,7 +1381,7 @@ if len(TPtsVec)>0:
 else:
   print('tie-point number is 0')
 
-"""##### Get final tie-points
+##### Get final tie-points
 
 The command "TestLib CrossCorrelation" applies cross correlation on enhanced tie-points to get final tie-points, with the help of patches resulted from step "GetPatchPair".
 
@@ -1410,13 +1410,13 @@ The meaning of optional parameters:
 - `SubPXml`: The xml file name to record the homography between the patch and original image, Def=SubPatch.xml
 - `PatchDir`: The input directory of patches, Def=./Tmp_Patches
 - `CheckFile`: Check if the result files of inter-epoch tie-points exist (if so, skip to avoid repetition), Def=false
-"""
 
-!mm3d TestLib CrossCorrelation OIS-Reech_IGNF_PVA_1-0__1971-06-21__C2844-0141_1971_FR2117_1067.tif Crop-IMG_PHR1A_P_201406121049386.tif  CCInSH=-SuperGlue-3DRANSAC CCOutSH=-SuperGlue-3DRANSAC-CrossCorrelation SzW=32 CCTh=0.5 PatchSz=[1280,960] BufferSz=[30,60] PatchDir=./Tmp_Patches-Precise SubPXml=OIS-Reech_IGNF_PVA_1-0__1971-06-21__C2844-0141_1971_FR2117_1067_Crop-IMG_PHR1A_P_201406121049386_SubPatch.xml
 
-"""The resulting tie-points are visualised below:
+mm3d TestLib CrossCorrelation OIS-Reech_IGNF_PVA_1-0__1971-06-21__C2844-0141_1971_FR2117_1067.tif Crop-IMG_PHR1A_P_201406121049386.tif  CCInSH=-SuperGlue-3DRANSAC CCOutSH=-SuperGlue-3DRANSAC-CrossCorrelation SzW=32 CCTh=0.5 PatchSz=[1280,960] BufferSz=[30,60] PatchDir=./Tmp_Patches-Precise SubPXml=OIS-Reech_IGNF_PVA_1-0__1971-06-21__C2844-0141_1971_FR2117_1067_Crop-IMG_PHR1A_P_201406121049386_SubPatch.xml
 
-"""
+The resulting tie-points are visualised below:
+
+
 
 import mm3d_utils 
 
@@ -1431,7 +1431,7 @@ if len(TPtsVec)>0:
 else:
   print('tie-point number is 0')
 
-"""## 3. Evaluation
+## 3. Evaluation
 
 In this section we will compare the DoD (Difference of DSMs) for evaluation.
 
@@ -1452,11 +1452,11 @@ As the co-registered orientations are based on the reference of epoch 2014, we c
 #### Get DSM of epoch 1971
 
 As for the DSM of epoch 1971, the roughly co-registered orientations are stored in folder "Ori-2014", therefore we use it to calculate the DSM of epoch 1971 as follwing:
-"""
 
-!mm3d Malt Ortho OIS-Reech_IGNF_PVA_1-0__1971.*tif 2014 NbVI=2 DirMEC=MEC-Malt_1971_CoReg EZA=1 MasqImGlob=Fiducial_marks_masq-1971-3.tif ZoomF=4 DoOrtho=0
 
-"""#### Calculate DoD
+mm3d Malt Ortho OIS-Reech_IGNF_PVA_1-0__1971.*tif 2014 NbVI=2 DirMEC=MEC-Malt_1971_CoReg EZA=1 MasqImGlob=Fiducial_marks_masq-1971-3.tif ZoomF=4 DoOrtho=0
+
+#### Calculate DoD
 
 We use the command "CmpIm" to generate the DoD.
 
@@ -1476,14 +1476,14 @@ The meaning of optional parameters:
 - `UseFOM`: Consider file as DTSM and use XML FileOriMnt
 - `FileDiff`: Difference image output file
 - `16Bit`: Output file in float format
-"""
 
-!mm3d CmpIm MEC-Malt_2014/Z_Num6_DeZoom8_STD-MALT.tif MEC-Malt_1971_CoReg/Z_Num7_DeZoom4_STD-MALT.tif UseFOM=1 FileDiff=DoD-CoReg.tif 16Bit=1
 
-"""#### Visualize DoD
+mm3d CmpIm MEC-Malt_2014/Z_Num6_DeZoom8_STD-MALT.tif MEC-Malt_1971_CoReg/Z_Num7_DeZoom4_STD-MALT.tif UseFOM=1 FileDiff=DoD-CoReg.tif 16Bit=1
+
+#### Visualize DoD
 
 The resulted DoD is visulized below:
-"""
+
 
 import mm3d_utils 
 from skimage import io
@@ -1511,7 +1511,7 @@ print(minV, '                                                                   
 mm3d_utils.plot_DoD([np.asarray(aIm1)])
 print('                                             DoD-CoReg')
 
-"""As can be seen, a dome artifact is present in
+As can be seen, a dome artifact is present in
 DoD-CoReg. This kind of systematic error is known to originate from poorly modeled camera internal parameters.
 
 ### 3.2. DoD of SuperGlue refined result
@@ -1538,18 +1538,18 @@ The meaning of optional parameters:
 - `InSH`: Input Homologue extenion for NB/NT mode, Def=none
 - `OutSH`: Output Homologue extenion for NB/NT mode, Def=InSH-WN (N means the weight)
 - `ScaleL`: The factor used to scale the points in master images (for developpers only), Def=1
-"""
 
-!mm3d TestLib TiePtAddWeight 10 InSH=-SuperGlue-3DRANSAC-CrossCorrelation
 
-"""#### Txt to binary conversion
+mm3d TestLib TiePtAddWeight 10 InSH=-SuperGlue-3DRANSAC-CrossCorrelation
+
+#### Txt to binary conversion
 
 The SuperGlue inter-epoch tie-points we got are in txt format, we should transform them into binary format with the help of "HomolFilterMasq", so that they can be recognized in the following process.
-"""
 
-!mm3d HomolFilterMasq "[O|C].*tif" PostIn=-SuperGlue-3DRANSAC-CrossCorrelation-W10 PostOut=-SuperGlue-3DRANSAC-CrossCorrelation-W10-dat ANM=1 ExpTxt=1 ExpTxtOut=0
 
-"""#### Merge intra- and inter-epoch tie-points
+mm3d HomolFilterMasq "[O|C].*tif" PostIn=-SuperGlue-3DRANSAC-CrossCorrelation-W10 PostOut=-SuperGlue-3DRANSAC-CrossCorrelation-W10-dat ANM=1 ExpTxt=1 ExpTxtOut=0
+
+#### Merge intra- and inter-epoch tie-points
 
 Then we need to merge the intra- and inter-epoch tie-points from different folders together using the command "MergeHomol".
 
@@ -1566,11 +1566,11 @@ The meaning of obligatory parameters:
 - ` Homol_Merged-SuperGlue`: out tie-point folder
 
 > Note: As the images in epoch 2014 are satellite images, their orientations are already georeferenced and therefore will be treated as ground truth in our processing, so we don't need the intra-epoch tie-points of epoch 2014.
-"""
 
-!mm3d MergeHomol "Homol_1971-Ratafia|Homol-SuperGlue-3DRANSAC-CrossCorrelation-W10-dat" Homol_Merged-SuperGlue
 
-"""#### Run bundle adjustment
+mm3d MergeHomol "Homol_1971-Ratafia|Homol-SuperGlue-3DRANSAC-CrossCorrelation-W10-dat" Homol_Merged-SuperGlue
+
+#### Run bundle adjustment
 
 Now it is time to run BA with the command "Campari".
 
@@ -1597,32 +1597,32 @@ The meaning of optional parameters:
 
 > Note: As the images in epoch 2014 are satellite images, their orientations are already georeferenced and therefore will be treated as ground truth in our processing, so we set FrozenPoses="C.*tif" combined with AllFreePat=".*19.*" to ensure only the orientations of epoch 1971 will be refined.
 
-"""
 
-!mm3d Campari "[O|C].*tif" 2014 Campari_Refined-SuperGlue SH=_Merged-SuperGlue AllFree=1 AllFreePat=".*19.*" FrozenPoses="C.*tif" NbIterEnd=20
 
-"""#### Get DSM of epoch 2014
+mm3d Campari "[O|C].*tif" 2014 Campari_Refined-SuperGlue SH=_Merged-SuperGlue AllFree=1 AllFreePat=".*19.*" FrozenPoses="C.*tif" NbIterEnd=20
+
+#### Get DSM of epoch 2014
 
 As the orientations of epoch 2014 are kept the same, we can use directly the DSM of epoch 2014 resulted from section 1.3.1.
 
 #### Get DSM of epoch 1971
 
 Based on the SuperGlue refined orientations "Campari_Refined-SuperGlue", we compute the DSMs in epoch 1971 using the command "Malt":
-"""
 
-!mm3d Malt Ortho OIS-Reech_IGNF_PVA_1-0__1971.*tif Campari_Refined-SuperGlue NbVI=2 DirMEC=MEC-Malt_1971_Refined-SuperGlue EZA=1 MasqImGlob=Fiducial_marks_masq-1971-3.tif ZoomF=4 DoOrtho=0
 
-"""#### Calculate DoD
+mm3d Malt Ortho OIS-Reech_IGNF_PVA_1-0__1971.*tif Campari_Refined-SuperGlue NbVI=2 DirMEC=MEC-Malt_1971_Refined-SuperGlue EZA=1 MasqImGlob=Fiducial_marks_masq-1971-3.tif ZoomF=4 DoOrtho=0
+
+#### Calculate DoD
 
 Finally we use the command "CmpIm" to generate the DoD.
-"""
 
-!mm3d CmpIm MEC-Malt_2014/Z_Num6_DeZoom8_STD-MALT.tif MEC-Malt_1971_Refined-SuperGlue/Z_Num7_DeZoom4_STD-MALT.tif UseFOM=1 FileDiff=DoD-Refined-SuperGlue.tif 16Bit=1
 
-"""#### Visualize DoD
+mm3d CmpIm MEC-Malt_2014/Z_Num6_DeZoom8_STD-MALT.tif MEC-Malt_1971_Refined-SuperGlue/Z_Num7_DeZoom4_STD-MALT.tif UseFOM=1 FileDiff=DoD-Refined-SuperGlue.tif 16Bit=1
+
+#### Visualize DoD
 
 The resulted DoD is visulized and compared to the DoD of section 3.1 below:
-"""
+
 
 import mm3d_utils 
 from skimage import io
@@ -1652,7 +1652,7 @@ print(minV, '                                                                   
 mm3d_utils.plot_DoD([np.asarray(aIm1), np.asarray(aIm2)])
 print('                     DoD-CoReg                                    DoD-Refined-SuperGlue')
 
-"""As can be seen in the visualized DoDs, the systematic errors are effectively mitigated in the DoD of SuperGlue refined result, thanks to our dense and precise inter-epoch tie-points.
+As can be seen in the visualized DoDs, the systematic errors are effectively mitigated in the DoD of SuperGlue refined result, thanks to our dense and precise inter-epoch tie-points.
 
 ### 3.3. DoD of GuidedSIFT refined result
 
@@ -1678,18 +1678,18 @@ The meaning of optional parameters:
 - `InSH`: Input Homologue extenion for NB/NT mode, Def=none
 - `OutSH`: Output Homologue extenion for NB/NT mode, Def=InSH-WN (N means the weight)
 - `ScaleL`: The factor used to scale the points in master images (for developpers only), Def=1
-"""
 
-!mm3d TestLib TiePtAddWeight 10 InSH=-GuidedSIFT-3DRANSAC-CrossCorrelation
 
-"""#### Txt to binary conversion
+mm3d TestLib TiePtAddWeight 10 InSH=-GuidedSIFT-3DRANSAC-CrossCorrelation
+
+#### Txt to binary conversion
 
 The SIFT inter-epoch tie-points we got are in txt format, we should transform them into binary format with the help of "HomolFilterMasq", so that they can be recognized in the following process.
-"""
 
-!mm3d HomolFilterMasq "[O|C].*tif" PostIn=-GuidedSIFT-3DRANSAC-CrossCorrelation-W10 PostOut=-GuidedSIFT-3DRANSAC-CrossCorrelation-W10-dat ANM=1 ExpTxt=1 ExpTxtOut=0
 
-"""#### Merge intra- and inter-epoch tie-points
+mm3d HomolFilterMasq "[O|C].*tif" PostIn=-GuidedSIFT-3DRANSAC-CrossCorrelation-W10 PostOut=-GuidedSIFT-3DRANSAC-CrossCorrelation-W10-dat ANM=1 ExpTxt=1 ExpTxtOut=0
+
+#### Merge intra- and inter-epoch tie-points
 
 Then we need to merge the intra- and inter-epoch tie-points from different folders together using the command "MergeHomol".
 
@@ -1704,11 +1704,11 @@ Output:
 The meaning of obligatory parameters:
 - `"Homol_1971-Ratafia|Homol-GuidedSIFT-3DRANSAC-CrossCorrelation-W10-dat"`: input tie-point folders
 - ` Homol_Merged-GuidedSIFT`: out tie-point folder
-"""
 
-!mm3d MergeHomol "Homol_1971-Ratafia|Homol-GuidedSIFT-3DRANSAC-CrossCorrelation-W10-dat" Homol_Merged-GuidedSIFT
 
-"""#### Run bundle adjustment
+mm3d MergeHomol "Homol_1971-Ratafia|Homol-GuidedSIFT-3DRANSAC-CrossCorrelation-W10-dat" Homol_Merged-GuidedSIFT
+
+#### Run bundle adjustment
 
 Now it is time to run BA with the command "Campari".
 
@@ -1734,32 +1734,32 @@ The meaning of optional parameters:
 - `FrozenPoses`: List of frozen poses (pattern)
 
 > Note: As the images in epoch 2014 are satellite images, their orientations are already georeferenced and therefore will be treated as ground truth in our processing, so we set FrozenPoses="C.*tif" combined with AllFreePat=".*19.*" to ensure only the orientations of epoch 1971 will be refined.
-"""
 
-!mm3d Campari "[O|C].*tif" 2014 Campari_Refined-GuidedSIFT SH=_Merged-GuidedSIFT AllFree=1 AllFreePat=".*19.*" FrozenPoses="C.*tif" NbIterEnd=20
 
-"""#### Get DSM of epoch 2014
+mm3d Campari "[O|C].*tif" 2014 Campari_Refined-GuidedSIFT SH=_Merged-GuidedSIFT AllFree=1 AllFreePat=".*19.*" FrozenPoses="C.*tif" NbIterEnd=20
+
+#### Get DSM of epoch 2014
 
 As the orientations of epoch 2014 are kept the same, we can use directly the DSM of epoch 2014 resulted from section 1.3.1.
 
 #### Get DSM of epoch 1971
 
 Based on the GuidedSIFT refined orientations "Campari_Refined-GuidedSIFT", we compute the DSMs in epoch 1971 using the command "Malt":
-"""
 
-!mm3d Malt Ortho OIS-Reech_IGNF_PVA_1-0__1971.*tif Campari_Refined-GuidedSIFT NbVI=2 DirMEC=MEC-Malt_1971_Refined-GuidedSIFT EZA=1 MasqImGlob=Fiducial_marks_masq-1971-3.tif ZoomF=4 DoOrtho=0
 
-"""#### Calculate DoD
+mm3d Malt Ortho OIS-Reech_IGNF_PVA_1-0__1971.*tif Campari_Refined-GuidedSIFT NbVI=2 DirMEC=MEC-Malt_1971_Refined-GuidedSIFT EZA=1 MasqImGlob=Fiducial_marks_masq-1971-3.tif ZoomF=4 DoOrtho=0
+
+#### Calculate DoD
 
 Finally we use the command "CmpIm" to generate the DoD.
-"""
 
-!mm3d CmpIm MEC-Malt_2014/Z_Num6_DeZoom8_STD-MALT.tif MEC-Malt_1971_Refined-GuidedSIFT/Z_Num7_DeZoom4_STD-MALT.tif UseFOM=1 FileDiff=DoD-Refined-GuidedSIFT.tif 16Bit=1
 
-"""#### Visualize DoD
+mm3d CmpIm MEC-Malt_2014/Z_Num6_DeZoom8_STD-MALT.tif MEC-Malt_1971_Refined-GuidedSIFT/Z_Num7_DeZoom4_STD-MALT.tif UseFOM=1 FileDiff=DoD-Refined-GuidedSIFT.tif 16Bit=1
+
+#### Visualize DoD
 
 The resulted DoD is visulized and compared to the other DoDs below:
-"""
+
 
 import mm3d_utils 
 from skimage import io
@@ -1791,7 +1791,7 @@ print(minV, '                                                                   
 mm3d_utils.plot_DoD([np.asarray(aIm1), np.asarray(aIm2), np.asarray(aIm3)])
 print('            DoD-CoReg                DoD-Refined-SuperGlue                DoD-Refined-GuidedSIFT')
 
-"""As can be seen in the visualized DoDs, the systematic errors are effectively mitigated in the DoD of SuperGlue and SIFT refined result, thanks to our dense and precise inter-epoch tie-points.
+As can be seen in the visualized DoDs, the systematic errors are effectively mitigated in the DoD of SuperGlue and SIFT refined result, thanks to our dense and precise inter-epoch tie-points.
 
 We chose a small region to keep the dataset compact to improve the processing efficiency of this tutorial. The performance of our method might improve when applied to bigger regions.
-"""
+
