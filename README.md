@@ -126,6 +126,7 @@ The meaning of obligatory parameters:
 The meaning of optional parameters:
 - `PostFix`: Homologue extenion for NB/NT mode
 
+
       mm3d Tapioca MulScale OIS-Reech_IGNF_PVA_1-0__1971.*tif 500 1700 PostFix=_1971
 
 ##### Remove tie-points on the fiducial marks
@@ -184,10 +185,12 @@ The intra-epoch tie-points are generally very abundant. We reduce their quantity
 * we wish to speed-up the bundle adjustement
 * we want to "balance" the number of inter- and intra-epoch tie-points
 
-To ensure good distribution and high multiplicity of the "reduced" tie-points, MicMac first computes the relative orientation between pairs of images:
-*  TestLib NO_AllOri2Im
 
-    mm3d TestLib NO_AllOri2Im OIS-Reech_IGNF_PVA_1-0__1971.*tif SH=_1971-Masq    mm3d Ratafia OIS-Reech_IGNF_PVA_1-0__1971.*tif SH=_1971-Masq Out=_1971-Ratafia
+To ensure good distribution and high multiplicity of the "reduced" tie-points, MicMac first computes the relative orientation between pairs of images using **TestLib NO_AllOri2Im**, followed by tie-points reduction **TestLib Ratafia**.
+
+    mm3d TestLib NO_AllOri2Im OIS-Reech_IGNF_PVA_1-0__1971.*tif SH=_1971-Masq
+    
+    mm3d Ratafia OIS-Reech_IGNF_PVA_1-0__1971.*tif SH=_1971-Masq Out=_1971-Ratafia
 
 An example of the reduced tie-points are visualised below:
     mm3d SEL ./ OIS-Reech_IGNF_PVA_1-0__1971-06-21__C2844-0141_1971_FR2117_1067.tif OIS-Reech_IGNF_PVA_1-0__1971-06-21__C2844-0141_1971_FR2117_1068.tif KH=NB SH=_1971-Ratafia SzW=[600,600]
