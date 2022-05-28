@@ -193,6 +193,7 @@ To ensure good distribution and high multiplicity of the "reduced" tie-points, M
     mm3d Ratafia OIS-Reech_IGNF_PVA_1-0__1971.*tif SH=_1971-Masq Out=_1971-Ratafia
 
 An example of the reduced tie-points are visualised below:
+
     mm3d SEL ./ OIS-Reech_IGNF_PVA_1-0__1971-06-21__C2844-0141_1971_FR2117_1067.tif OIS-Reech_IGNF_PVA_1-0__1971-06-21__C2844-0141_1971_FR2117_1068.tif KH=NB SH=_1971-Ratafia SzW=[600,600]
 
 ### 1.2. Relative orientation
@@ -423,6 +424,7 @@ The meaning of optional parameters:
 - `Thres`: The threshold of reprojection error (unit: pixel) when prejecting patch corner to DSM, Def=2
 - `Para3DHL`: Input xml file that recorded the paremeter of the 3D Helmert transformation for points in master images, Def=none
 - `Para3DHR`: Input xml file that recorded the paremeter of the 3D Helmert transformation for points in secondary images, Def=none
+
 
     mm3d TestLib VisuTiePtIn3D ImgList1971all.txt ImgList2014all.txt Ori-1971 Ori-2014 DSMDirL=MEC-Malt_1971 DSMDirR=MEC-Malt_2014 InSH=-SuperGlue-3DRANSAC-CrossCorrelation OutFile=Visu-SuperGlue-3DRANSAC-CrossCorrelation-all.txt
 
