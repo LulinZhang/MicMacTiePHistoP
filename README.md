@@ -262,8 +262,9 @@ Generate DSM in epoch 2014:
 ##### Visualize DSM
 
 The generated DSM in epoch 2014 is visulized below:
-    Vino MEC-Malt_2014/Z_Num6_DeZoom8_STD-MALT.tif
-
+```
+Vino MEC-Malt_2014/Z_Num6_DeZoom8_STD-MALT.tif
+```
 #### 1.3.2. Epoch 1971
 
 ##### Calculate DSM
@@ -275,8 +276,9 @@ Generate DSM in epoch 1971:
 ##### Visualize DSM
 
 The generated DSM in epoch 1971 is visulized below:
-    Vino MEC-Malt_1971/Z_Num7_DeZoom4_STD-MALT.tif
-
+```
+Vino MEC-Malt_1971/Z_Num7_DeZoom4_STD-MALT.tif
+```
 
 ## 2. Inter-epoch processing
 
@@ -519,18 +521,19 @@ mm3d TestLib DSM_Equalization MEC-Malt_2014 DSMFile=MMLastNuage.xml OutImg=DSM20
 ```
 
 The equalized DSM is visulized below:
-
-    Vino MEC-Malt_2014/DSM2014-gray.tif
-
+```
+Vino MEC-Malt_2014/DSM2014-gray.tif
+```
 ###### Epoch 1971
 
 Perform DSM equalization in epoch 1971, so that feature matching method can be applied later.
-
-    mm3d TestLib DSM_Equalization MEC-Malt_1971 DSMFile=MMLastNuage.xml OutImg=DSM1971-gray.tif
-
+```
+mm3d TestLib DSM_Equalization MEC-Malt_1971 DSMFile=MMLastNuage.xml OutImg=DSM1971-gray.tif
+```
 The equalized DSM is visulized below:
-    Vino MEC-Malt_1971/DSM1971-gray.tif
-
+```
+Vino MEC-Malt_1971/DSM1971-gray.tif
+```
 ##### DSM Wallis filter
 
 ###### Epoch 2014
@@ -557,8 +560,9 @@ Apply wallis filter on DSM in epoch 2014:
     mm3d TestLib Wallis DSM2014-gray.tif Dir=MEC-Malt_2014 OutImg=DSM2014-gray.tif_sfs.tif
 
 The DSM after wallis filter is visulized below:
-    Vino MEC-Malt_2014/DSM2014-gray.tif_sfs.tif
-
+```
+Vino MEC-Malt_2014/DSM2014-gray.tif_sfs.tif
+```
 ###### Epoch 1971
 
 Apply wallis filter on DSM in epoch 1971 to get rid of uneven illumination.
@@ -566,8 +570,9 @@ Apply wallis filter on DSM in epoch 1971 to get rid of uneven illumination.
     mm3d TestLib Wallis DSM1971-gray.tif Dir=MEC-Malt_1971 OutImg=DSM1971-gray.tif_sfs.tif
 
 The DSM after wallis filter is visulized below:
-    Vino MEC-Malt_1971/DSM1971-gray.tif_sfs.tif
-
+```
+Vino MEC-Malt_1971/DSM1971-gray.tif_sfs.tif
+```
 ##### Matching DSM
 
 This part will co-register 2 DSMs from different epochs by applying *one-to-many tiling scheme* (for more details please refer to our publication: link to be added) based on SuperGlue, followed by RANSAC to remove outliers. 
@@ -753,8 +758,9 @@ mm3d TestLib MergeTiePt ./Tmp_Patches-CoReg/  HomoXml=SubPatch_R180.xml MergeInS
 mm3d TestLib RANSAC R2D MEC-Malt_1971.tif MEC-Malt_2014.tif Dir=./Tmp_Patches-CoReg/  2DRANInSH=-SubPatch_R180 2DRANOutSH=-SubPatch_R180-2DRANSAC
 ```
 The resulting tie-points are visualised below:
-    mm3d SEL Tmp_Patches-CoReg/ MEC-Malt_1971.tif MEC-Malt_2014.tif KH=NT SzW=[600,600] SH=-SubPatch_R180-2DRANSAC
-
+```
+mm3d SEL Tmp_Patches-CoReg/ MEC-Malt_1971.tif MEC-Malt_2014.tif KH=NT SzW=[600,600] SH=-SubPatch_R180-2DRANSAC
+```
 You can see that the tie-points are not good, which indicates the current rotation hypothesis is not the good one.
 
 ###### Rotation hypothesis 4 (270 degree)
