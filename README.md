@@ -148,9 +148,9 @@ The meaning of obligatory parameters:
 The meaning of optional parameters:
 - `Name`: the output mask image
 
-> mm3d SaisieMasq OIS-Reech_IGNF_PVA_1-0__1971-06-21__C2844-0141_1971_FR2117_1068.tif Name=Fiducial_marks_masq-1971-3.tif
-
-> Note: As "SaisieMasq" couldn't be launched under this platform, we skip this step and use the mask files provided by the author instead.
+```
+mm3d SaisieMasq OIS-Reech_IGNF_PVA_1-0__1971-06-21__C2844-0141_1971_FR2117_1068.tif Name=Fiducial_marks_masq-1971-3.tif
+```
 
 ###### Apply the mask to remove tie-points
 Once the mask created, we will use it to remove all tie-points outside the mask with "HomolFilterMasq".
