@@ -87,7 +87,7 @@ Dataset can be downloaded here:
 The dataset consists of: 
   * 6 images taken in epoch 1971 (tif)
   * 2 images taken in epoch 2014 (tif)
-  * 1 fold of orientations of epoch 2014
+  * 1 folder of orientations of epoch 2014
   * 1 configuration file of the camera (xml)
 
 ## 1. Intra-epoch processing
