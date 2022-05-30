@@ -126,8 +126,11 @@ The meaning of obligatory parameters:
 The meaning of optional parameters:
 - `PostFix`: Homologue extenion for NB/NT mode
 
+    mm3d Tapioca MulScale OIS-Reech_IGNF_PVA_1-0__1971.*tif 500 1700 PostFix=_1971
 
-      mm3d Tapioca MulScale OIS-Reech_IGNF_PVA_1-0__1971.*tif 500 1700 PostFix=_1971
+An example of the tie-points are visualised below:
+
+    mm3d SEL ./ OIS-Reech_IGNF_PVA_1-0__1971-06-21__C2844-0141_1971_FR2117_1067.tif OIS-Reech_IGNF_PVA_1-0__1971-06-21__C2844-0141_1971_FR2117_1068.tif KH=NB SH=_1971 SzW=[600,600]
 
 ##### Remove tie-points on the fiducial marks
 
