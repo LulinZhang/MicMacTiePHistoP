@@ -79,7 +79,15 @@ For more information please refer to:
 > ***License***: We adopt SuperGlue in our pipeline. Note that you can only use SuperGlue [for academic or non-profit organization noncommercial research](https://github.com/magicleap/SuperGluePretrainedNetwork/blob/master/LICENSE). Full paper PDF: [SuperGlue: Learning Feature Matching with Graph Neural Networks](https://arxiv.org/abs/1911.11763).
 
 ## About the dataset
-The test site is located in Pezenas, France.
+The dataset is a 20 km2 rectangular area located in Pezenas in the Occitanie region in southern France. It is mainly covered with vegetation and several
+sparsely populated urban zones. We have at our disposal 2 epochs: epoch 1971 of aerial images, and epoch 2014 of satellite images.
+
+Details of images in epoch 1971:
+
+|GSD|Flying height|Focal length|Scale|Image size|Pixel size|Flightline
+|---|---|---|---|---|---|---
+|1m|2400|7600 pixel|1:4500|3533 $\times$ 3533 pixel|63.51 $\mu$ m|West-Est
+
 
 Dataset can be downloaded here:
     https://drive.google.com/u/0/uc?id=1lbbBiHFHyVDGXlLMtl3iHMWW-Mdj5Vjy&export=download
