@@ -81,7 +81,7 @@ After setting-up MicMac and downloading the dataset, the pipeline is as follows:
 The full workflow is displayed below:
 
 <center>
-  <img src="Images/workflow.png" height=320pix/>
+  <img src="Images/1.png" height=320pix/>
   <br> 
 </center>
 
@@ -565,10 +565,10 @@ In order to help the users understand the pipeline better, we will introduce the
 
 ### 2.2.1. Rough co-registration
 
-To co-register images in different epochs in a common coordinate frame, we perform sparse point matching between their respective DSM rasters. The workflow is displayed as below (for more details please refer to our publication: link to be added):
+To co-register images in different epochs in a common coordinate frame, we perform sparse point matching between their respective DSM rasters. The workflow is displayed as below:
 
 <center>
-  <img src="Images/CoReg.png" height=320pix/>
+  <img src="Images/2.png" height=320pix/>
   <br> 
 </center>
 
@@ -990,6 +990,12 @@ This command will output:
 
 ### 2.2.2 Precise matching
 
+The workflow of precise matching is displayed as below:
+
+<center>
+  <img src="Images/4.png" height=320pix/>
+  <br> 
+</center>
 #### 2.2.2.1 Get overlapped image pairs
 
 The command "TestLib GetOverlappedImages" will recognize overlapping inter-epoch image pairs based on co-registered result.
