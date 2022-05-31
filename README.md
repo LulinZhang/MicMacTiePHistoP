@@ -513,9 +513,11 @@ Figure. Four rotation hypotheses
   <br> 
 </center>
 
-##### DSM Equalization
+##### 2.2.1.1. DSM preprocessing
 
-###### Epoch 2014
+###### DSM Equalization
+
+(1) Epoch 2014
 
 Transform the DSM to equalized gray image with the command "TestLib DSM_Equalization", so that feature matching method can be applied later.
 
@@ -542,7 +544,7 @@ The equalized DSM is visulized below:
 ```
 Vino MEC-Malt_2014/DSM2014-gray.tif
 ```
-###### Epoch 1971
+(2) Epoch 1971
 
 Perform DSM equalization in epoch 1971, so that feature matching method can be applied later.
 ```
@@ -552,9 +554,9 @@ The equalized DSM is visulized below:
 ```
 Vino MEC-Malt_1971/DSM1971-gray.tif
 ```
-##### DSM Wallis filter
+###### DSM Wallis filter
 
-###### Epoch 2014
+(1) Epoch 2014
 
 Apply wallis filter on the DSM gray image with the command "TestLib Wallis" to get rid of uneven illumination.
 
@@ -581,7 +583,7 @@ The DSM after wallis filter is visulized below:
 ```
 Vino MEC-Malt_2014/DSM2014-gray.tif_sfs.tif
 ```
-###### Epoch 1971
+(2) Epoch 1971
 
 Apply wallis filter on DSM in epoch 1971 to get rid of uneven illumination.
 
@@ -591,7 +593,7 @@ The DSM after wallis filter is visulized below:
 ```
 Vino MEC-Malt_1971/DSM1971-gray.tif_sfs.tif
 ```
-##### Matching DSM
+##### 2.2.1.2. Matching DSM
 
 This part will co-register 2 DSMs from different epochs by applying *one-to-many tiling scheme* (for more details please refer to our publication: link to be added) based on SuperGlue, followed by RANSAC to remove outliers. 
 
@@ -607,7 +609,7 @@ It includes 4 parts:
 
 (4) Run 2D RANSAC with command "TestLib RANSAC R2D".
 
-###### Rotation hypothesis 1 (0 degree)
+**Rotation hypothesis 1 (0 degree)**
 
 (1) Split DSM image pair into patch pairs with command "TestLib GetPatchPair"
 
@@ -755,7 +757,7 @@ mm3d SEL Tmp_Patches-CoReg/ MEC-Malt_1971.tif MEC-Malt_2014.tif KH=NT SzW=[600,6
 ```
 You can see that the tie-points are not good, which indicates the current rotation hypothesis is not the good one.
 
-###### Rotation hypothesis 2 (90 degree)
+**Rotation hypothesis 2 (90 degree)**
 ```
 mm3d TestLib SuperGlue SuperGlueInput_R90.txt  InDir=./Tmp_Patches-CoReg/ OutDir=./Tmp_Patches-CoReg/ SpGOutSH=-SuperGlue    
 mm3d TestLib MergeTiePt ./Tmp_Patches-CoReg/  HomoXml=SubPatch_R90.xml MergeInSH=-SuperGlue MergeOutSH=-SubPatch_R90 PatchSz=[1280,960]   
@@ -768,7 +770,7 @@ mm3d SEL Tmp_Patches-CoReg/ MEC-Malt_1971.tif MEC-Malt_2014.tif KH=NT SzW=[600,6
 
 You can see that the tie-points are not good, which indicates the current rotation hypothesis is not the good one.
 
-###### Rotation hypothesis 3 (180 degree)
+**Rotation hypothesis 3 (180 degree)**
 
 ```
 mm3d TestLib SuperGlue SuperGlueInput_R180.txt  InDir=./Tmp_Patches-CoReg/ OutDir=./Tmp_Patches-CoReg/ SpGOutSH=-SuperGlue    
@@ -781,7 +783,7 @@ mm3d SEL Tmp_Patches-CoReg/ MEC-Malt_1971.tif MEC-Malt_2014.tif KH=NT SzW=[600,6
 ```
 You can see that the tie-points are not good, which indicates the current rotation hypothesis is not the good one.
 
-###### Rotation hypothesis 4 (270 degree)
+**Rotation hypothesis 4 (270 degree)**
 
 ```
 mm3d TestLib SuperGlue SuperGlueInput_R270.txt  InDir=./Tmp_Patches-CoReg/ OutDir=./Tmp_Patches-CoReg/ SpGOutSH=-SuperGlue    
@@ -797,7 +799,7 @@ You can see that the tie-points are good, which indicates the current rotation h
 
 In conclusion, the rotation hypothesis 4 is obviously with the largest RANSAC inliers and hence should be kept.
 
-##### Create GCPs
+##### 2.2.1.3. Create GCPs
 
 Based on the largest number of RANSAC inlier from previous step, the command "TestLib CreateGCPs" will create GCPs between the 2 epochs.
 
@@ -834,7 +836,7 @@ The meaning of optional parameters:
 mm3d TestLib CreateGCPs ./Tmp_Patches-CoReg MEC-Malt_1971.tif MEC-Malt_2014.tif ./ ImgList1971all.txt ImgList2014all.txt Ori-1971 Ori-2014 MEC-Malt_1971 MEC-Malt_2014 CreateGCPsInSH=-SubPatch_R270-2DRANSAC Out2DXml1=OutGCP2D_epoch1971.xml Out3DXml1=OutGCP3D_epoch1971.xml Out2DXml2=OutGCP2D_epoch2014.xml Out3DXml2=OutGCP3D_epoch2014.xml
 ```
 
-##### 3D Helmert transformation
+##### 2.2.1.4. 3D Helmert transformation
 
 Using the previously found GCPs, compute and apply a 3D Helmert transformation to transform the orientations of epoch 1971 (Ori-1971) to the frame of epoch 2014.
 
@@ -863,9 +865,9 @@ This command will output:
  
  (2) a file "Basc-2014-2-1971.xml", which indicates the transformation parameters from epoch 2014 to epoch 1971.
 
-#### 2.2 Precise matching
+#### 2.2.2 Precise matching
 
-##### GetOverlappedImages
+##### 2.2.2.1 GetOverlappedImages
 
 The command "TestLib GetOverlappedImages" will recognize overlapping inter-epoch image pairs based on co-registered result.
 
@@ -893,7 +895,7 @@ The meaning of optional parameters:
 mm3d TestLib GetOverlappedImages 1971 2014 ImgList1971all.txt ImgList2014all.txt  Para3DH=Basc-1971-2-2014.xml
 ```
 
-##### GetPatchPair
+##### 2.2.2.2 GetPatchPair
 
 The command "TestLib GetPatchPair" is used to get patch pairs for each overlapping inter-epoch RGB image pairs. It divides the master image into patches, and get the respective roughly aligned patches in the secondary image.
 
@@ -938,11 +940,11 @@ An example of patch pair is visualised below:
 ```
 mm3d SEL Tmp_Patches-Precise/ OIS-Reech_IGNF_PVA_1-0__1971-06-21__C2844-0141_1971_FR2117_1067_1_0.tif Crop-IMG_PHR1A_P_201406121049386_OIS-Reech_IGNF_PVA_1-0__1971-06-21__C2844-0141_1971_FR2117_1067_1_0.tif KH=PB
 ```
-##### Get tentative tie-points
+##### 2.2.2.3 Get tentative tie-points
 
 There are 2 options for getting tentative tie-points: SuperGlue and SIFT.
 
-###### Option 1: SuperGlue
+**Option 1: SuperGlue**
 
 (1) Get tie-points in patch pair
 
@@ -1017,7 +1019,7 @@ The resulting tie-points are visualised below:
 ```
 mm3d SEL ./ OIS-Reech_IGNF_PVA_1-0__1971-06-21__C2844-0141_1971_FR2117_1067.tif Crop-IMG_PHR1A_P_201406121049386.tif KH=NT SzW=[600,600] SH=-SuperGlue
 ```
-###### Option 2: SIFT
+**Option 2: SIFT**
 
 For each overlapping inter-epoch RGB image pairs, the command "Testlib GuidedSIFTMatch" gets tentative tie-points based on SIFT.
 
@@ -1066,7 +1068,7 @@ The resulting tie-points are visualised below:
 ```
 mm3d SEL ./ OIS-Reech_IGNF_PVA_1-0__1971-06-21__C2844-0141_1971_FR2117_1067.tif Crop-IMG_PHR1A_P_201406121049386.tif KH=NT SzW=[600,600] SH=-GuidedSIFT
 ```
-##### Get enhanced tie-points
+##### 2.2.2.4 Get enhanced tie-points
 
 For each overlapping inter-epoch image pairs, the command "TestLib RANSAC R3D" applies 3D RANSAC on tentative tie-points to get enhanced tie-points.
 
@@ -1107,7 +1109,7 @@ The resulting tie-points are visualised below:
 mm3d SEL ./ OIS-Reech_IGNF_PVA_1-0__1971-06-21__C2844-0141_1971_FR2117_1067.tif Crop-IMG_PHR1A_P_201406121049386.tif KH=NT SzW=[600,600] SH=-SuperGlue-3DRANSAC
 ```
 
-##### Get final tie-points
+##### 2.2.2.5 Get final tie-points
 
 The command "TestLib CrossCorrelation" applies cross correlation on enhanced tie-points to get final tie-points, with the help of patches resulted from step "GetPatchPair".
 
