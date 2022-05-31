@@ -1205,7 +1205,14 @@ The meaning of optional parameters:
 ```
 mm3d TestLib GuidedSIFTMatch OIS-Reech_IGNF_PVA_1-0__1971-06-21__C2844-0141_1971_FR2117_1067.tif Crop-IMG_PHR1A_P_201406121049386.tif Ori-1971 Ori-2014  SkipSIFT=true DSMDirL=MEC-Malt_1971 DSMDirR=MEC-Malt_2014 Para3DH=Basc-1971-2-2014.xml ScaleR=2
 ```
+
 The resulting tie-points are visualised below:
+<center>
+  <img src="Images/SIFT.png" height=320pix/>
+  <br> 
+</center>
+
+You can also visualize the tie-points in MicMac using the command 'SEL':
 ```
 mm3d SEL ./ OIS-Reech_IGNF_PVA_1-0__1971-06-21__C2844-0141_1971_FR2117_1067.tif Crop-IMG_PHR1A_P_201406121049386.tif KH=NT SzW=[600,600] SH=-GuidedSIFT
 ```
@@ -1245,7 +1252,14 @@ The meaning of optional parameters:
 ```
 mm3d TestLib RANSAC R3D OIS-Reech_IGNF_PVA_1-0__1971-06-21__C2844-0141_1971_FR2117_1067.tif Crop-IMG_PHR1A_P_201406121049386.tif Ori-1971 Ori-2014 Dir=./  DSMDirL=MEC-Malt_1971 DSMDirR=MEC-Malt_2014 DSMFileL=MMLastNuage.xml DSMFileR=MMLastNuage.xml 3DRANInSH=-SuperGlue 3DRANOutSH=-SuperGlue-3DRANSAC 3DRANTh=10
 ```
+
 The resulting tie-points are visualised below:
+<center>
+  <img src="Images/3DRANSAC.png" height=320pix/>
+  <br> 
+</center>
+
+You can also visualize the tie-points in MicMac using the command 'SEL':
 ```
 mm3d SEL ./ OIS-Reech_IGNF_PVA_1-0__1971-06-21__C2844-0141_1971_FR2117_1067.tif Crop-IMG_PHR1A_P_201406121049386.tif KH=NT SzW=[600,600] SH=-SuperGlue-3DRANSAC
 ```
@@ -1283,7 +1297,14 @@ The meaning of optional parameters:
 ```
 mm3d TestLib CrossCorrelation OIS-Reech_IGNF_PVA_1-0__1971-06-21__C2844-0141_1971_FR2117_1067.tif Crop-IMG_PHR1A_P_201406121049386.tif  CCInSH=-SuperGlue-3DRANSAC CCOutSH=-SuperGlue-3DRANSAC-CrossCorrelation SzW=32 CCTh=0.5 PatchSz=[1280,960] BufferSz=[30,60] PatchDir=./Tmp_Patches-Precise SubPXml=OIS-Reech_IGNF_PVA_1-0__1971-06-21__C2844-0141_1971_FR2117_1067_Crop-IMG_PHR1A_P_201406121049386_SubPatch.xml
 ```
+
 The resulting tie-points are visualised below:
+<center>
+  <img src="Images/CC.png" height=320pix/>
+  <br> 
+</center>
+
+You can also visualize the tie-points in MicMac using the command 'SEL':
 ```
 mm3d SEL ./ OIS-Reech_IGNF_PVA_1-0__1971-06-21__C2844-0141_1971_FR2117_1067.tif Crop-IMG_PHR1A_P_201406121049386.tif KH=NT SzW=[600,600] SH=-SuperGlue-3DRANSAC-CrossCorrelation
 ```
