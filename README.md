@@ -450,7 +450,7 @@ The meaning of optional parameters (here we use epoch1 to refer to epoch 1971, a
 
 > Note: As the time gap of the 2 epochs is large, we set 3DRANTh=10 to keep more correspondences.
 
-    mm3d TiePHistoP Ori-1971 Ori-2014 OIS-Reech_IGNF_PVA_1-0__1971.*tif Crop.*tif MEC-Malt_1971 MEC-Malt_2014 CoRegPatchLSz=[1280,960] CoRegPatchRSz=[1280,960] PrecisePatchSz=[1280,960] Feature=SuperGlue SkipCoReg=0 SkipPrecise=0 Exe=1
+    mm3d TiePHistoP Ori-1971 Ori-2014 OIS-Reech_IGNF_PVA_1-0__1971.*tif Crop.*tif MEC-Malt_1971 MEC-Malt_2014 CoRegPatchLSz=[1280,960] CoRegPatchRSz=[1280,960] PrecisePatchSz=[1280,960] Feature=SuperGlue Viz=1 SkipCoReg=0 SkipPrecise=0 Exe=1
 
 This command will produce 2 kinds of results: 
 
@@ -768,7 +768,7 @@ The meaning of optional parameters:
 - `CheckNb`: Radius of the search space for SuperGlue (which means correspondence [(xL, yL), (xR, yR)] with (xL-xR)×(xL-xR)+(yL-yR)×(yL-yR) > CheckNb×CheckNb will be removed afterwards), Def=-1 (means don't check search space)
 
 ```
-mm3d TestLib SuperGlue SuperGlueInput.txt  InDir=./Tmp_Patches-CoReg/ OutDir=./Tmp_Patches-CoReg/ SpGOutSH=-SuperGlue
+mm3d TestLib SuperGlue SuperGlueInput.txt  InDir=./Tmp_Patches-CoReg/ OutDir=./Tmp_Patches-CoReg/ SpGOutSH=-SuperGlue Viz=1
 ```
 
 An example of the matched patch pairs is visulized below:
@@ -864,7 +864,7 @@ You can see that the tie-points are not good, which indicates the current rotati
 
 **Rotation hypothesis 2 (90 degree)**
 ```
-mm3d TestLib SuperGlue SuperGlueInput_R90.txt  InDir=./Tmp_Patches-CoReg/ OutDir=./Tmp_Patches-CoReg/ SpGOutSH=-SuperGlue    
+mm3d TestLib SuperGlue SuperGlueInput_R90.txt  InDir=./Tmp_Patches-CoReg/ OutDir=./Tmp_Patches-CoReg/ SpGOutSH=-SuperGlue Viz=1  
 mm3d TestLib MergeTiePt ./Tmp_Patches-CoReg/  HomoXml=SubPatch_R90.xml MergeInSH=-SuperGlue MergeOutSH=-SubPatch_R90 PatchSz=[1280,960]   
 mm3d TestLib RANSAC R2D MEC-Malt_1971.tif MEC-Malt_2014.tif Dir=./Tmp_Patches-CoReg/  2DRANInSH=-SubPatch_R90 2DRANOutSH=-SubPatch_R90-2DRANSAC
 ```
@@ -884,7 +884,7 @@ You can see that the tie-points are not good, which indicates the current rotati
 **Rotation hypothesis 3 (180 degree)**
 
 ```
-mm3d TestLib SuperGlue SuperGlueInput_R180.txt  InDir=./Tmp_Patches-CoReg/ OutDir=./Tmp_Patches-CoReg/ SpGOutSH=-SuperGlue    
+mm3d TestLib SuperGlue SuperGlueInput_R180.txt  InDir=./Tmp_Patches-CoReg/ OutDir=./Tmp_Patches-CoReg/ SpGOutSH=-SuperGlue  Viz=1
 mm3d TestLib MergeTiePt ./Tmp_Patches-CoReg/  HomoXml=SubPatch_R180.xml MergeInSH=-SuperGlue MergeOutSH=-SubPatch_R180 PatchSz=[1280,960]    
 mm3d TestLib RANSAC R2D MEC-Malt_1971.tif MEC-Malt_2014.tif Dir=./Tmp_Patches-CoReg/  2DRANInSH=-SubPatch_R180 2DRANOutSH=-SubPatch_R180-2DRANSAC
 ```
@@ -903,7 +903,7 @@ You can see that the tie-points are not good, which indicates the current rotati
 **Rotation hypothesis 4 (270 degree)**
 
 ```
-mm3d TestLib SuperGlue SuperGlueInput_R270.txt  InDir=./Tmp_Patches-CoReg/ OutDir=./Tmp_Patches-CoReg/ SpGOutSH=-SuperGlue    
+mm3d TestLib SuperGlue SuperGlueInput_R270.txt  InDir=./Tmp_Patches-CoReg/ OutDir=./Tmp_Patches-CoReg/ SpGOutSH=-SuperGlue Viz=1
 mm3d TestLib MergeTiePt ./Tmp_Patches-CoReg/  HomoXml=SubPatch_R270.xml MergeInSH=-SuperGlue MergeOutSH=-SubPatch_R270 PatchSz=[1280,960]    
 mm3d TestLib RANSAC R2D MEC-Malt_1971.tif MEC-Malt_2014.tif Dir=./Tmp_Patches-CoReg/  2DRANInSH=-SubPatch_R270 2DRANOutSH=-SubPatch_R270-2DRANSAC
 ```
@@ -1109,7 +1109,7 @@ The meaning of optional parameters:
 > Note: Here we set CheckNb=100 as the patch pairs are roughly aligned.
 
 ```
-mm3d TestLib SuperGlue OIS-Reech_IGNF_PVA_1-0__1971-06-21__C2844-0141_1971_FR2117_1067_Crop-IMG_PHR1A_P_201406121049386_SuperGlueInput.txt  InDir=./Tmp_Patches-Precise/ OutDir=./Tmp_Patches-Precise/ SpGOutSH=-SuperGlue CheckNb=100
+mm3d TestLib SuperGlue OIS-Reech_IGNF_PVA_1-0__1971-06-21__C2844-0141_1971_FR2117_1067_Crop-IMG_PHR1A_P_201406121049386_SuperGlueInput.txt  InDir=./Tmp_Patches-Precise/ OutDir=./Tmp_Patches-Precise/ SpGOutSH=-SuperGlue CheckNb=100 Viz=1
 ```
 As a result, it will extract tie-points for each patch pair, an example of tie-points of one patch pair is visulized below:
 <center>
