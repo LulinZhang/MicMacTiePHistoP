@@ -448,9 +448,9 @@ The meaning of optional parameters (here we use epoch1 to refer to epoch 1971, a
 
 ### 2.1.1. Option 1: SuperGlue
 
-> Note: As the time gap of the 2 epochs is large, we set 3DRANTh=10 to keep more correspondences.
+> Note: As we lack of redundant obeservations due to limited number of images, we set 3DRANTh=10 and CCTh=0.5 to keep more tie-points.
 
-    mm3d TiePHistoP Ori-1971 Ori-2014 OIS-Reech_IGNF_PVA_1-0__1971.*tif Crop.*tif MEC-Malt_1971 MEC-Malt_2014 CoRegPatchLSz=[1280,960] CoRegPatchRSz=[1280,960] PrecisePatchSz=[1280,960] Feature=SuperGlue Viz=1 SkipCoReg=0 SkipPrecise=0 Exe=1
+    mm3d TiePHistoP Ori-1971 Ori-2014 OIS-Reech_IGNF_PVA_1-0__1971.*tif Crop.*tif MEC-Malt_1971 MEC-Malt_2014 CoRegPatchLSz=[1280,960] CoRegPatchRSz=[1280,960] PrecisePatchSz=[1280,960] Feature=SuperGlue Viz=1 3DRANTh=10 CCTh=0.5 SkipCoReg=0 SkipPrecise=0 Exe=1
 
 This command will produce 2 kinds of results: 
 
@@ -514,7 +514,7 @@ The transformed points can be visulized in QGIS. You'll see tie points like this
 
 >Note: (1) We set Feature=SIFT to switch to option SIFT; (2) the rough co-registration has been performed in the previous step, so we can skip it here; (3) the PrecisePatchSz is the same with the previous step, therefore we can skip the step of getting patch pairs; (4) as the resolution of secondary images is high, we speed up the processing by setting ScaleR=2 so that SIFT points extracted on secondary images are based on downsamepled images by a factor of 2.
 
-    mm3d TiePHistoP Ori-1971 Ori-2014 OIS-Reech_IGNF_PVA_1-0__1971.*tif Crop.*tif MEC-Malt_1971 MEC-Malt_2014 PrecisePatchSz=[1280,960] Feature=SIFT SkipCoReg=1 SkipGetPatchPair=1 ScaleR=2 CoRegOri1=1971_CoReg_SuperGlue SkipPrecise=0 Exe=1
+    mm3d TiePHistoP Ori-1971 Ori-2014 OIS-Reech_IGNF_PVA_1-0__1971.*tif Crop.*tif MEC-Malt_1971 MEC-Malt_2014 PrecisePatchSz=[1280,960] Feature=SIFT SkipCoReg=1 SkipGetPatchPair=1 ScaleR=2 CoRegOri1=1971_CoReg_SuperGlue 3DRANTh=10 CCTh=0.5 SkipPrecise=0 Exe=1
 
 You'll get tie points like this:
 <center>
@@ -1308,6 +1308,7 @@ You can also visualize the tie-points in MicMac using the command 'SEL':
 ```
 mm3d SEL ./ OIS-Reech_IGNF_PVA_1-0__1971-06-21__C2844-0141_1971_FR2117_1067.tif Crop-IMG_PHR1A_P_201406121049386.tif KH=NT SzW=[600,600] SH=-SuperGlue-3DRANSAC-CrossCorrelation
 ```
+
 # 3. Evaluation
 
 In this section we will compare the DoD (Difference of DSMs) for evaluation.
@@ -1373,7 +1374,7 @@ We need to refine the roughly co-registered orientations in a bundle adjustment 
 
 ### Set weight of inter-epoch tie-points
 
-First of all, we use the command "TestLib TiePtAddWeight" to set the weight of the  inter-epoch tie-points to be 10, so that they will play a more important role in BA. (Please notice that the weight of the intra-epoch tie-points is by default 1.)
+First of all, we use the command "TestLib TiePtAddWeight" to set the weight of the  inter-epoch tie-points to be 2, so that they will play a more important role in BA. (Please notice that the weight of the intra-epoch tie-points is by default 1.)
 
 The input, output and parameter interpretation of the command "TestLib TiePtAddWeight" are listed below:
 
@@ -1384,7 +1385,7 @@ Output:
 - `tie-points with weight set`
 
 The meaning of obligatory parameters:
-- `10`: Weight to be set
+- `2`: Weight to be set
 
 
 The meaning of optional parameters:
@@ -1393,14 +1394,14 @@ The meaning of optional parameters:
 - `ScaleL`: The factor used to scale the points in master images (for developpers only), Def=1
 
 ```
-mm3d TestLib TiePtAddWeight 10 InSH=-SuperGlue-3DRANSAC-CrossCorrelation
+mm3d TestLib TiePtAddWeight 2 InSH=-SuperGlue-3DRANSAC-CrossCorrelation
 ```
 ### Txt to binary conversion
 
 The SuperGlue inter-epoch tie-points we got are in txt format, we should transform them into binary format with the help of "HomolFilterMasq", so that they can be recognized in the following process.
 
 ```
-mm3d HomolFilterMasq "[O|C].*tif" PostIn=-SuperGlue-3DRANSAC-CrossCorrelation-W10 PostOut=-SuperGlue-3DRANSAC-CrossCorrelation-W10-dat ANM=1 ExpTxt=1 ExpTxtOut=0
+mm3d HomolFilterMasq "[O|C].*tif" PostIn=-SuperGlue-3DRANSAC-CrossCorrelation-W2 PostOut=-SuperGlue-3DRANSAC-CrossCorrelation-W2-dat ANM=1 ExpTxt=1 ExpTxtOut=0
 ```
 ### Merge intra- and inter-epoch tie-points
 
@@ -1415,13 +1416,13 @@ Output:
 - `tie-points merged in a single folder`
 
 The meaning of obligatory parameters:
-- `"Homol_1971-Ratafia|Homol-SuperGlue-3DRANSAC-CrossCorrelation-W10-dat"`: input tie-point folders
+- `"Homol_1971-Ratafia|Homol-SuperGlue-3DRANSAC-CrossCorrelation-W2-dat"`: input tie-point folders
 - ` Homol_Merged-SuperGlue`: out tie-point folder
 
 > Note: As the images in epoch 2014 are satellite images, their orientations are already georeferenced and therefore will be treated as ground truth in our processing, so we don't need the intra-epoch tie-points of epoch 2014.
 
 ```
-mm3d MergeHomol "Homol_1971-Ratafia|Homol-SuperGlue-3DRANSAC-CrossCorrelation-W10-dat" Homol_Merged-SuperGlue
+mm3d MergeHomol "Homol_1971-Ratafia|Homol-SuperGlue-3DRANSAC-CrossCorrelation-W2-dat" Homol_Merged-SuperGlue
 ```
 
 ### Merge roughly co-registered orientations
@@ -1498,7 +1499,7 @@ We need to refine the roughly co-registered orientations in a bundle adjustment 
 
 ### Set weight of inter-epoch tie-points
 
-First of all, we use the command "TestLib TiePtAddWeight" to set the weight of the  inter-epoch tie-points to be 10, so that they will play a more important role in BA. (Please notice that the weight of the intra-epoch tie-points is by default 1.)
+First of all, we use the command "TestLib TiePtAddWeight" to set the weight of the  inter-epoch tie-points to be 2, so that they will play a more important role in BA. (Please notice that the weight of the intra-epoch tie-points is by default 1.)
 
 The input, output and parameter interpretation of the command "TestLib TiePtAddWeight" are listed below:
 
@@ -1509,7 +1510,7 @@ Output:
 - `tie-points with weight set`
 
 The meaning of obligatory parameters:
-- `10`: Weight to be set
+- `2`: Weight to be set
 
 
 The meaning of optional parameters:
@@ -1518,13 +1519,13 @@ The meaning of optional parameters:
 - `ScaleL`: The factor used to scale the points in master images (for developpers only), Def=1
 
 ```
-mm3d TestLib TiePtAddWeight 10 InSH=-GuidedSIFT-3DRANSAC-CrossCorrelation
+mm3d TestLib TiePtAddWeight 2 InSH=-GuidedSIFT-3DRANSAC-CrossCorrelation
 ```
 ### Txt to binary conversion
 
 The SIFT inter-epoch tie-points we got are in txt format, we should transform them into binary format with the help of "HomolFilterMasq", so that they can be recognized in the following process.
 ```
-mm3d HomolFilterMasq "[O|C].*tif" PostIn=-GuidedSIFT-3DRANSAC-CrossCorrelation-W10 PostOut=-GuidedSIFT-3DRANSAC-CrossCorrelation-W10-dat ANM=1 ExpTxt=1 ExpTxtOut=0
+mm3d HomolFilterMasq "[O|C].*tif" PostIn=-GuidedSIFT-3DRANSAC-CrossCorrelation-W2 PostOut=-GuidedSIFT-3DRANSAC-CrossCorrelation-W2-dat ANM=1 ExpTxt=1 ExpTxtOut=0
 ```
 ### Merge intra- and inter-epoch tie-points
 
@@ -1539,10 +1540,10 @@ Output:
 - `tie-points merged in a single folder`
 
 The meaning of obligatory parameters:
-- `"Homol_1971-Ratafia|Homol-GuidedSIFT-3DRANSAC-CrossCorrelation-W10-dat"`: input tie-point folders
+- `"Homol_1971-Ratafia|Homol-GuidedSIFT-3DRANSAC-CrossCorrelation-W2-dat"`: input tie-point folders
 - ` Homol_Merged-GuidedSIFT`: out tie-point folder
 ```
-mm3d MergeHomol "Homol_1971-Ratafia|Homol-GuidedSIFT-3DRANSAC-CrossCorrelation-W10-dat" Homol_Merged-GuidedSIFT
+mm3d MergeHomol "Homol_1971-Ratafia|Homol-GuidedSIFT-3DRANSAC-CrossCorrelation-W2-dat" Homol_Merged-GuidedSIFT
 ```
 ### Run bundle adjustment
 
