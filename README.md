@@ -726,9 +726,14 @@ Besides splitting DSM image pair into patch pair, this command will also automat
 If the *Rotate* parameter is set to 1, this command will generate 4 sets of SuperGlueInput.txt and HomoXml files by rotating master DSM image 4 times.
 
 An example of the patch pairs is visulized in the following:
+<center>
+  <img src="Images/DSMPatchPair.png" height=320pix/>
+  <br> 
+</center>
 
+You can also visualize the patch pairs in MicMac using the command 'SEL':
 ```
-mm3d SEL Tmp_Patches-CoReg/ MEC-Malt_1971_0_0.tif MEC-Malt_2014_0_0.tif KH=PB
+mm3d SEL Tmp_Patches-CoReg/ MEC-Malt_1971_0_0.tif MEC-Malt_2014_0_0.tif KH=S
 ```
 
 **Rotation hypothesis 1 (0 degree)**
@@ -767,6 +772,12 @@ mm3d TestLib SuperGlue SuperGlueInput.txt  InDir=./Tmp_Patches-CoReg/ OutDir=./T
 ```
 
 An example of the matched patch pairs is visulized below:
+<center>
+  <img src="Images/TiePtInPatchPair-DSM.png" height=320pix/>
+  <br> 
+</center>
+
+You can also visualize the tie-points in MicMac using the command 'SEL':
 ```
 mm3d SEL Tmp_Patches-CoReg/ MEC-Malt_1971_0_0.tif MEC-Malt_2014_0_0.tif KH=NT SzW=[600,600] SH=-SuperGlue
 ```
@@ -799,6 +810,12 @@ mm3d TestLib MergeTiePt ./Tmp_Patches-CoReg/  HomoXml=SubPatch.xml MergeInSH=-Su
 ```
 
 The resulting tie-points are visualised below:
+<center>
+  <img src="Images/TiePtHypo0.png" height=320pix/>
+  <br> 
+</center>
+
+You can also visualize the tie-points in MicMac using the command 'SEL':
 ```
 mm3d SEL Tmp_Patches-CoReg/ MEC-Malt_1971.tif MEC-Malt_2014.tif KH=NT SzW=[600,600] SH=-SubPatch
 ```
@@ -834,6 +851,12 @@ mm3d TestLib RANSAC R2D MEC-Malt_1971.tif MEC-Malt_2014.tif Dir=./Tmp_Patches-Co
 ```
 
 The resulting tie-points are visualised below:
+<center>
+  <img src="Images/TiePtHypo0-RANSAC.png" height=320pix/>
+  <br> 
+</center>
+
+You can also visualize the tie-points in MicMac using the command 'SEL':
 ```
 mm3d SEL Tmp_Patches-CoReg/ MEC-Malt_1971.tif MEC-Malt_2014.tif KH=NT SzW=[600,600] SH=-SubPatch-2DRANSAC
 ```
@@ -846,6 +869,12 @@ mm3d TestLib MergeTiePt ./Tmp_Patches-CoReg/  HomoXml=SubPatch_R90.xml MergeInSH
 mm3d TestLib RANSAC R2D MEC-Malt_1971.tif MEC-Malt_2014.tif Dir=./Tmp_Patches-CoReg/  2DRANInSH=-SubPatch_R90 2DRANOutSH=-SubPatch_R90-2DRANSAC
 ```
 The resulting tie-points are visualised below:
+<center>
+  <img src="Images/TiePtHypo90-RANSAC.png" height=320pix/>
+  <br> 
+</center>
+
+You can also visualize the tie-points in MicMac using the command 'SEL':
 ```
 mm3d SEL Tmp_Patches-CoReg/ MEC-Malt_1971.tif MEC-Malt_2014.tif KH=NT SzW=[600,600] SH=-SubPatch_R90-2DRANSAC
 ```
@@ -860,6 +889,12 @@ mm3d TestLib MergeTiePt ./Tmp_Patches-CoReg/  HomoXml=SubPatch_R180.xml MergeInS
 mm3d TestLib RANSAC R2D MEC-Malt_1971.tif MEC-Malt_2014.tif Dir=./Tmp_Patches-CoReg/  2DRANInSH=-SubPatch_R180 2DRANOutSH=-SubPatch_R180-2DRANSAC
 ```
 The resulting tie-points are visualised below:
+<center>
+  <img src="Images/TiePtHypo180-RANSAC.png" height=320pix/>
+  <br> 
+</center>
+
+You can also visualize the tie-points in MicMac using the command 'SEL':
 ```
 mm3d SEL Tmp_Patches-CoReg/ MEC-Malt_1971.tif MEC-Malt_2014.tif KH=NT SzW=[600,600] SH=-SubPatch_R180-2DRANSAC
 ```
@@ -874,6 +909,12 @@ mm3d TestLib RANSAC R2D MEC-Malt_1971.tif MEC-Malt_2014.tif Dir=./Tmp_Patches-Co
 ```
 
 The resulting tie-points are visualised below:
+<center>
+  <img src="Images/TiePtHypo270-RANSAC.png" height=320pix/>
+  <br> 
+</center>
+
+You can also visualize the tie-points in MicMac using the command 'SEL':
 ```
 mm3d SEL Tmp_Patches-CoReg/ MEC-Malt_1971.tif MEC-Malt_2014.tif KH=NT SzW=[600,600] SH=-SubPatch_R270-2DRANSAC
 ```
@@ -1019,8 +1060,14 @@ mm3d TestLib GetPatchPair Guided OIS-Reech_IGNF_PVA_1-0__1971-06-21__C2844-0141_
 ```
 
 An example of patch pair is visualised below:
+<center>
+  <img src="Images/RGBPatchPair.png" height=320pix/>
+  <br> 
+</center>
+
+You can also visualize the patch pair in MicMac using the command 'SEL':
 ```
-mm3d SEL Tmp_Patches-Precise/ OIS-Reech_IGNF_PVA_1-0__1971-06-21__C2844-0141_1971_FR2117_1067_1_0.tif Crop-IMG_PHR1A_P_201406121049386_OIS-Reech_IGNF_PVA_1-0__1971-06-21__C2844-0141_1971_FR2117_1067_1_0.tif KH=PB
+mm3d SEL Tmp_Patches-Precise/ OIS-Reech_IGNF_PVA_1-0__1971-06-21__C2844-0141_1971_FR2117_1067_1_0.tif Crop-IMG_PHR1A_P_201406121049386_OIS-Reech_IGNF_PVA_1-0__1971-06-21__C2844-0141_1971_FR2117_1067_1_0.tif KH=S
 ```
 #### 2.2.2.3 Get tentative tie-points
 
@@ -1065,6 +1112,12 @@ The meaning of optional parameters:
 mm3d TestLib SuperGlue OIS-Reech_IGNF_PVA_1-0__1971-06-21__C2844-0141_1971_FR2117_1067_Crop-IMG_PHR1A_P_201406121049386_SuperGlueInput.txt  InDir=./Tmp_Patches-Precise/ OutDir=./Tmp_Patches-Precise/ SpGOutSH=-SuperGlue CheckNb=100
 ```
 As a result, it will extract tie-points for each patch pair, an example of tie-points of one patch pair is visulized below:
+<center>
+  <img src="Images/TiePtInPatchPair-RGB.png" height=320pix/>
+  <br> 
+</center>
+
+You can also visualize the tie-points in MicMac using the command 'SEL':
 ```
 mm3d SEL Tmp_Patches-Precise/ OIS-Reech_IGNF_PVA_1-0__1971-06-21__C2844-0141_1971_FR2117_1067_1_0.tif Crop-IMG_PHR1A_P_201406121049386_OIS-Reech_IGNF_PVA_1-0__1971-06-21__C2844-0141_1971_FR2117_1067_1_0.tif KH=NT SzW=[600,600] SH=-SuperGlue
 ```
@@ -1098,6 +1151,12 @@ mm3d TestLib MergeTiePt ./Tmp_Patches-Precise/  HomoXml=OIS-Reech_IGNF_PVA_1-0__
 ```
 
 The resulting tie-points are visualised below:
+<center>
+  <img src="Images/TiePtSpG.png" height=320pix/>
+  <br> 
+</center>
+
+You can also visualize the tie-points in MicMac using the command 'SEL':
 ```
 mm3d SEL ./ OIS-Reech_IGNF_PVA_1-0__1971-06-21__C2844-0141_1971_FR2117_1067.tif Crop-IMG_PHR1A_P_201406121049386.tif KH=NT SzW=[600,600] SH=-SuperGlue
 ```
