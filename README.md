@@ -515,9 +515,9 @@ Figure. Four rotation hypotheses
 
 ##### 2.2.1.1. Preprocess DSM
 
-###### DSM Equalization
+**(1) DSM Equalization**
 
-(1) Epoch 2014
+(1.1) Epoch 2014
 
 Transform the DSM to equalized gray image with the command "TestLib DSM_Equalization", so that feature matching method can be applied later.
 
@@ -544,7 +544,7 @@ The equalized DSM is visulized below:
 ```
 Vino MEC-Malt_2014/DSM2014-gray.tif
 ```
-(2) Epoch 1971
+(1.2) Epoch 1971
 
 Perform DSM equalization in epoch 1971, so that feature matching method can be applied later.
 ```
@@ -554,9 +554,9 @@ The equalized DSM is visulized below:
 ```
 Vino MEC-Malt_1971/DSM1971-gray.tif
 ```
-###### DSM Wallis filter
+**(2)DSM Wallis filter**
 
-(1) Epoch 2014
+(2.1) Epoch 2014
 
 Apply wallis filter on the DSM gray image with the command "TestLib Wallis" to get rid of uneven illumination.
 
@@ -583,7 +583,7 @@ The DSM after wallis filter is visulized below:
 ```
 Vino MEC-Malt_2014/DSM2014-gray.tif_sfs.tif
 ```
-(2) Epoch 1971
+(2.2) Epoch 1971
 
 Apply wallis filter on DSM in epoch 1971 to get rid of uneven illumination.
 
