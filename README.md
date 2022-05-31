@@ -86,13 +86,13 @@ Details of images in epoch 1971:
 
 |GSD|Flying height|Focal length|Scale|Image size|Pixel size|Flightline
 |---|---|---|---|---|---|---
-|1m|2400|7600 pixel|1:4500|3533 $\times$ 3533 pixels|63.51 $\mu$ m|West-Est
+|1 m|2400 m|7600 pixels|1:4500|3533 $\times$ 3533 pixels|63.51 $\mu$ m|West-Est
 
 Details of images in epoch 2014:
 
 |Constellation|GSD|Cloud cover|Snow cover
 |---|---|---|---
-|Pleiades|0.5m|0%|0%
+|Pleiades|0.5 m|0%|0%
 
 Dataset can be downloaded here:
     https://drive.google.com/u/0/uc?id=1lbbBiHFHyVDGXlLMtl3iHMWW-Mdj5Vjy&export=download
