@@ -1357,11 +1357,15 @@ The meaning of optional parameters:
 mm3d CmpIm MEC-Malt_2014/Z_Num6_DeZoom8_STD-MALT.tif MEC-Malt_1971_CoReg/Z_Num6_DeZoom8_STD-MALT.tif UseFOM=1 FileDiff=DoD-CoReg.tif 16Bit=1
 ```
 ### Visualize DoD
+The resulting DoD can be visualised below:
+<center>
+  <img src="Images/1DoD.png" height=320pix/>
+  <br> 
+</center>
 
-The resulted DoD can be visulized in QGIS.
+You can also visualize it in QGIS.
 
-As can be seen, a dome artifact is present in
-DoD-CoReg. This kind of systematic error is known to originate from poorly modeled camera internal parameters.
+As can be seen, a dome artifact is present in DoD-CoReg. This kind of systematic error is known to originate from poorly modeled camera internal parameters.
 
 ## 3.2. DoD of SuperGlue refined result
 
@@ -1478,7 +1482,13 @@ mm3d CmpIm MEC-Malt_2014/Z_Num6_DeZoom8_STD-MALT.tif MEC-Malt_1971_Refined-Super
 ```
 ### Visualize DoD
 
-The resulted DoD can be visulized in QGIS.
+The resulting DoD can be visualised below:
+<center>
+  <img src="Images/2DoD.png" height=320pix/>
+  <br> 
+</center>
+
+You can also visualize it in QGIS.
 
 As can be seen in the visualized DoDs, the systematic errors are effectively mitigated in the DoD of SuperGlue refined result, thanks to our dense and precise inter-epoch tie-points.
 
@@ -1580,7 +1590,13 @@ Finally we use the command "CmpIm" to generate the DoD.
 mm3d CmpIm MEC-Malt_2014/Z_Num6_DeZoom8_STD-MALT.tif MEC-Malt_1971_Refined-GuidedSIFT/Z_Num6_DeZoom8_STD-MALT.tif UseFOM=1 FileDiff=DoD-Refined-GuidedSIFT.tif 16Bit=1
 ```
 ### Visualize DoD
-The resulted DoD can be visulized in QGIS.
+The resulting DoD can be visualised below:
+<center>
+  <img src="Images/3DoD.png" height=320pix/>
+  <br> 
+</center>
+
+You can also visualize it in QGIS.
 
 As can be seen in the visualized DoDs, the systematic errors are effectively mitigated in the DoD of SuperGlue and SIFT refined result, thanks to our dense and precise inter-epoch tie-points.
 
