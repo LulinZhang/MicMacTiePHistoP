@@ -85,11 +85,6 @@ The full workflow is displayed below:
   <br> 
 </center>
 
-<center>
-Figure. Our workflow
-  <br> 
-</center>
-
 
 For more information please refer to: 
 
@@ -183,7 +178,13 @@ The meaning of optional parameters:
 mm3d Tapioca MulScale OIS-Reech_IGNF_PVA_1-0__1971.*tif 500 1700 PostFix=_1971
 ```
 
-An example of the tie-points are visualised below:
+You'll get tie points like this:
+<center>
+  <img src="Images/Intra-TiePt.png" height=320pix/>
+  <br> 
+</center>
+
+You can also visualize the tie-points in MicMac using the command 'SEL':
 
     mm3d SEL ./ OIS-Reech_IGNF_PVA_1-0__1971-06-21__C2844-0141_1971_FR2117_1067.tif OIS-Reech_IGNF_PVA_1-0__1971-06-21__C2844-0141_1971_FR2117_1068.tif KH=NB SH=_1971 SzW=[600,600]
 
@@ -250,7 +251,13 @@ To ensure good distribution and high multiplicity of the "reduced" tie-points, M
     
     mm3d Ratafia OIS-Reech_IGNF_PVA_1-0__1971.*tif SH=_1971-Masq Out=_1971-Ratafia
 
-An example of the reduced tie-points are visualised below:
+You'll get tie points like this:
+<center>
+  <img src="Images/Intra-TiePt-reduced.png" height=320pix/>
+  <br> 
+</center>
+
+You can also visualize the tie-points in MicMac using the command 'SEL':
 
     mm3d SEL ./ OIS-Reech_IGNF_PVA_1-0__1971-06-21__C2844-0141_1971_FR2117_1067.tif OIS-Reech_IGNF_PVA_1-0__1971-06-21__C2844-0141_1971_FR2117_1068.tif KH=NB SH=_1971-Ratafia SzW=[600,600]
 
@@ -538,20 +545,12 @@ To co-register images in different epochs in a common coordinate frame, we perfo
   <br> 
 </center>
 
-<center>
-Figure. Workflow of the rough co-registration 
-  <br> 
-</center>
 
 <center>
   <img src="Images/RotateHypo.png" height=260pix/>
   <br> 
 </center>
 
-<center>
-Figure. Four rotation hypotheses 
-  <br> 
-</center>
 
 #### 2.2.1.1. Preprocess DSM
 
