@@ -568,13 +568,13 @@ In order to help the users understand the pipeline better, we will introduce the
 To co-register images in different epochs in a common coordinate frame, we perform sparse point matching between their respective DSM rasters. The workflow is displayed as below:
 
 <center>
-  <img src="Images/2.png" height=320pix/>
+  <img src="Images/2.png" width=1000pix/>
   <br> 
 </center>
 
 
 <center>
-  <img src="Images/RotateHypo.png" height=260pix/>
+  <img src="Images/RotateHypo.png" width=1000pix/>
   <br> 
 </center>
 
@@ -993,7 +993,7 @@ This command will output:
 The workflow of precise matching is displayed as below:
 
 <center>
-  <img src="Images/4.png" height=320pix/>
+  <img src="Images/4.png" width=900pix/>
   <br> 
 </center>
 #### 2.2.2.1 Get overlapped image pairs
