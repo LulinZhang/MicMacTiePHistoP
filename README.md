@@ -539,7 +539,9 @@ You'll see tie points like this:
 
 ## 2.2. Deep-dive in the pipeline's submodules
 The *TiePHistoP* command automatically calls several subcommands including:
+
 **(1) For rough co-registration**
+
 - `TestLib DSM_Equalization`
 - `TestLib Wallis`
 - `TestLib GetPatchPair`
@@ -548,7 +550,9 @@ The *TiePHistoP* command automatically calls several subcommands including:
 - `TestLib RANSAC R2D`
 - `TestLib CreateGCPs`
 - `TestLib GCPBascule`
+
 **(2) For precise matching**
+
 - `TestLib GetOverlappedImages`
 - `TestLib GetPatchPair`
 - `TestLib SuperGlue`
@@ -581,7 +585,7 @@ To co-register images in different epochs in a common coordinate frame, we perfo
 
 (1.1) Epoch 2014
 
-Transform the DSM to equalized gray image with the command "TestLib DSM_Equalization", so that feature matching method can be applied later.
+Transform the DSM in float point type to equalized gray scale image with the command "TestLib DSM_Equalization", so that feature matching method can be applied later.
 
 The input, output and parameter interpretation of the command "TestLib DSM_Equalization" are listed below:
 
