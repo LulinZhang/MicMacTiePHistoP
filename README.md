@@ -336,7 +336,7 @@ Vino MEC-Malt_2014/Z_Num6_DeZoom8_STD-MALT.tif
 
 Generate DSM in epoch 1971:
 
-    mm3d Malt Ortho OIS-Reech_IGNF_PVA_1-0__1971.*tif 1971 NbVI=2 MasqImGlob=Fiducial.tif DirMEC=MEC-Malt_1971 EZA=1 ZoomF=4 DoOrtho=0
+    mm3d Malt Ortho OIS-Reech_IGNF_PVA_1-0__1971.*tif 1971 NbVI=2 MasqImGlob=Fiducial.tif DirMEC=MEC-Malt_1971 EZA=1 ZoomF=8 DoOrtho=0
 
 You'll get DSM like this:
 <center>
@@ -346,7 +346,7 @@ You'll get DSM like this:
 
 You can also visualize the DSM in MicMac using the command 'Vino':
 ```
-Vino MEC-Malt_1971/Z_Num7_DeZoom4_STD-MALT.tif
+Vino MEC-Malt_1971/Z_Num6_DeZoom8_STD-MALT.tif
 ```
 
 # 2. Inter-epoch processing
@@ -1250,7 +1250,7 @@ As the co-registered orientations are based on the reference of epoch 2014, we c
 
 As for the DSM of epoch 1971, the roughly co-registered orientations are stored in folder "Ori-2014", therefore we use it to calculate the DSM of epoch 1971 as follwing:
 
-    mm3d Malt Ortho OIS-Reech_IGNF_PVA_1-0__1971.*tif 2014 NbVI=2 DirMEC=MEC-Malt_1971_CoReg EZA=1 MasqImGlob=Fiducial.tif ZoomF=4 DoOrtho=0
+    mm3d Malt Ortho OIS-Reech_IGNF_PVA_1-0__1971.*tif 2014 NbVI=2 DirMEC=MEC-Malt_1971_CoReg EZA=1 MasqImGlob=Fiducial.tif ZoomF=8 DoOrtho=0
 
 ### Calculate DoD
 
@@ -1265,7 +1265,7 @@ Output:
 - `DoD`
 
 The meaning of obligatory parameters:
-- `MEC-Malt_1971_CoReg/Z_Num7_DeZoom4_STD-MALT.tif`: DSM in epoch 1971.
+- `MEC-Malt_1971_CoReg/Z_Num6_DeZoom8_STD-MALT.tif`: DSM in epoch 1971.
 - `MEC-Malt_2014/Z_Num6_DeZoom8_STD-MALT.tif`: DSM in epoch 2014.
 
 The meaning of optional parameters:
@@ -1274,7 +1274,7 @@ The meaning of optional parameters:
 - `16Bit`: Output file in float format
 
 ```
-mm3d CmpIm MEC-Malt_2014/Z_Num6_DeZoom8_STD-MALT.tif MEC-Malt_1971_CoReg/Z_Num7_DeZoom4_STD-MALT.tif UseFOM=1 FileDiff=DoD-CoReg.tif 16Bit=1
+mm3d CmpIm MEC-Malt_2014/Z_Num6_DeZoom8_STD-MALT.tif MEC-Malt_1971_CoReg/Z_Num6_DeZoom8_STD-MALT.tif UseFOM=1 FileDiff=DoD-CoReg.tif 16Bit=1
 ```
 ### Visualize DoD
 
@@ -1378,13 +1378,13 @@ As the orientations of epoch 2014 are kept the same, we can use directly the DSM
 Based on the SuperGlue refined orientations "Campari_Refined-SuperGlue", we compute the DSMs in epoch 1971 using the command "Malt":
 
 ```
-mm3d Malt Ortho OIS-Reech_IGNF_PVA_1-0__1971.*tif Campari_Refined-SuperGlue NbVI=2 DirMEC=MEC-Malt_1971_Refined-SuperGlue EZA=1 MasqImGlob=Fiducial.tif ZoomF=4 DoOrtho=0
+mm3d Malt Ortho OIS-Reech_IGNF_PVA_1-0__1971.*tif Campari_Refined-SuperGlue NbVI=2 DirMEC=MEC-Malt_1971_Refined-SuperGlue EZA=1 MasqImGlob=Fiducial.tif ZoomF=8 DoOrtho=0
 ```
 ### Calculate DoD
 
 Finally we use the command "CmpIm" to generate the DoD.
 ```
-mm3d CmpIm MEC-Malt_2014/Z_Num6_DeZoom8_STD-MALT.tif MEC-Malt_1971_Refined-SuperGlue/Z_Num7_DeZoom4_STD-MALT.tif UseFOM=1 FileDiff=DoD-Refined-SuperGlue.tif 16Bit=1
+mm3d CmpIm MEC-Malt_2014/Z_Num6_DeZoom8_STD-MALT.tif MEC-Malt_1971_Refined-SuperGlue/Z_Num6_DeZoom8_STD-MALT.tif UseFOM=1 FileDiff=DoD-Refined-SuperGlue.tif 16Bit=1
 ```
 ### Visualize DoD
 
@@ -1481,13 +1481,13 @@ As the orientations of epoch 2014 are kept the same, we can use directly the DSM
 
 Based on the GuidedSIFT refined orientations "Campari_Refined-GuidedSIFT", we compute the DSMs in epoch 1971 using the command "Malt":
 ```
-mm3d Malt Ortho OIS-Reech_IGNF_PVA_1-0__1971.*tif Campari_Refined-GuidedSIFT NbVI=2 DirMEC=MEC-Malt_1971_Refined-GuidedSIFT EZA=1 MasqImGlob=Fiducial.tif ZoomF=4 DoOrtho=0
+mm3d Malt Ortho OIS-Reech_IGNF_PVA_1-0__1971.*tif Campari_Refined-GuidedSIFT NbVI=2 DirMEC=MEC-Malt_1971_Refined-GuidedSIFT EZA=1 MasqImGlob=Fiducial.tif ZoomF=8 DoOrtho=0
 ```
 ### Calculate DoD
 
 Finally we use the command "CmpIm" to generate the DoD.
 ```
-mm3d CmpIm MEC-Malt_2014/Z_Num6_DeZoom8_STD-MALT.tif MEC-Malt_1971_Refined-GuidedSIFT/Z_Num7_DeZoom4_STD-MALT.tif UseFOM=1 FileDiff=DoD-Refined-GuidedSIFT.tif 16Bit=1
+mm3d CmpIm MEC-Malt_2014/Z_Num6_DeZoom8_STD-MALT.tif MEC-Malt_1971_Refined-GuidedSIFT/Z_Num6_DeZoom8_STD-MALT.tif UseFOM=1 FileDiff=DoD-Refined-GuidedSIFT.tif 16Bit=1
 ```
 ### Visualize DoD
 The resulted DoD can be visulized in QGIS.
