@@ -289,7 +289,7 @@ The images in epoch 2014 are satellite images and their orientations are known. 
 
 Recover relative orientations of images in epoch 1971:
 
-    mm3d Tapas FraserBasic OIS-Reech_IGNF_PVA_1-0__1971.*tif Out=1971 SH=_1971-Masq
+    mm3d Tapas FraserBasic OIS-Reech_IGNF_PVA_1-0__1971.*tif Out=1971 SH=_1971-Ratafia
 
 ## 1.3. DSM generation
 
