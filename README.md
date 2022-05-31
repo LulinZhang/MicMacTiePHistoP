@@ -368,8 +368,8 @@ Output:
 The meaning of obligatory parameters:
 - `Ori-1971`: orientation of images in epoch 1971
 - `Ori-2014`: orientation of images in epoch 2014
-- `ImgList1971all.txt`: all RGB images in epoch 1971 (Dir+Pattern, or txt file of image list), referred to as ImgList1
-- `ImgList2014all.txt`: all RGB images in epoch 2014 (Dir+Pattern, or txt file of image list), referred to as ImgList2
+- `OIS-Reech_IGNF_PVA_1-0__1971.*tif`: all RGB images in epoch 1971 (Dir+Pattern, or txt file of image list), referred to as ImgList1
+- `Crop.*tif`: all RGB images in epoch 2014 (Dir+Pattern, or txt file of image list), referred to as ImgList2
 - `MEC-Malt_1971`: DSM direcotry of epoch 1971
 - `MEC-Malt_2014`: DSM direcotry of epoch 2014
 
@@ -450,7 +450,7 @@ The meaning of optional parameters (here we use epoch1 to refer to epoch 1971, a
 
 > Note: As the time gap of the 2 epochs is large, we set 3DRANTh=10 to keep more correspondences.
 
-    mm3d TiePHistoP Ori-1971 Ori-2014 ImgList1971all.txt ImgList2014all.txt MEC-Malt_1971 MEC-Malt_2014 CoRegPatchLSz=[1280,960] CoRegPatchRSz=[1280,960] PrecisePatchSz=[1280,960] Feature=SuperGlue 3DRANTh=10
+    mm3d TiePHistoP Ori-1971 Ori-2014 OIS-Reech_IGNF_PVA_1-0__1971.*tif Crop.*tif MEC-Malt_1971 MEC-Malt_2014 CoRegPatchLSz=[1280,960] CoRegPatchRSz=[1280,960] PrecisePatchSz=[1280,960] Feature=SuperGlue 3DRANTh=10
 
 This command will produce 2 kinds of results: 
 
@@ -480,8 +480,8 @@ Output:
 - `2 txt files to record the tie-points in master and secondary images respectively (in 3D coordinate)`
 
 The meaning of obligatory parameters:
-- `ImgList1971all.txt`: All master images (Dir+Pattern, or txt file of image list), referred to as ImgList1
-- `ImgList2014all.txt`: All secondary images (Dir+Pattern, or txt file of image list), referred to as ImgList2
+- `OIS-Reech_IGNF_PVA_1-0__1971.*tif`: All master images (Dir+Pattern, or txt file of image list), referred to as ImgList1
+- `Crop.*tif`: All secondary images (Dir+Pattern, or txt file of image list), referred to as ImgList2
 - `Ori-1971`: Orientation of images in epoch 1971
 - `Ori-2014`: Orientation of images in epoch 2014
 
@@ -499,7 +499,7 @@ The meaning of optional parameters:
 - `Para3DHR`: Input xml file that recorded the paremeter of the 3D Helmert transformation for points in secondary images, Def=none
 
 ```
-mm3d TestLib VisuTiePtIn3D ImgList1971all.txt ImgList2014all.txt Ori-1971 Ori-2014 DSMDirL=MEC-Malt_1971 DSMDirR=MEC-Malt_2014 InSH=-SuperGlue-3DRANSAC-CrossCorrelation OutFile=Visu-SuperGlue-3DRANSAC-CrossCorrelation-all.txt
+mm3d TestLib VisuTiePtIn3D OIS-Reech_IGNF_PVA_1-0__1971.*tif Crop.*tif Ori-1971 Ori-2014 DSMDirL=MEC-Malt_1971 DSMDirR=MEC-Malt_2014 InSH=-SuperGlue-3DRANSAC-CrossCorrelation OutFile=Visu-SuperGlue-3DRANSAC-CrossCorrelation-all.txt
 ```
 
 The transformed points can be visulized in QGIS. You'll see tie points like this:
@@ -514,7 +514,7 @@ The transformed points can be visulized in QGIS. You'll see tie points like this
 
 >Note: (1) We set Feature=SIFT to switch to option SIFT; (2) the rough co-registration has been performed in the previous step, so we can skip it here; (3) the PrecisePatchSz is the same with the previous step, therefore we can skip the step of getting patch pairs; (4) as the resolution of secondary images is high, we speed up the processing by setting ScaleR=2 so that SIFT points extracted on secondary images are based on downsamepled images by a factor of 2.
 
-    mm3d TiePHistoP Ori-1971 Ori-2014 ImgList1971all.txt ImgList2014all.txt MEC-Malt_1971 MEC-Malt_2014 PrecisePatchSz=[1280,960] Feature=SIFT SkipCoReg=1 SkipGetPatchPair=1 ScaleR=2 3DRANTh=10  CoRegOri1=1971_CoReg_SuperGlue
+    mm3d TiePHistoP Ori-1971 Ori-2014 OIS-Reech_IGNF_PVA_1-0__1971.*tif Crop.*tif MEC-Malt_1971 MEC-Malt_2014 PrecisePatchSz=[1280,960] Feature=SIFT SkipCoReg=1 SkipGetPatchPair=1 ScaleR=2 3DRANTh=10  CoRegOri1=1971_CoReg_SuperGlue
 
 You'll get tie points like this:
 <center>
@@ -529,7 +529,7 @@ You can also visualize the tie-points in MicMac using the command 'SEL':
 We again use the "TestLib VisuTiePtIn3D" to check the tie-points distribution across the scene.
 
 
-    mm3d TestLib VisuTiePtIn3D ImgList1971all.txt ImgList2014all.txt Ori-1971 Ori-2014 DSMDirL=MEC-Malt_1971 DSMDirR=MEC-Malt_2014 InSH=-GuidedSIFT-3DRANSAC-CrossCorrelation OutFile=Visu-GuidedSIFT-3DRANSAC-CrossCorrelation-all.txt
+    mm3d TestLib VisuTiePtIn3D OIS-Reech_IGNF_PVA_1-0__1971.*tif Crop.*tif Ori-1971 Ori-2014 DSMDirL=MEC-Malt_1971 DSMDirR=MEC-Malt_2014 InSH=-GuidedSIFT-3DRANSAC-CrossCorrelation OutFile=Visu-GuidedSIFT-3DRANSAC-CrossCorrelation-all.txt
 
 You'll see tie points like this:
 <center>
@@ -894,8 +894,8 @@ The meaning of obligatory parameters:
 - `MEC-Malt_1971.tif`: The gray image of DSM of epoch 1971
 - `MEC-Malt_2014.tif`: The gray image of DSM of epoch 2014
 - `./`: The directory of RGB images
-- `ImgList1971all.txt`: All RGB images in epoch 1971 (Dir+Pattern, or txt file of image list), referred to as ImgList1
-- `ImgList2014all.txt`: All RGB images in epoch 2014 (Dir+Pattern, or txt file of image list), referred to as ImgList2
+- `OIS-Reech_IGNF_PVA_1-0__1971.*tif`: All RGB images in epoch 1971 (Dir+Pattern, or txt file of image list), referred to as ImgList1
+- `Crop.*tif`: All RGB images in epoch 2014 (Dir+Pattern, or txt file of image list), referred to as ImgList2
 - `Ori-1971`: Orientation of images in epoch 1971
 - `Ori-2014`: Orientation of images in epoch 2014
 - `MEC-Malt_1971`: DSM direcotry of epoch 1971
@@ -911,7 +911,7 @@ The meaning of optional parameters:
 - `DSMFileR`: DSM File of epoch 2014, Def=MMLastNuage.xml
 
 ```
-mm3d TestLib CreateGCPs ./Tmp_Patches-CoReg MEC-Malt_1971.tif MEC-Malt_2014.tif ./ ImgList1971all.txt ImgList2014all.txt Ori-1971 Ori-2014 MEC-Malt_1971 MEC-Malt_2014 CreateGCPsInSH=-SubPatch_R270-2DRANSAC Out2DXml1=OutGCP2D_epoch1971.xml Out3DXml1=OutGCP3D_epoch1971.xml Out2DXml2=OutGCP2D_epoch2014.xml Out3DXml2=OutGCP3D_epoch2014.xml
+mm3d TestLib CreateGCPs ./Tmp_Patches-CoReg MEC-Malt_1971.tif MEC-Malt_2014.tif ./ OIS-Reech_IGNF_PVA_1-0__1971.*tif Crop.*tif Ori-1971 Ori-2014 MEC-Malt_1971 MEC-Malt_2014 CreateGCPsInSH=-SubPatch_R270-2DRANSAC Out2DXml1=OutGCP2D_epoch1971.xml Out3DXml1=OutGCP3D_epoch1971.xml Out2DXml2=OutGCP2D_epoch2014.xml Out3DXml2=OutGCP3D_epoch2014.xml
 ```
 
 #### 2.2.1.4. 3D Helmert transformation
@@ -960,8 +960,8 @@ Output:
 The meaning of obligatory parameters:
 - `1971`: relative orientation of images in epoch 1971
 - `2014`: relative orientation of images in epoch 2014
-- `ImgList1971all.txt`: RGB images in epoch 1971 for extracting inter-epoch correspondences (Dir+Pattern, or txt file of image list)
-- `ImgList2014all.txt`: RGB images in epoch 2014 for extracting inter-epoch correspondences (Dir+Pattern, or txt file of image list)
+- `OIS-Reech_IGNF_PVA_1-0__1971.*tif`: RGB images in epoch 1971 for extracting inter-epoch correspondences (Dir+Pattern, or txt file of image list)
+- `Crop.*tif`: RGB images in epoch 2014 for extracting inter-epoch correspondences (Dir+Pattern, or txt file of image list)
 
 The meaning of optional parameters:
 - `Dir`: Work directory, Def=./
@@ -970,7 +970,7 @@ The meaning of optional parameters:
 - `Print`: Print corner coordinate, Def=false
 
 ```
-mm3d TestLib GetOverlappedImages 1971 2014 ImgList1971all.txt ImgList2014all.txt  Para3DH=Basc-1971-2-2014.xml
+mm3d TestLib GetOverlappedImages 1971 2014 OIS-Reech_IGNF_PVA_1-0__1971.*tif Crop.*tif  Para3DH=Basc-1971-2-2014.xml
 ```
 
 #### 2.2.2.2 Get patch pairs
