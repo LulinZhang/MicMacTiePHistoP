@@ -208,7 +208,7 @@ The meaning of optional parameters:
 - `Name`: the output mask image
 
 ```
-mm3d SaisieMasq OIS-Reech_IGNF_PVA_1-0__1971-06-21__C2844-0141_1971_FR2117_1068.tif Name=Fiducial_marks_masq-1971-3.tif
+mm3d SaisieMasq OIS-Reech_IGNF_PVA_1-0__1971-06-21__C2844-0141_1971_FR2117_1068.tif Name=Fiducial.tif
 ```
 
 ##### Apply the mask to remove tie-points
@@ -230,7 +230,7 @@ The meaning of optional parameters:
 - `PostIn`: Post for Input dir Hom, Def=
 - `PostOut`: Post for Output dir Hom, Def=MasqFiltered
 
-      mm3d HomolFilterMasq OIS-Reech_IGNF_PVA_1-0__1971.*tif GlobalMasq=Fiducial_marks_masq-1971-3.tif PostIn=_1971 PostOut=_1971-Masq
+      mm3d HomolFilterMasq OIS-Reech_IGNF_PVA_1-0__1971.*tif GlobalMasq=Fiducial.tif PostIn=_1971 PostOut=_1971-Masq
 
 #### Visualise tie-points
 
@@ -336,7 +336,7 @@ Vino MEC-Malt_2014/Z_Num6_DeZoom8_STD-MALT.tif
 
 Generate DSM in epoch 1971:
 
-    mm3d Malt Ortho OIS-Reech_IGNF_PVA_1-0__1971.*tif 1971 NbVI=2 MasqImGlob=Fiducial_marks_masq-1971-3.tif DirMEC=MEC-Malt_1971 EZA=1 ZoomF=4 DoOrtho=0
+    mm3d Malt Ortho OIS-Reech_IGNF_PVA_1-0__1971.*tif 1971 NbVI=2 MasqImGlob=Fiducial.tif DirMEC=MEC-Malt_1971 EZA=1 ZoomF=4 DoOrtho=0
 
 You'll get DSM like this:
 <center>
@@ -1250,7 +1250,7 @@ As the co-registered orientations are based on the reference of epoch 2014, we c
 
 As for the DSM of epoch 1971, the roughly co-registered orientations are stored in folder "Ori-2014", therefore we use it to calculate the DSM of epoch 1971 as follwing:
 
-    mm3d Malt Ortho OIS-Reech_IGNF_PVA_1-0__1971.*tif 2014 NbVI=2 DirMEC=MEC-Malt_1971_CoReg EZA=1 MasqImGlob=Fiducial_marks_masq-1971-3.tif ZoomF=4 DoOrtho=0
+    mm3d Malt Ortho OIS-Reech_IGNF_PVA_1-0__1971.*tif 2014 NbVI=2 DirMEC=MEC-Malt_1971_CoReg EZA=1 MasqImGlob=Fiducial.tif ZoomF=4 DoOrtho=0
 
 ### Calculate DoD
 
@@ -1378,7 +1378,7 @@ As the orientations of epoch 2014 are kept the same, we can use directly the DSM
 Based on the SuperGlue refined orientations "Campari_Refined-SuperGlue", we compute the DSMs in epoch 1971 using the command "Malt":
 
 ```
-mm3d Malt Ortho OIS-Reech_IGNF_PVA_1-0__1971.*tif Campari_Refined-SuperGlue NbVI=2 DirMEC=MEC-Malt_1971_Refined-SuperGlue EZA=1 MasqImGlob=Fiducial_marks_masq-1971-3.tif ZoomF=4 DoOrtho=0
+mm3d Malt Ortho OIS-Reech_IGNF_PVA_1-0__1971.*tif Campari_Refined-SuperGlue NbVI=2 DirMEC=MEC-Malt_1971_Refined-SuperGlue EZA=1 MasqImGlob=Fiducial.tif ZoomF=4 DoOrtho=0
 ```
 ### Calculate DoD
 
@@ -1481,7 +1481,7 @@ As the orientations of epoch 2014 are kept the same, we can use directly the DSM
 
 Based on the GuidedSIFT refined orientations "Campari_Refined-GuidedSIFT", we compute the DSMs in epoch 1971 using the command "Malt":
 ```
-mm3d Malt Ortho OIS-Reech_IGNF_PVA_1-0__1971.*tif Campari_Refined-GuidedSIFT NbVI=2 DirMEC=MEC-Malt_1971_Refined-GuidedSIFT EZA=1 MasqImGlob=Fiducial_marks_masq-1971-3.tif ZoomF=4 DoOrtho=0
+mm3d Malt Ortho OIS-Reech_IGNF_PVA_1-0__1971.*tif Campari_Refined-GuidedSIFT NbVI=2 DirMEC=MEC-Malt_1971_Refined-GuidedSIFT EZA=1 MasqImGlob=Fiducial.tif ZoomF=4 DoOrtho=0
 ```
 ### Calculate DoD
 
