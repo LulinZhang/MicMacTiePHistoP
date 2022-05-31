@@ -609,9 +609,11 @@ It includes 4 parts:
 
 (4) Run 2D RANSAC with command "TestLib RANSAC R2D".
 
-**Rotation hypothesis 1 (0 degree)**
+> Note: step (2-4) are repeated 4 times to test rotation hypotheses.
 
-(1) Split DSM image pair into patch pairs with command "TestLib GetPatchPair"
+**Get patch pairs (One-to-many tiling)**
+
+Split DSM image pair into patch pairs with command "TestLib GetPatchPair"
 
 The input, output and parameter interpretation of the command "TestLib GetPatchPair" are listed below:
 
@@ -651,7 +653,9 @@ An example of the patch pairs is visulized in the following:
 mm3d SEL Tmp_Patches-CoReg/ MEC-Malt_1971_0_0.tif MEC-Malt_2014_0_0.tif KH=PB
 ```
 
-(2) Match patch pairs with command "TestLib SuperGlue":
+**Rotation hypothesis 1 (0 degree)**
+
+(1) Match patch pairs with command "TestLib SuperGlue":
 
 This command will call SuperGlue to match the patch pairs which are listed in "SuperGlueInput.txt".
 
@@ -689,7 +693,7 @@ An example of the matched patch pairs is visulized below:
 mm3d SEL Tmp_Patches-CoReg/ MEC-Malt_1971_0_0.tif MEC-Malt_2014_0_0.tif KH=NT SzW=[600,600] SH=-SuperGlue
 ```
 
-(3) Merge tie-points with command "TestLib MergeTiePt"
+(2) Merge tie-points with command "TestLib MergeTiePt"
 
 The tie-points are saved as individual files for each patch pair, this command will merge them together.
 
@@ -723,7 +727,7 @@ mm3d SEL Tmp_Patches-CoReg/ MEC-Malt_1971.tif MEC-Malt_2014.tif KH=NT SzW=[600,6
 
 You can see that the tie-points are not good, which indicates the current rotation hypothesis is not the good one.
 
-(4) 2D RANSAC with command "TestLib RANSAC R2D"
+(3) 2D RANSAC with command "TestLib RANSAC R2D"
 
 This command will apply 2D RANSAC on the tie-points to reject outliers.
 
@@ -867,7 +871,7 @@ This command will output:
 
 #### 2.2.2 Precise matching
 
-##### 2.2.2.1 GetOverlappedImages
+##### 2.2.2.1 Get overlapped image pairs
 
 The command "TestLib GetOverlappedImages" will recognize overlapping inter-epoch image pairs based on co-registered result.
 
@@ -895,7 +899,7 @@ The meaning of optional parameters:
 mm3d TestLib GetOverlappedImages 1971 2014 ImgList1971all.txt ImgList2014all.txt  Para3DH=Basc-1971-2-2014.xml
 ```
 
-##### 2.2.2.2 GetPatchPair
+##### 2.2.2.2 Get patch pairs
 
 The command "TestLib GetPatchPair" is used to get patch pairs for each overlapping inter-epoch RGB image pairs. It divides the master image into patches, and get the respective roughly aligned patches in the secondary image.
 
