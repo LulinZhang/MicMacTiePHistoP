@@ -81,7 +81,7 @@ After setting-up MicMac and downloading the dataset, the pipeline is as follows:
 The full workflow is displayed below:
 
 <center>
-  <img src="https://drive.google.com/uc?id=1OC-qec7MVVmE6W_iC11wpaDreqa_P5B0" height=320pix/>
+  <img src="Images/workflow.png" height=320pix/>
   <br> 
 </center>
 
@@ -117,6 +117,10 @@ For more information please refer to:
 # 0. About the dataset
 The dataset is a 20 km2 rectangular area located in Pezenas in the Occitanie region in southern France. It is mainly covered with vegetation and several
 sparsely populated urban zones. We have at our disposal 2 epochs: epoch 1971 of aerial images, and epoch 2014 of satellite images.
+
+|<p align="center"> <img src="Images/epoch1971.png" width="800"> </p>|<p align="center"> <img src="Images/epoch2014-1.png" width="300"> </p> <p align="center"> <img src="Images/epoch2014-2.png" width="300"> </p>|
+|-|-|
+| <p align="center"> epoch 1971 </p> | <p align="center"> epoch 2014 </p> |
 
 Details of images in epoch 1971:
 
@@ -530,7 +534,7 @@ In order to help the users understand the pipeline better, we will introduce the
 To co-register images in different epochs in a common coordinate frame, we perform sparse point matching between their respective DSM rasters. The workflow is displayed as below (for more details please refer to our publication: link to be added):
 
 <center>
-  <img src="https://drive.google.com/uc?id=1QtXbKSbGt5TK3LkkXFSvSMx1506RR05p" height=320pix/>
+  <img src="Images/CoReg.png" height=320pix/>
   <br> 
 </center>
 
@@ -540,7 +544,7 @@ Figure. Workflow of the rough co-registration
 </center>
 
 <center>
-  <img src="https://drive.google.com/uc?id=1maICjEfEMRy7mfp4BxPDLy_iV4GQzwvH" height=260pix/>
+  <img src="Images/RotateHypo.png" height=260pix/>
   <br> 
 </center>
 
