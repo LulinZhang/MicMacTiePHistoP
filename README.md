@@ -450,7 +450,7 @@ The meaning of optional parameters (here we use epoch1 to refer to epoch 1971, a
 
 > Note: As the time gap of the 2 epochs is large, we set 3DRANTh=10 to keep more correspondences.
 
-    mm3d TiePHistoP Ori-1971 Ori-2014 OIS-Reech_IGNF_PVA_1-0__1971.*tif Crop.*tif MEC-Malt_1971 MEC-Malt_2014 CoRegPatchLSz=[1280,960] CoRegPatchRSz=[1280,960] PrecisePatchSz=[1280,960] Feature=SuperGlue 3DRANTh=10
+    mm3d TiePHistoP Ori-1971 Ori-2014 OIS-Reech_IGNF_PVA_1-0__1971.*tif Crop.*tif MEC-Malt_1971 MEC-Malt_2014 CoRegPatchLSz=[1280,960] CoRegPatchRSz=[1280,960] PrecisePatchSz=[1280,960] Feature=SuperGlue SkipCoReg=0 SkipPrecise=0 Exe=1
 
 This command will produce 2 kinds of results: 
 
@@ -514,7 +514,7 @@ The transformed points can be visulized in QGIS. You'll see tie points like this
 
 >Note: (1) We set Feature=SIFT to switch to option SIFT; (2) the rough co-registration has been performed in the previous step, so we can skip it here; (3) the PrecisePatchSz is the same with the previous step, therefore we can skip the step of getting patch pairs; (4) as the resolution of secondary images is high, we speed up the processing by setting ScaleR=2 so that SIFT points extracted on secondary images are based on downsamepled images by a factor of 2.
 
-    mm3d TiePHistoP Ori-1971 Ori-2014 OIS-Reech_IGNF_PVA_1-0__1971.*tif Crop.*tif MEC-Malt_1971 MEC-Malt_2014 PrecisePatchSz=[1280,960] Feature=SIFT SkipCoReg=1 SkipGetPatchPair=1 ScaleR=2 3DRANTh=10  CoRegOri1=1971_CoReg_SuperGlue
+    mm3d TiePHistoP Ori-1971 Ori-2014 OIS-Reech_IGNF_PVA_1-0__1971.*tif Crop.*tif MEC-Malt_1971 MEC-Malt_2014 PrecisePatchSz=[1280,960] Feature=SIFT SkipCoReg=1 SkipGetPatchPair=1 ScaleR=2 CoRegOri1=1971_CoReg_SuperGlue SkipPrecise=0 Exe=1
 
 You'll get tie points like this:
 <center>
