@@ -318,29 +318,33 @@ The meaning of optional parameters:
 
 ### 1.3.1. Epoch 2014
 
-#### Calculate DSM
-
 Generate DSM in epoch 2014:
 
     mm3d Malt Ortho Crop.*tif 2014 NbVI=2 DirMEC=MEC-Malt_2014 EZA=1 ZoomF=8 DoOrtho=0
 
-#### Visualize DSM
+You'll get DSM like this:
+<center>
+  <img src="Images/DSM2014.png" height=320pix/>
+  <br> 
+</center>
 
-The generated DSM in epoch 2014 is visulized below:
+You can also visualize the DSM in MicMac using the command 'Vino':
 ```
 Vino MEC-Malt_2014/Z_Num6_DeZoom8_STD-MALT.tif
 ```
 ### 1.3.2. Epoch 1971
 
-#### Calculate DSM
-
 Generate DSM in epoch 1971:
 
     mm3d Malt Ortho OIS-Reech_IGNF_PVA_1-0__1971.*tif 1971 NbVI=2 MasqImGlob=Fiducial_marks_masq-1971-3.tif DirMEC=MEC-Malt_1971 EZA=1 ZoomF=4 DoOrtho=0
 
-#### Visualize DSM
+You'll get DSM like this:
+<center>
+  <img src="Images/DSM1971.png" height=320pix/>
+  <br> 
+</center>
 
-The generated DSM in epoch 1971 is visulized below:
+You can also visualize the DSM in MicMac using the command 'Vino':
 ```
 Vino MEC-Malt_1971/Z_Num7_DeZoom4_STD-MALT.tif
 ```
@@ -359,7 +363,7 @@ Input:
 - `2 sets of image lists, images, orientations and DSMs in 2 epochs`
 
 Output:
-- `roughly co-registered orientations; inter-epoch tie-points`
+- `roughly co-registered orientations; precise inter-epoch tie-points`
 
 The meaning of obligatory parameters:
 - `Ori-1971`: orientation of images in epoch 1971
@@ -444,8 +448,6 @@ The meaning of optional parameters (here we use epoch1 to refer to epoch 1971, a
 
 ### 2.1.1. Option 1: SuperGlue
 
-#### Recover inter-epoch tie-points
-
 > Note: As the time gap of the 2 epochs is large, we set 3DRANTh=10 to keep more correspondences.
 
     mm3d TiePHistoP Ori-1971 Ori-2014 ImgList1971all.txt ImgList2014all.txt MEC-Malt_1971 MEC-Malt_2014 CoRegPatchLSz=[1280,960] CoRegPatchRSz=[1280,960] PrecisePatchSz=[1280,960] Feature=SuperGlue 3DRANTh=10
@@ -454,16 +456,20 @@ This command will produce 2 kinds of results:
 
 (1) roughly co-registered orientations, which will be stored in the folder "./Ori-2014";
 
-(2) inter-epoch tie-points, which will be stored in the folder "./Homol-SuperGlue-3DRANSAC-CrossCorrelation".
+(2) precise inter-epoch tie-points, which will be stored in the folder "./Homol-SuperGlue-3DRANSAC-CrossCorrelation".
 
-#### Visualize an example of inter-epoch tie-points
+You'll get tie points like this:
+<center>
+  <img src="Images/Inter-SpG.png" height=320pix/>
+  <br> 
+</center>
+
+You can also visualize the tie-points in MicMac using the command 'SEL':
 
     mm3d SEL ./ OIS-Reech_IGNF_PVA_1-0__1971-06-21__C2844-0141_1971_FR2117_1067.tif Crop-IMG_PHR1A_P_201406121049386.tif KH=NT SzW=[600,600] SH=-SuperGlue-3DRANSAC-CrossCorrelation
 
 
-#### Visualize all the inter-epoch tie-points
-
-Check the distribution of the tie-points across the entire image block by visualising them in a common reference frame with the "TestLib VisuTiePtIn3D".
+The tie points displayed below is just from one image pair. You can also visualize the inter-epoch tie-points on all the image pairs with the command "TestLib VisuTiePtIn3D", which allows you to check the distribution of the tie-points across the entire image block by visualising them in a common reference frame.
 
 The input, output and parameter interpretation of the command "TestLib VisuTiePtIn3D" are listed below:
 
@@ -496,31 +502,44 @@ The meaning of optional parameters:
 mm3d TestLib VisuTiePtIn3D ImgList1971all.txt ImgList2014all.txt Ori-1971 Ori-2014 DSMDirL=MEC-Malt_1971 DSMDirR=MEC-Malt_2014 InSH=-SuperGlue-3DRANSAC-CrossCorrelation OutFile=Visu-SuperGlue-3DRANSAC-CrossCorrelation-all.txt
 ```
 
-The transformed points can be visulized in QGIS.
+The transformed points can be visulized in QGIS. You'll see tie points like this:
+<center>
+  <img src="Images/Inter-SpG-Block.png" height=320pix/>
+  <br> 
+</center>
+
 
 
 ### 2.1.2. Option 2: SIFT
-
-#### Recover inter-epoch tie-points
 
 >Note: (1) We set Feature=SIFT to switch to option SIFT; (2) the rough co-registration has been performed in the previous step, so we can skip it here; (3) the PrecisePatchSz is the same with the previous step, therefore we can skip the step of getting patch pairs; (4) as the resolution of secondary images is high, we speed up the processing by setting ScaleR=2 so that SIFT points extracted on secondary images are based on downsamepled images by a factor of 2.
 
     mm3d TiePHistoP Ori-1971 Ori-2014 ImgList1971all.txt ImgList2014all.txt MEC-Malt_1971 MEC-Malt_2014 PrecisePatchSz=[1280,960] Feature=SIFT SkipCoReg=1 SkipGetPatchPair=1 ScaleR=2 3DRANTh=10  CoRegOri1=1971_CoReg_SuperGlue
 
-#### Visualize an example of inter-epoch tie-points
+You'll get tie points like this:
+<center>
+  <img src="Images/Inter-SIFT.png" height=320pix/>
+  <br> 
+</center>
+
+You can also visualize the tie-points in MicMac using the command 'SEL':
 
     mm3d SEL ./ OIS-Reech_IGNF_PVA_1-0__1971-06-21__C2844-0141_1971_FR2117_1067.tif Crop-IMG_PHR1A_P_201406121049386.tif KH=NT SzW=[600,600] SH=-GuidedSIFT-3DRANSAC-CrossCorrelation
-
-#### Visualize all the inter-epoch tie-points
 
 We again use the "TestLib VisuTiePtIn3D" to check the tie-points distribution across the scene.
 
 
     mm3d TestLib VisuTiePtIn3D ImgList1971all.txt ImgList2014all.txt Ori-1971 Ori-2014 DSMDirL=MEC-Malt_1971 DSMDirR=MEC-Malt_2014 InSH=-GuidedSIFT-3DRANSAC-CrossCorrelation OutFile=Visu-GuidedSIFT-3DRANSAC-CrossCorrelation-all.txt
 
+You'll see tie points like this:
+<center>
+  <img src="Images/Inter-SIFT-Block.png" height=320pix/>
+  <br> 
+</center>
 
 ## 2.2. Deep-dive in the pipeline's submodules
 The *TiePHistoP* command automatically calls several subcommands including:
+**(1) For rough co-registration**
 - `TestLib DSM_Equalization`
 - `TestLib Wallis`
 - `TestLib GetPatchPair`
@@ -529,7 +548,11 @@ The *TiePHistoP* command automatically calls several subcommands including:
 - `TestLib RANSAC R2D`
 - `TestLib CreateGCPs`
 - `TestLib GCPBascule`
+**(2) For precise matching**
 - `TestLib GetOverlappedImages`
+- `TestLib GetPatchPair`
+- `TestLib SuperGlue`
+- `TestLib MergeTiePt`
 - `TestLib GuidedSIFTMatch`
 - `TestLib RANSAC R3D`
 - `TestLib CrossCorrelation`
@@ -618,7 +641,13 @@ Apply wallis filter on DSM in epoch 2014:
 
     mm3d TestLib Wallis DSM2014-gray.tif Dir=MEC-Malt_2014 OutImg=DSM2014-gray.tif_sfs.tif
 
-The DSM after wallis filter is visulized below:
+You'll get DSM like this:
+<center>
+  <img src="Images/DSM2014-Wallis.png" height=320pix/>
+  <br> 
+</center>
+
+You can also visualize the DSM in MicMac:
 ```
 Vino MEC-Malt_2014/DSM2014-gray.tif_sfs.tif
 ```
@@ -628,7 +657,13 @@ Apply wallis filter on DSM in epoch 1971 to get rid of uneven illumination.
 
     mm3d TestLib Wallis DSM1971-gray.tif Dir=MEC-Malt_1971 OutImg=DSM1971-gray.tif_sfs.tif
 
-The DSM after wallis filter is visulized below:
+You'll get DSM like this:
+<center>
+  <img src="Images/DSM1971-Wallis.png" height=320pix/>
+  <br> 
+</center>
+
+You can also visualize the DSM in MicMac:
 ```
 Vino MEC-Malt_1971/DSM1971-gray.tif_sfs.tif
 ```
