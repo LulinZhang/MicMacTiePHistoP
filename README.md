@@ -513,7 +513,7 @@ Figure. Four rotation hypotheses
   <br> 
 </center>
 
-##### 2.2.1.1. DSM preprocessing
+##### 2.2.1.1. Preprocess DSM
 
 ###### DSM Equalization
 
@@ -593,7 +593,7 @@ The DSM after wallis filter is visulized below:
 ```
 Vino MEC-Malt_1971/DSM1971-gray.tif_sfs.tif
 ```
-##### 2.2.1.2. Matching DSM
+##### 2.2.1.2. Match DSM
 
 This part will co-register 2 DSMs from different epochs by applying *one-to-many tiling scheme* (for more details please refer to our publication: link to be added) based on SuperGlue, followed by RANSAC to remove outliers. 
 
@@ -799,7 +799,7 @@ You can see that the tie-points are good, which indicates the current rotation h
 
 In conclusion, the rotation hypothesis 4 is obviously with the largest RANSAC inliers and hence should be kept.
 
-##### 2.2.1.3. Create GCPs
+##### 2.2.1.3. Create virtual GCPs from DSMs
 
 Based on the largest number of RANSAC inlier from previous step, the command "TestLib CreateGCPs" will create GCPs between the 2 epochs.
 
