@@ -234,7 +234,7 @@ The meaning of optional parameters:
 
 #### Visualise tie-points
 
-    mm3d SEL ./ OIS-Reech_IGNF_PVA_1-0__1971-06-21__C2844-0141_1971_FR2117_1067.tif OIS-Reech_IGNF_PVA_1-0__1971-06-21__C2844-0141_1971_FR2117_1068.tif KH=NB SH=_1971 SzW=[600,600]
+    mm3d SEL ./ OIS-Reech_IGNF_PVA_1-0__1971-06-21__C2844-0141_1971_FR2117_1067.tif OIS-Reech_IGNF_PVA_1-0__1971-06-21__C2844-0141_1971_FR2117_1068.tif KH=NB SH=_1971-Masq SzW=[600,600]
 
 
 #### Tie-points reduction
