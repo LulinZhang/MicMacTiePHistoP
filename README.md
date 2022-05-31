@@ -1307,9 +1307,9 @@ As the co-registered orientations are based on the reference of epoch 2014, we c
 
 ### Get DSM of epoch 1971
 
-As for the DSM of epoch 1971, the roughly co-registered orientations are stored in folder "Ori-2014", therefore we use it to calculate the DSM of epoch 1971 as follwing:
+As for the DSM of epoch 1971, the roughly co-registered orientations are stored in folder "Ori-1971_CoReg_SuperGlue", therefore we use it to calculate the DSM of epoch 1971 as follwing:
 
-    mm3d Malt Ortho OIS-Reech_IGNF_PVA_1-0__1971.*tif 2014 NbVI=2 DirMEC=MEC-Malt_1971_CoReg EZA=1 MasqImGlob=Fiducial.tif ZoomF=8 DoOrtho=0
+    mm3d Malt Ortho OIS-Reech_IGNF_PVA_1-0__1971.*tif Ori-1971_CoReg_SuperGlue NbVI=2 DirMEC=MEC-Malt_1971_CoReg EZA=1 MasqImGlob=Fiducial.tif ZoomF=8 DoOrtho=0
 
 ### Calculate DoD
 
@@ -1398,6 +1398,16 @@ The meaning of obligatory parameters:
 ```
 mm3d MergeHomol "Homol_1971-Ratafia|Homol-SuperGlue-3DRANSAC-CrossCorrelation-W10-dat" Homol_Merged-SuperGlue
 ```
+
+### Merge roughly co-registered orientations
+The roughly co-registered orientations of epoch 1971 are stored in folder "Ori-1971_CoReg_SuperGlue", we use the following command to copy them into the folder "Ori-2014" in order to combine the orientations of 2 epochs:
+
+'''
+cp -r Ori-1971_CoReg_SuperGlue/. Ori-2014/
+'''
+
+The merged folder "Ori-2014" serves as intial orientations for the next step of "bundle adjustment".
+
 ### Run bundle adjustment
 
 Now it is time to run BA with the command "Campari".
