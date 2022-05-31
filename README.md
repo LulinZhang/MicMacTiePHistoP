@@ -1423,9 +1423,9 @@ mm3d MergeHomol "Homol_1971-Ratafia|Homol-SuperGlue-3DRANSAC-CrossCorrelation-W1
 ### Merge roughly co-registered orientations
 The roughly co-registered orientations of epoch 1971 are stored in folder "Ori-1971_CoReg_SuperGlue", we use the following command to copy them into the folder "Ori-2014" in order to combine the orientations of 2 epochs:
 
-'''
+```
 cp -r Ori-1971_CoReg_SuperGlue/. Ori-2014/
-'''
+```
 
 The merged folder "Ori-2014" serves as intial orientations for the next step of "bundle adjustment".
 
